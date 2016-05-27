@@ -1,0 +1,20 @@
+<table class="pure-table pure-table-striped">
+    <thead>
+    <tr>
+        <th>Record Number</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!--iterate through each record from the myData JSON object passed in from the sampleData route-->
+    {{#each sampleData}}
+        <tr>
+            <td>{{addOne @index}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.age}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

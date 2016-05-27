@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="One Team">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <title>{{title}}</title>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+
+    <!--additional stylesheets passed in through handlebars-->
+    {{{css}}}
+
+</head>
+<body>
+
+<div id="menu">
+    <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item {{{homeSelected}}}"><a href="/" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item {{{requirementsSelected}}}"><a href="/requirements" class="pure-menu-link">Requirements</a></li>
+            <li class="pure-menu-item {{{chatRoomSelected}}}"><a href="/chat-room"
+                                                                   class="pure-menu-link">Chat Room</a></li>
+            <li class="pure-menu-item {{{issueLogSelected}}}"><a href="/issue-log" class="pure-menu-link">Issue Log</a></li>
+            <li class="pure-menu-item {{{sampleDataSelected}}}"><a href="/sample-data" class="pure-menu-link">Sample Data</a></li>
+        </ul>
+    </div>
+</div>
+
+{{{body}}}
+
+</body>
+
+</html>
