@@ -1,4 +1,5 @@
 <table class="pure-table pure-table-striped">
+    <caption>JSON object from server</caption>
     <thead>
     <tr>
         <th>Record Number</th>
@@ -14,6 +15,28 @@
             <td>{{addOne @index}}</td>
             <td>{{this.name}}</td>
             <td>{{this.age}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<table class="pure-table pure-table-striped">
+    <caption>MySQL query results</caption>
+    <thead>
+    <tr>
+        <th>Record Number</th>
+        <th>Car</th>
+        <th>Color</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!--iterate through each record from the dbData JSON object passed in from the sampleData route-->
+    {{#each dbData}}
+        <tr>
+            <td>{{addOne @index}}</td>
+            <td>{{this.car}}</td>
+            <td>{{this.color}}</td>
         </tr>
     {{/each}}
     </tbody>
