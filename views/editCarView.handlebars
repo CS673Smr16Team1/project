@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <form method="post" action='/sample-data/edit/{{data.idsample}}'>
+    <table class="table table-condensed">
+      <tbody>
+        <tr>
+          <th>Car: </td>
+          <td><input type="text" name="cname" required autofocus
+                  value="{{data.car}}"></td>
+        </tr>
+        <tr>
+          <th>Color: </td>
+          <td><input type="text" name="ccolor" required
+                  value="{{data.color}}"></td>
+        </tr>
+      </tbody>
+      <tfooter>
+        <tr>
+          <td></td>
+          <td>
+              <input type="submit" value="Save" class="btn btn-success">
+              <input type="button" value="Cancel" class="btn btn-danger"
+                  class="cancel" onclick="cancelAdd()">
+          </td>
+        </tr>
+      </tfooter>
+    </table>
+  </form>
+</div>

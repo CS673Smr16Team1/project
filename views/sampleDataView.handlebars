@@ -20,24 +20,38 @@
     </tbody>
 </table>
 
-<table class="pure-table pure-table-striped">
-    <caption>MySQL query results</caption>
-    <thead>
-    <tr>
-        <th>Record Number</th>
-        <th>Car</th>
-        <th>Color</th>
-    </tr>
-    </thead>
+<div>
+    <div class="table-responsive">
+        <table class="table table-condensed">
+            <caption>MySQL query results</caption>
+            <thead>
+            <tr>
+                <!--<th>Record Number</th>-->
+                <th>Car</th>
+                <th>Color</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each dbData}}
+                <tr>
+                    <!--<td>{{addOne @index}}</td>-->
+                    <td>{{this.car}}</td>
+                    <td>{{this.color}}</td>
+                    <td>
+                        <a href="/sample-data/edit/{{this.idsample}}">Edit</a>
+                        <a href="/sample-data/delete/{{this.idsample}}">Delete</a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+            <tfooter>
+                <tr><td>
+                    <button class="btn btn-primary"
+                            onClick="addCar();">Add</button>
+                </td></tr>
+            </tfooter>
+        </table>
+    </div>
+</div>
 
-    <tbody>
-    <!--iterate through each record from the dbData JSON object passed in from the sampleData route-->
-    {{#each dbData}}
-        <tr>
-            <td>{{addOne @index}}</td>
-            <td>{{this.car}}</td>
-            <td>{{this.color}}</td>
-        </tr>
-    {{/each}}
-    </tbody>
-</table>

@@ -1,0 +1,29 @@
+ <div class="table-responsive">
+  <form method="post" action="/sample-data/add">
+    <table class="table table-condensed">
+      <tbody>
+       <tr>
+        <th>Car: </th>
+        <td><input type="text" name="cname" required autofocus
+              placeholder="Enter car"></td>
+       </tr>
+       <tr>
+         <th>Color: </th>
+         <td><input type="text" name="ccolor" required
+              placeholder="Enter color"></td>
+       </tr>
+      </tbody>
+      <tfooter>
+        <tr>
+          <td></td>
+          <td>
+           <input type="submit" value="Save" 
+              class="btn btn-success">
+           <input type="button" value="Cancel" 
+              class="btn btn-danger" onclick="cancelAdd()">
+          </td>
+        </tr>
+      </tfooter>
+    </table>
+  </form>
+</div>
