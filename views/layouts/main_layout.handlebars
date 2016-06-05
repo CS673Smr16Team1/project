@@ -30,11 +30,19 @@
             <li class="pure-menu-item {{{chatRoomSelected}}}"><a href="/chat-room"
                                                                    class="pure-menu-link">Chat Room</a></li>
             <li class="pure-menu-item {{{issueLogSelected}}}"><a href="/issue-log" class="pure-menu-link">Issue Log</a></li>
-            <li class="pure-menu-item {{{sampleDataSelected}}}"><a href="/sample-data" class="pure-menu-link">Sample Data</a></li>
         </ul>
     </div>
 </div>
 
+<div id="login">
+{{#if user}}
+    {{user.username}}<a href="/logout"> Log Out</a>
+{{else}}
+    <a href="/login">Log In</a>
+{{/if}}
+</div>
+
+<div style="clear:both"></div>
 {{{body}}}
 
 </body>

@@ -1,3 +1,10 @@
 li.pure-menu-selected {
     background-color: deepskyblue;
 }
+#menu {
+    float:left;
+}
+#login {
+    float:right;
+    display:inline-block;
+}
