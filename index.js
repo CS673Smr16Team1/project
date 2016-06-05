@@ -5,6 +5,7 @@ var handlebars = require('express-handlebars');
 var _ = require('underscore');
 var session = require('express-session');
 var GitHubStrategy = require('passport-github2').Strategy;
+var dbFunctions = require('./dbFunctions.js');
 
 var GITHUB_CLIENT_ID = "e42895897d3a576a6940";
 var GITHUB_CLIENT_SECRET = "6e3279e0e6ab7763ce1c0a4c301016346af6de4c";
@@ -27,7 +28,12 @@ passport.use(new GitHubStrategy({
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
-            console.log(profile.displayName + ' ' + profile.username);
+            // Check if username exists in database. If not, insert it.
+            dbFunctions.userExists(profile.username, function(result) {
+                if(result.length===0) {
+                    dbFunctions.createUser(profile.username);
+                }
+            });
             return done(null, profile);
         });
     }
