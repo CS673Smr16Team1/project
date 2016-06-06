@@ -1,1 +1,34 @@
-<h1>Issue Log content here</h1>
+
+
+<h1>Issues</h1>
+
+<div>
+    <div class="table-responsive">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Issue Number</th>
+                <th>Summary</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Severity</th>
+                <th>Description</th>
+                <th>Created By</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each data}}
+                <tr>
+                    <td>{{this.Id}}</td>
+                    <td>{{this.Summary}}</td>
+                    <td>{{this.Status}}</td>
+                    <td>{{this.Priority}}</td>
+                    <td>{{this.Severity}}</td>
+                    <td>{{this.Description}}</td>
+                    <td>{{this.CreatedBy}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
