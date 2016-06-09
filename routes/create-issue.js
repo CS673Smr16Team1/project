@@ -16,15 +16,26 @@ createIssue.displayCreateIssue = function displayIssueLog(req, res){
 };
 
 createIssue.createIssue = function displayIssueLog(req, res){
-    connection.query('SELECT * FROM Issues',
+
+    var inputFromForm = {
+        Summary  : req.body.summary,
+        Priority    : req.body.priority,
+        Severity    : req.body.severity,
+        IssueStatus      : 'New',
+        Description    : req.body.description,
+        CreatedBy       : req.user.username
+    };
+
+    connection.query('INSERT INTO Issues set ?',
+        inputFromForm,
         function(err,rows){
             if(err) {
-                console.log("Error Selecting : %s ", err);
+                console.log("Error Inserting : %s ", err);
             }
+            console.log(rows);
         res.render('issueDetailView', {
             title: 'Project - Issue Log',
             issueLogSelected: 'pure-menu-selected',
-
             user: req.user
         });
 

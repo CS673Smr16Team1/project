@@ -5,15 +5,19 @@ var connection =
 
 module.exports =
     function displayIssueDetail(req, res){
-        connection.query('SELECT * FROM Issues',
+        var id = req.params.id;
+
+        connection.query('SELECT * FROM Issues WHERE Id = ?',
+            id,
             function(err,rows){
+                console.log(rows);
                 if(err) {
                     console.log("Error Selecting : %s ", err);
                 }
                 res.render('issueDetailView', {
                     title: 'Project - Issue Log',
                     issueLogSelected: 'pure-menu-selected',
-                    data: rows,
+                    data: rows[0],
                     user: req.user});
 
             });

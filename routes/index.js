@@ -9,6 +9,7 @@ var chatRoomRoute = require("./chat-room");
 var issueLogRoute = require("./issue-log");
 var createIssueRoute = require("./create-issue");
 var issueDetailRoute = require("./issue-detail");
+var issueDetailRoute = require("./edit-issue");
 var loginRoute = require("./login");
 
 // router specs
@@ -17,7 +18,7 @@ router.get('/requirements', ensureAuthenticated, requirementsRoute);
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/create-issue', ensureAuthenticated, createIssueRoute.displayCreateIssue);
 router.get('/issue-log', ensureAuthenticated, issueLogRoute);
-router.get('/issue-detail', ensureAuthenticated, issueDetailRoute);
+router.get('/issue-detail/:id', ensureAuthenticated, issueDetailRoute);
 
 
 router.post('/create-issue', ensureAuthenticated, createIssueRoute.createIssue);
