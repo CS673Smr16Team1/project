@@ -56,9 +56,17 @@ app.engine('handlebars',
         helpers: { //this will help when displaying results in a table: records can start at index 1 instead of 0
             addOne: function (value) {
                 return value + 1;
+            },
+            if_equals: function (a, b, opts) {
+                if(a == b)
+                    return opts.fn(this);
+                else
+                    return opts.inverse(this);
             }
         }
+
     }));
+
 app.set('view engine', 'handlebars');
 
 // static resources
