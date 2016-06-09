@@ -8,12 +8,19 @@ var requirementsRoute = require("./requirements");
 var chatRoomRoute = require("./chat-room");
 var issueLogRoute = require("./issue-log");
 var loginRoute = require("./login");
+var addProjectRoute = require("./requirements/addProject");
+var saveProjectRoute = require("./requirements/saveProject");
+
 
 // router specs
 router.get('/', homeRoute);
 router.get('/requirements', ensureAuthenticated, requirementsRoute);
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/issue-log', ensureAuthenticated, issueLogRoute);
+
+router.get('/requirements/add',ensureAuthenticated, addProjectRoute);
+router.post('/requirements/add',ensureAuthenticated, saveProjectRoute);
+
 router.get('/login', loginRoute);
 router.get('/auth/github', passport.authenticate('github'));
 router.get('/auth/github/callback',
