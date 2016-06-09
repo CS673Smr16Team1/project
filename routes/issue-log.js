@@ -5,13 +5,13 @@ var connection =
 
 module.exports =
     function displayIssueLog(req, res){
-        connection.query('SELECT * FROM Issues',
+        connection.query('SELECT * FROM Issues WHERE IssueStatus != "Rejected" AND IssueStatus != "Resolved"',
             function(err,rows){
                 if(err) {
                     console.log("Error Selecting : %s ", err);
                 }
                 res.render('issueLogView', {
-                    title: 'Project - Issue Log',
+                    title: 'Bugs - Open Issues',
                     issueLogSelected: 'pure-menu-selected',
                     data: rows,
                     user: req.user});

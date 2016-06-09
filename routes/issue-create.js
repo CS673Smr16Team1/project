@@ -24,9 +24,9 @@ createIssue.createIssue = function saveIssue(req, res){
         IssueStatus: 'New',
         Description: req.body.description,
         CreatedBy: req.user.username,
-        CreatedDate: Date.now(),
+        CreatedDate: new Date(),
         LastModifiedBy: req.user.username,
-        LastModifiedDate: Date.now()
+        LastModifiedDate: new Date()
     };
 
     connection.query('INSERT INTO Issues set ?',

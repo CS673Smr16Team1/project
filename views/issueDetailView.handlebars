@@ -1,6 +1,5 @@
 <body>
 <h1>Issue Detail</h1>
-    <div class="row">
     <form id="issueForm" class="form-horizontal" method="post" action="/issue-save/{{ data.Id }}">
 
         <fieldset>
@@ -104,16 +103,19 @@
                 </div>
             </div>
 
-            <!-- Delete Button
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="delete"></label>
-                <div class="col-md-4">
-                    <button id="delete" name="delete" class="btn btn-danger">Delete</button>
-                </div>
-            </div>-->
+
 
         </fieldset>
     </form>
-    </div>
+
+    <form id="issueFormDelete" class="form-horizontal" method="post" action="/issue-delete/{{ data.Id }}">
+        <!-- Delete Button-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="delete"></label>
+            <div class="col-md-4">
+                <button id="delete" name="delete" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </form>
 </body>
 

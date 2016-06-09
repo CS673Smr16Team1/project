@@ -13,7 +13,7 @@ module.exports =
             IssueStatus: req.body.status,
             Description: req.body.description,
             LastModifiedBy: req.user.username,
-            LastModifiedDate: Date.now()
+            LastModifiedDate: new Date()
         };
 
         connection.query("UPDATE Issues set ? WHERE Id=?",
