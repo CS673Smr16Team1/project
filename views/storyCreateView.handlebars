@@ -1,0 +1,86 @@
+<!---
+    Create Story View
+
+    Requirement:
+        - shall be able to add a new story
+            - following parameters:
+                - storyID
+                - projectID
+                - description
+                - title
+                - story_status
+                - assignee
+                - type
+                - priority
+
+        - DB Design:
+        https://my.vertabelo.com/model/T7GMpn8wYb4zZbMYvIlF1Xinn4L9GrYk
+!-->
+
+
+<body>
+<h1>Create a Story</h1>
+<form id="storyForm" class="form-horizontal" method="post" action="/story-create">
+
+    <fieldset>
+        <!-- Title Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">Title</label>
+            <div class="col-md-4">
+                <input type="text" id="title" name="title" placeholder="add a requirement here" class="form-control input-md"  required/>
+            </div>
+        </div>
+
+        <!-- Priority Drop Down -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Priority</label>
+            <div class="col-md-4">
+                <select name="priority" class="form-control" title="Priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+
+                </select>
+            </div>
+        </div>
+
+        <!-- Status Drop Down -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Status</label>
+            <div class="col-md-4">
+                <select name="status" class="form-control" title="status">
+                    <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
+                    <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
+                    <option value="In Progress" {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
+                    <option value="Deployment" {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment</option>
+                    <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>Testing</option>
+                    <option value="Resolved" {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved</option>
+                    <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}>Closed</option>
+                    <option value="Reopened" {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened</option>
+                    <option value="Rejected" {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Description Text Area -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Description</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+</body>
+
