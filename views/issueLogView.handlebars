@@ -1,5 +1,3 @@
-
-
 <h1>Issues</h1>
 
 <div>
@@ -14,21 +12,30 @@
                 <th>Severity</th>
                 <th>Description</th>
                 <th>Created By</th>
+                <th>Last Modified By</th>
             </tr>
             </thead>
             <tbody>
             {{#each data}}
                 <tr>
                     <td>{{this.Id}}</td>
-                    <td>{{this.Summary}}</td>
-                    <td>{{this.Status}}</td>
+                    <td><a href="/issue-detail/{{this.Id}}">{{this.Summary}}</a></td>
+                    <td>{{this.IssueStatus}}</td>
                     <td>{{this.Priority}}</td>
                     <td>{{this.Severity}}</td>
                     <td>{{this.Description}}</td>
                     <td>{{this.CreatedBy}}</td>
+                    <td>{{this.LastModifiedBy}}</td>
                 </tr>
             {{/each}}
             </tbody>
         </table>
     </div>
 </div>
+
+<div>
+    <a class="btn btn-success" href="/issue-create">Create an Issue</a>
+</div>
+
+
+
