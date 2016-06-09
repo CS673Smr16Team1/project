@@ -7,21 +7,23 @@ var homeRoute = require("./home");
 var requirementsRoute = require("./requirements");
 var chatRoomRoute = require("./chat-room");
 var issueLogRoute = require("./issue-log");
-var createIssueRoute = require("./create-issue");
+var issueCreateRoute = require("./issue-create");
 var issueDetailRoute = require("./issue-detail");
-var issueDetailRoute = require("./edit-issue");
+var issueSaveRoute = require("./issue-save");
 var loginRoute = require("./login");
 
 // router specs
 router.get('/', homeRoute);
 router.get('/requirements', ensureAuthenticated, requirementsRoute);
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
-router.get('/create-issue', ensureAuthenticated, createIssueRoute.displayCreateIssue);
+router.get('/issue-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
 router.get('/issue-log', ensureAuthenticated, issueLogRoute);
 router.get('/issue-detail/:id', ensureAuthenticated, issueDetailRoute);
 
 
-router.post('/create-issue', ensureAuthenticated, createIssueRoute.createIssue);
+router.post('/issue-create', ensureAuthenticated, issueCreateRoute.createIssue);
+router.post('/issue-save/:id', ensureAuthenticated, issueSaveRoute);
+
 
 router.get('/login', loginRoute);
 router.get('/auth/github', passport.authenticate('github'));

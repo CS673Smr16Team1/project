@@ -1,6 +1,7 @@
 <body>
 <h1>Issue Detail</h1>
-    <form id="issueForm" class="form-horizontal" method="post" action="/save-issue">
+    <div class="row">
+    <form id="issueForm" class="form-horizontal" method="post" action="/issue-save/{{ data.Id }}">
 
         <fieldset>
             <!-- Summary Text input-->
@@ -63,10 +64,35 @@
                 </div>
             </div>
 
+            <!-- Created By -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="createdBy">Created By</label>
                 <div class="col-md-4">
-                    <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy"class="form-control input-md" readonly/>
+                    <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy" class="form-control input-md" readonly/>
+                </div>
+            </div>
+
+            <!-- Created Date -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="createdDate">Created Date</label>
+                <div class="col-md-4">
+                    <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate" class="form-control input-md" readonly/>
+                </div>
+            </div>
+
+            <!-- Last Modified By -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="lastModifiedBy">Last Modified By</label>
+                <div class="col-md-4">
+                    <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy" name="lastModifiedBy" class="form-control input-md" readonly/>
+                </div>
+            </div>
+
+            <!-- Last Modified Date -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="lastModifiedDate">Last Modified Date</label>
+                <div class="col-md-4">
+                    <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate" name="lastModifiedDate" class="form-control input-md" readonly/>
                 </div>
             </div>
 
@@ -78,16 +104,16 @@
                 </div>
             </div>
 
-            <!-- Delete Button -->
+            <!-- Delete Button
             <div class="form-group">
                 <label class="col-md-4 control-label" for="delete"></label>
                 <div class="col-md-4">
                     <button id="delete" name="delete" class="btn btn-danger">Delete</button>
                 </div>
-            </div>
+            </div>-->
 
         </fieldset>
     </form>
-
+    </div>
 </body>
 
