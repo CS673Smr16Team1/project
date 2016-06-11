@@ -22,7 +22,15 @@
     <script src="/javascripts/filterTable.js" type="text/javascript"></script>
 
     <!--additional stylesheets passed in through handlebars-->
-    {{{css}}}
+    {{#each css}}
+        <link rel="stylesheet" href="/stylesheets/{{this}}">
+    {{/each}}
+
+    <!--additional javascripts passed in through handlebars-->
+    {{#each js}}
+        <script src="/javascripts/{{this}}" type="text/javascript"></script>
+    {{/each}}
+
 
 </head>
 <body>
