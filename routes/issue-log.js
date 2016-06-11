@@ -14,7 +14,10 @@ module.exports =
                     title: 'Bugs - Open Issues',
                     issueLogSelected: 'pure-menu-selected',
                     data: rows,
-                    user: req.user});
+                    user: req.user,
+                    css: ['filter-table.css'],
+                    js: ['filterTable.js']
+                });
 
             });
     };
