@@ -41,6 +41,7 @@ passport.use(new GitHubStrategy({
 
 var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // for sessions
 var sessionOptions = {
@@ -87,6 +88,56 @@ app.use('/', routes);
 app.use(function(req, res) {
     res.status(404);
     res.render('404');
+});
+
+
+// Socket.io for ChatNow
+
+var rooms = [];
+dbFunctions.getChannels(function(channels) {
+    rooms = (_.pluck(channels, 'channel_name'));
+});
+
+io.on('connection', function(socket) {
+
+    socket.on('adduser', function(username) {
+        socket.username = username;
+        socket.room = 'general';
+        dbFunctions.getUsernames(function(usernames) {
+            io.to('general').emit('updateUsernames', usernames);
+        });
+
+        socket.join('general');
+        socket.emit('updatechat', 'SERVER', 'you have connected to general');
+        socket.broadcast.to('general').emit('updatechat', 'SERVER', username + ' has connected to this room');
+        socket.emit('updaterooms', rooms, 'general');
+
+    });
+
+    socket.on('create', function(room) {
+        rooms.push(room);
+        io.emit('updaterooms', rooms, socket.room);
+    });
+
+    socket.on('sendchat', function(data) {
+        io.to(socket.room).emit('updatechat', socket.username, data);
+    });
+
+    socket.on('switchRoom', function(newroom) {
+        var oldroom = socket.room;
+        socket.leave(oldroom);
+        socket.join(newroom);
+        socket.emit('updatechat', 'SERVER', 'you have connected to ' + newroom);
+        socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room');
+        socket.room = newroom;
+        socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username + ' has joined this room');
+        socket.emit('updaterooms', rooms, newroom);
+    });
+
+    socket.on('disconnect', function() {
+        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+        socket.leave(socket.room);
+    });
 });
 
 http.listen(3000, function(){

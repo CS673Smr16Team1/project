@@ -1,1 +1,62 @@
-<h1>Chat Room content here</h1>
+<div class="pure-g">
+    <div class="pure-u-1-8">
+        <div id="leftSection">
+            <div>
+                <span id="channelCount">Channels</span>
+                <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
+            </div>
+
+            <!-- Modal for creating a new channel-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Create New Channel</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <form class="form-inline roomCreation">
+                                <div class="form-group">
+                                    <label for="newChannelName">Channel Name</label>
+                                    <input  id="newChannelName"
+                                           type="text" placeholder="Channel Name">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" id="createChannelBtn">Create</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <p></p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ul id="channelList">
+            </ul>
+
+            <div id="userCount">Private Messages</div>
+            <ul id="userList">
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="pure-u-5-8">
+        <div id="mainLobbyCenterDiv">
+            <ul id="messages"></ul>
+            <form id="msgForm" action="">
+                <input id="chatInput" autocomplete="off"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="pure-u-1-4">
+        Search
+    </div>
+</div>

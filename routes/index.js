@@ -5,7 +5,9 @@ var router = express.Router();
 
 // chat room modules
 var chatRoomRoute = require("./chat-room");
+var createChannelRoute = require("./chat-api/create-channel");
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
+router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 
 
 // requirements modules
