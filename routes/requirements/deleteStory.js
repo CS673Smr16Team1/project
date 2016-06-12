@@ -8,40 +8,21 @@ var connection =
 module.exports =
     function deleteStory(req , res , next){
 
+        var storyId = req.params.storyId;
         var projectId = req.params.projectId;
 
-        var inputFromForm = {
-            projectId: parseInt(projectId),
-            title: req.body.title,
-            description: req.body.description,
-            story_status: req.body.status,
-            assignee: req.user.username,   // need to update to user name of member projects
-            priority: req.body.priority
-        };
-
-        console.log ("testing...");
 
         // #debug: printing projectId of the currently requested view
-        console.log("projectId: %s",projectId);
+        console.log("storyId: %s",storyId);
 
-        connection.query("INSERT INTO Story set ?",
-            [inputFromForm],
-            function(err, rows)
-            {
+
+        connection.query("DELETE FROM Story WHERE storyId=?",
+            storyId,
+            function(err) {
                 if (err)
-                    console.log("Error inserting Story: %s ",err );
-
-                /*    res.render('projectView', {
-                 title: 'Project View',
-                 projectId: projectId,
-                 data: rows,
-                 user: req.user
-                 }
-                 );
-                 */
-                res.redirect('/requirements/project/'+ projectId);
-
-
-            });
+                    console.log("Error inserting : %s ",err );
+                res.redirect('/requirements/project/' + projectId);
+            }
+        );
 
     };
