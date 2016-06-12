@@ -19,7 +19,7 @@
 
 <body>
 <h1>Story Detail</h1>
-<form id="storyForm" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}">
+<form id="storyForm" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}/{{data.storyId}}/story-update">
 
     <fieldset>
         <!-- Title Text input-->
@@ -70,11 +70,11 @@
             </div>
         </div>
 
-        <!-- Created By -->
+        <!-- Owner -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="owner">Owner</label>
             <div class="col-md-4">
-                <input type="text" value="{{ data.assignee }}" id="createdBy" name="owner" class="form-control input-md" readonly/>
+                <input type="text" value="{{ data.assignee }}" id="owner" name="owner" class="form-control input-md" readonly/>
             </div>
         </div>
 
@@ -91,7 +91,7 @@
     </fieldset>
 </form>
 
-<form id="storyFormDelete" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}">
+<form id="storyFormDelete" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}/{{ data.storyId}}/story-delete">
     <!-- Delete Button-->
     <div class="form-group">
         <label class="col-md-4 control-label" for="delete"></label>

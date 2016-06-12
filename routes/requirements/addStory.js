@@ -13,6 +13,7 @@ module.exports =
 
         res.render('storyCreateView',
             {   title:"Queued - Add a Story",
+                requirementsSelected: 'pure-menu-selected',
                 projectId: projectId,
                 user: req.user
             }
