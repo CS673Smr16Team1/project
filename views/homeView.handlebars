@@ -1,1 +1,81 @@
-<h1>Home page content here</h1>
+<html>
+<head>
+    <title>μProject</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+</head>
+<body>
+
+<div class="cover">
+    <div class="cover-image cover" style="background-image: url('/images/chalk.jpg')"></div>
+    <!-- PHOTO Credit: lorelinde http://lorelinde.deviantart.com/art/Chalkboard-534238727 -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-inverse">
+                <h1 class="">μProject</h1>
+                <h3 class="hidden-xs">A tiny project management service.<br><br>
+                    <div class="text-left">
+                        <span class="fa fa-bolt">&nbsp;Agile Project Management</span><br>
+                        <span class="fa fa-comments">&nbsp;Chat Rooms</span><br>
+                        <span class="fa fa-bug">&nbsp;Issue Tracking</span>
+                    </div>
+                </h3>
+                <br>
+                <br>
+                <div class="btn-toolbar">
+                    {{#if user}}
+                        <a href=> <a class="btn btn-lg btn-primary" href="/logout">Logout</a></a>
+                    {{else}}
+                        <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#activity">Log In</a>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="section section-black ">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-sm-12 ">
+                <p class="text-info">This application is a project of One Team, CS 673.</p>
+                <img src ='images/bulogo.jpg'>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<!-- Modal -->
+<div class="modal fade" id="activity" tabindex="-1" role="dialog" aria-labelledby="activity">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="modal-title form-signin-heading">Welcome! Please Sign In Using Github</h3>
+                <hr class="colorgraph">
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="post" name="Login_Form" class="form-signin">
+                    <div id="login">
+                        {{#if user}}
+                            <span>{{user.username}}</span><a href="/logout"> Log Out</a>
+                        {{else}}
+                            <a href="/auth/github">Log In</a>
+                        {{/if}}
+                    </div>
+                    </br>
+                    </br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
