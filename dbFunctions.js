@@ -79,7 +79,9 @@ var f8 = function(inputs) {
 };
 
 var f9 = function(channelId, callback) {
-    connection.query("SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id WHERE channel_id =?",
+    var qry = "SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPublicMessage ";
+    qry += "on users.idusers=ChatNowPublicMessage.sender_id WHERE channel_id =? order by 2";
+    connection.query(qry,
         [channelId],
         function(err, rows) {
             if (err)

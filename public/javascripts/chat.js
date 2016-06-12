@@ -9,6 +9,12 @@ function switchRoom(room) {
     socket.emit('switchRoom', room);
 }
 
+function padTimeWithZero(num) {
+    if(num.toString().length===1)
+        num = "0" + num;
+    return num;
+}
+
 $(document).ready(function () {
 
     //use GitHub username, or 'testing' if authentication is skipped during testing
@@ -23,7 +29,8 @@ $(document).ready(function () {
         var msg='';
         if(msgDate) {
             var dt = new Date(msgDate);
-            msg=username + ' (' + $.datepicker.formatDate("M d, yy ", dt) + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds() + '): ' + data;
+            msg=username + ' (' + $.datepicker.formatDate("M d, yy ", dt) + padTimeWithZero(dt.getHours()) +
+                ':' + padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds()) + '): ' + data;
 
         }
         else {
@@ -69,7 +76,8 @@ $(document).ready(function () {
         $.each(data, function (key, value) {
             sender = value.username;
             var dt = new Date(value.message_date);
-            msgDate = $.datepicker.formatDate("M d, yy ", dt) + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+            msgDate = $.datepicker.formatDate("M d, yy ", dt) + padTimeWithZero(dt.getHours()) + ':' +
+                padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds());
             msg = value.message_content;
 
             messages.append($('<li>').text(sender + ' (' + msgDate + '): ' + msg));
