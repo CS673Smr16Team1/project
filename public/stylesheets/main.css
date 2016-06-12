@@ -1,10 +1,18 @@
 li.pure-menu-selected {
-    background-color: deepskyblue;
+    background-color:#0074D9;
+    border-radius: 3px;
 }
+
 #menu {
     float:left;
 }
 #login {
     float:right;
     display:inline-block;
+}
+
+.pure-menu-horizontal {
+    font-size: 1.3em;
+    font-family: 'Droid Serif', serif;
+    font-weight: 700;
 }

@@ -9,7 +9,7 @@ var createIssue = {};
 
 createIssue.displayCreateIssue = function displayCreateIssue(req, res){
     res.render('issueCreateView', {
-        title: 'Project - Issue Log',
+        title: 'Bugs - Create Issue| μProject',
         issueLogSelected: 'pure-menu-selected',
         user: req.user
     });

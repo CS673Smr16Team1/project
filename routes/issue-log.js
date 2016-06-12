@@ -11,7 +11,7 @@ module.exports =
                     console.log("Error Selecting : %s ", err);
                 }
                 res.render('issueLogView', {
-                    title: 'Bugs - Open Issues',
+                    title: 'Bugs | Issue Log',
                     issueLogSelected: 'pure-menu-selected',
                     data: rows,
                     user: req.user,
