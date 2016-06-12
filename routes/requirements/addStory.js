@@ -4,6 +4,17 @@
 
 module.exports =
     function addStory(req , res , next){
+
+        var projectId;
+        projectId = req.params.projectId;
+        
+        // #debug: printing projectId of the currently requested view
+        console.log("projectId: %s",projectId);
+
         res.render('storyCreateView',
-            {title:"Add a Story"});
+            {   title:"Queued - Add a Story",
+                projectId: projectId,
+                user: req.user
+            }
+        );
     };

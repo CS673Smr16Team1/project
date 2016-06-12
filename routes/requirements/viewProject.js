@@ -8,15 +8,32 @@ var connection =
 
 module.exports =
     function viewProject(req, res, next){
-        connection.query('SELECT * FROM Story',
+
+        var projectId;
+        var project_name;
+
+        projectId = req.params.projectId;
+        project_name = req.params.project_name;
+
+        // query all stories that are related to this project
+        connection.query('SELECT * FROM Story WHERE projectId = ?',
+            projectId,
             function(err,rows){
                 if(err) {
                     console.log("Error Get all Stories : %s ", err);
                 }
-                res.render('projectView',
-                    {title:"Project View",
-                        data: rows
-                    });
 
+                // #debug: printing projectId of the currently requested view
+                console.log("projectId: %s",projectId);
+                console.log("project_name: %s",project_name);
+
+                res.render('projectView',
+                    {
+                        title: 'Queued - Project Detail View - projectId:' + projectId,
+                        projectViewSelected: 'pure-menu-selected',
+                        projectId: projectId,
+                        data: rows,
+                        user: req.user
+                    });
             });
     };

@@ -1,11 +1,12 @@
 /**
- * Created by sangjoonlee on 2016-06-09.
+ * Created by sangjoonlee on 2016-06-11.
  */
+
 var connection =
     require('../dbConnection.js').dbConnect();
 
 module.exports =
-    function saveStory(req , res , next){
+    function deleteStory(req , res , next){
 
         var projectId = req.params.projectId;
 
@@ -30,14 +31,14 @@ module.exports =
                 if (err)
                     console.log("Error inserting Story: %s ",err );
 
-            /*    res.render('projectView', {
-                    title: 'Project View',
-                    projectId: projectId,
-                    data: rows,
-                    user: req.user
-                    }
-                );
-               */
+                /*    res.render('projectView', {
+                 title: 'Project View',
+                 projectId: projectId,
+                 data: rows,
+                 user: req.user
+                 }
+                 );
+                 */
                 res.redirect('/requirements/project/'+ projectId);
 
 

@@ -17,19 +17,16 @@
         https://my.vertabelo.com/model/T7GMpn8wYb4zZbMYvIlF1Xinn4L9GrYk
 !-->
 
-
 <body>
-<h1>Create a Story</h1>
-<h3>Project Id: {{this.projectId}}</h3>
-
-<form id="storyForm" class="form-horizontal" method="post" action="/requirements/project/{{this.projectId}}/story-create">
+<h1>Story Detail</h1>
+<form id="storyForm" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}">
 
     <fieldset>
         <!-- Title Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="title">Title</label>
             <div class="col-md-4">
-                <input type="text" id="title" name="title" placeholder="add a requirement here" class="form-control input-md"  required/>
+                <input type="text" value="{{ data.title }}" id="title" name="title" placeholder="title" class="form-control input-md"  required/>
             </div>
         </div>
 
@@ -38,20 +35,19 @@
             <label class="col-md-4 control-label">Priority</label>
             <div class="col-md-4">
                 <select name="priority" class="form-control" title="Priority">
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Urgent">Urgent</option>
-
+                    <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+                    <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+                    <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+                    <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
                 </select>
             </div>
         </div>
 
-        <!-- Status Drop Down -->
+        <!-- Story Status Drop Down -->
         <div class="form-group">
             <label class="col-md-4 control-label">Status</label>
             <div class="col-md-4">
-                <select name="status" class="form-control" title="status">
+                <select name="status" class="form-control" title="story_status">
                     <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
                     <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
                     <option value="In Progress" {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
@@ -65,11 +61,20 @@
             </div>
         </div>
 
-        <!-- Description Text Area -->
+
+        <!-- Description Text area -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="description">Description</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="description" name="description"></textarea>
+                <textarea class="form-control" id="description" name="description" >{{ data.description }}</textarea>
+            </div>
+        </div>
+
+        <!-- Created By -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="owner">Owner</label>
+            <div class="col-md-4">
+                <input type="text" value="{{ data.assignee }}" id="createdBy" name="owner" class="form-control input-md" readonly/>
             </div>
         </div>
 
@@ -77,12 +82,23 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="save"></label>
             <div class="col-md-4">
-                <button id="save" name="save" class="btn btn-primary">Save</button>
+                <button id="save" name="save" class="btn btn-primary pull-left">Save</button>
             </div>
         </div>
+
+
 
     </fieldset>
 </form>
 
+<form id="storyFormDelete" class="form-horizontal" method="post" action="/requirements/project/{{ data.projectId }}">
+    <!-- Delete Button-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="delete"></label>
+        <div class="col-md-4">
+            <button id="delete" name="delete" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>
 </body>
 

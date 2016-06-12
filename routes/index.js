@@ -14,15 +14,19 @@ router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 var requirementsRoute = require("./requirements");
 var addProjectRoute = require("./requirements/addProject");
 var saveProjectRoute = require("./requirements/saveProject");
-var addStoryRoute = require("./requirements/addStory");
-var saveStoryRoute = require("./requirements/saveStory");
-var viewProjectRoute = require("./requirements/viewProject");
+var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
+var addStoryRoute = require("./requirements/addStory");         // View to add a new story to a project
+var saveStoryRoute = require("./requirements/saveStory");       // Save a new story to a project with Id
+var viewStoryDetailRoute = require ("./requirements/viewStory");// View detail of a story
+//var deleteStoryRoute = require("./requirements/deleteStory");   // Delete a story
 
 router.get('/requirements', ensureAuthenticated, requirementsRoute);
-router.get('/requirements/:add',ensureAuthenticated, addProjectRoute);
-router.get('/requirements/project/:id',ensureAuthenticated, viewProjectRoute);
-router.get('/story-create',ensureAuthenticated, addStoryRoute);
-router.post('/story-create',ensureAuthenticated, saveStoryRoute);
+router.get('/requirements/:add', ensureAuthenticated, addProjectRoute);
+router.get('/requirements/project/:projectId', ensureAuthenticated, viewProjectRoute);
+router.get('/requirements/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
+router.get('/requirements/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
+//router.post('/requirements/project/:projectId/:storyId', ensureAuthenticated, deleteStoryRoute);
+router.post('/requirements/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
 router.post('/requirements/:add',ensureAuthenticated, saveProjectRoute);
 
 

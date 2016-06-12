@@ -1,25 +1,25 @@
 <body>
-<h1>Project Detail</h1>
+<h1>Project Story View</h1>
 
 <div>
     <div class="table-responsive">
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th>Story</th>
+                <th>Backlog Story</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             {{#each data}}
                 <tr>
-                    <td> <a href="/requirements/project/{{this.storyId}}">{{this.title}}</a>  </td>
+                    <td> <a href="/requirements/project/{{this.projectId}}/{{this.storyId}}">{{this.title}}</a>  </td>
                 </tr>
             {{/each}}
             </tbody>
             <tfooter>
                 <tr><td>
-                    <a class="btn btn-success" href="/story-create">Add a Story</a>
+                    <a class="btn btn-success" href="/requirements/project/{{this.projectId}}/story-create">Add a Story</a>
 
                 </td></tr>
             </tfooter>
