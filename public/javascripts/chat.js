@@ -18,10 +18,18 @@ $(document).ready(function () {
         socket.emit('adduser', username);
     });
 
-    socket.on('updatechat', function (username, data) {
+    socket.on('updatechat', function (username, data, msgDate) {
         var messages = $('#messages');
+        var msg='';
+        if(msgDate) {
+            var dt = new Date(msgDate);
+            msg=username + ' (' + $.datepicker.formatDate("M d, yy ", dt) + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds() + '): ' + data;
 
-        messages.append($('<li>').text(username + ': ' + data));
+        }
+        else {
+            msg=username + ': ' + data;
+        }
+        messages.append($('<li>').text(msg));
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
 
     });
@@ -52,6 +60,21 @@ $(document).ready(function () {
         $("#userCount").text("Private Messages (" + usernames.length + ")");
 
         userList.scrollTop(userList[0].scrollHeight - userList[0].clientHeight);
+    });
+
+    socket.on('refreshmessages', function(data) {
+        var messages = $('#messages');
+        messages.empty();
+        var sender, msgDate, msg;
+        $.each(data, function (key, value) {
+            sender = value.username;
+            var dt = new Date(value.message_date);
+            msgDate = $.datepicker.formatDate("M d, yy ", dt) + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+            msg = value.message_content;
+
+            messages.append($('<li>').text(sender + ' (' + msgDate + '): ' + msg));
+        });
+        messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
     });
 
     $('#msgForm').submit(function () {

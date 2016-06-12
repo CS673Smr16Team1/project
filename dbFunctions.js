@@ -59,11 +59,43 @@ var f6 = function(channelname) {
         })
 };
 
+var f7 = function(channelName, callback) {
+    connection.query("SELECT id FROM ChatNowChannel WHERE channel_name =?",
+        [channelName],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f8 = function(inputs) {
+    connection.query("INSERT INTO ChatNowPublicMessage SET ?",
+        [inputs],
+        function(err, rows) {
+            if (err)
+                console.log("Error inserting: %s ", err);
+        })
+};
+
+var f9 = function(channelId, callback) {
+    connection.query("SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id WHERE channel_id =?",
+        [channelId],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
     getUsernames: f3,
     getChannels: f4,
     channelExists: f5,
-    createChannel: f6
+    createChannel: f6,
+    getChannelIdFromChannelName: f7,
+    archivePublicMessage: f8,
+    getPublicMessages: f9
 };
