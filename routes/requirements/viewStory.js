@@ -19,7 +19,7 @@ module.exports =
                 }
                 res.render('storyView', {
                     title: 'Queued - Story Detail - #' + storyId,
-                    issueLogSelected: 'pure-menu-selected',
+                    requirementsSelected: 'pure-menu-selected',
                     data: rows[0],
                     user: req.user});
 

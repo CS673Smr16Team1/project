@@ -15,18 +15,23 @@ var requirementsRoute = require("./requirements");
 var addProjectRoute = require("./requirements/addProject");
 var saveProjectRoute = require("./requirements/saveProject");
 var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
-var addStoryRoute = require("./requirements/addStory");         // View to add a new story to a project
-var saveStoryRoute = require("./requirements/saveStory");       // Save a new story to a project with Id
-var viewStoryDetailRoute = require ("./requirements/viewStory");// View detail of a story
-//var deleteStoryRoute = require("./requirements/deleteStory");   // Delete a story
+var addStoryRoute = require("./requirements/addStory");         // Route for View to add a new story to a project
+var saveStoryRoute = require("./requirements/saveStory");       // Route for Save a new story to a project with Id
+var viewStoryDetailRoute = require ("./requirements/viewStory");// Route for View detail of a story
+var deleteStoryRoute = require("./requirements/deleteStory");   // Route for Delete a story
+var updateStoryRoute = require("./requirements/updateStory");   // Route for Update a story
 
+// router.get for requirements
 router.get('/requirements', ensureAuthenticated, requirementsRoute);
 router.get('/requirements/:add', ensureAuthenticated, addProjectRoute);
 router.get('/requirements/project/:projectId', ensureAuthenticated, viewProjectRoute);
 router.get('/requirements/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
 router.get('/requirements/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
-//router.post('/requirements/project/:projectId/:storyId', ensureAuthenticated, deleteStoryRoute);
+
+// router.post for requirements
 router.post('/requirements/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
+router.post('/requirements/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
+router.post('/requirements/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
 router.post('/requirements/:add',ensureAuthenticated, saveProjectRoute);
 
 
