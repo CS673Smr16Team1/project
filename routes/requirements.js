@@ -11,11 +11,10 @@ module.exports =
                     console.log("Error Selecting : %s ", err);
                 }
                 res.render('requirementsView', {
-                    title: 'Project - Requirements',
+                    title: 'Queued | μProject',
                     requirementsSelected: 'pure-menu-selected',
                     data: rows,
                     user: req.user});
 
             });
     };
-

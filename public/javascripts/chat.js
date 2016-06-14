@@ -18,7 +18,7 @@ function padTimeWithZero(num) {
 $(document).ready(function () {
 
     //use GitHub username, or 'testing' if authentication is skipped during testing
-    var username = $("#login span").html() || 'testing';
+    var username = $("#username").html() || 'testing';
 
     socket.on('connect', function () {
         socket.emit('adduser', username);
@@ -45,10 +45,10 @@ $(document).ready(function () {
         $('#channelList').empty();
         $.each(rooms, function (key, value) {
             if (value == current_room) {
-                $('#channelList').append('<li id="' + value + '">' + value + '</li>');
+                $('#channelList').append('<li id="' + value + '" role="presentation" class="active">' + value + '</li>');
             }
             else {
-                $('#channelList').append('<li id="' + value + '"><a href="#" onclick="switchRoom(\'' + value + '\')">' + value + '</a></li>');
+                $('#channelList').append('<li id="' + value + '" role="presentation"><a href="#" onclick="switchRoom(\'' + value + '\')">' + value + '</a></li>');
             }
         });
 
@@ -80,7 +80,7 @@ $(document).ready(function () {
                 padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds());
             msg = value.message_content;
 
-            messages.append($('<li>').text(sender + ' (' + msgDate + '): ' + msg));
+            messages.append($('<li>').text('<' + sender + '> ' + msg));
         });
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
     });
@@ -137,4 +137,3 @@ $(document).ready(function () {
     });
 
 });
-

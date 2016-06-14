@@ -3,6 +3,6 @@
  */
 module.exports =
     function addCourse(req , res , next){
-        res.render('addProjectView',
-            {title:"Add a Course"});
+        res.render('addProjectView', {
+          title:"Queued - Add a Project | μProject"});
     };

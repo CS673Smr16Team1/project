@@ -18,7 +18,7 @@ module.exports =
                     console.log("Error Selecting : %s ", err);
                 }
                 res.render('storyView', {
-                    title: 'Queued - Story Detail - #' + storyId,
+                    title: 'Queued - Story Detail - #' + storyId + ' | μProject',
                     requirementsSelected: 'pure-menu-selected',
                     data: rows[0],
                     user: req.user});

@@ -1,1 +1,22 @@
-<a href="/auth/github">Login with GitHub</a>
+{{#if user}}
+<h1>You are already logged in.</h1>
+{{else}}
+<div class="cover">
+    <div class="cover-image cover" style="background-image: url('/images/login.png')"></div>
+    <!-- Photo reused with permission, Credit: Vinicius http://simpledesktops.com/browse/desktops/2010/oct/11/canguru/ -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-inverse">
+                <h1 class="">μProject</h1>
+                <h3 class="hidden-xs">To use this system you must login with a Github account.
+                </h3>
+                <br>
+                <br>
+                <div class="btn-toolbar">
+                        <a class="btn btn-lg btn-success" href="/auth/github"><span class="fa fa-github">&nbsp;Login with <strong>Github</strong></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}

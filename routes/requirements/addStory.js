@@ -7,12 +7,12 @@ module.exports =
 
         var projectId;
         projectId = req.params.projectId;
-        
+
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
         res.render('storyCreateView',
-            {   title:"Queued - Add a Story",
+            {   title:"Queued - Add a Story | μProject",
                 requirementsSelected: 'pure-menu-selected',
                 projectId: projectId,
                 user: req.user
