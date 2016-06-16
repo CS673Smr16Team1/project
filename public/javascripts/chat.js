@@ -14,6 +14,11 @@ function padTimeWithZero(num) {
         num = "0" + num;
     return num;
 }
+function multiLine(str) {
+    // multi-line messages are stored in the database as 'line one \n line two'. First, replace the \n with a <br> tag.
+    // Next, strip all html tags except the br tag.
+    return str.replace(/\n/g,"<br>").replace(/<(?!br\s*\/?)[^>]+>/g);
+}
 
 $(document).ready(function () {
 
@@ -36,7 +41,7 @@ $(document).ready(function () {
         else {
             msg=username + ': ' + data;
         }
-        messages.append($('<li>').text(msg));
+        messages.append($('<li>').html(multiLine(msg)));
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
 
     });
@@ -80,9 +85,16 @@ $(document).ready(function () {
                 padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds());
             msg = value.message_content;
 
-            messages.append($('<li>').text('<' + sender + '> ' + msg));
+            messages.append($('<li>').html(sender + ': ' + multiLine(msg)));
         });
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
+    });
+
+    $('#msgForm').keypress(function(event) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+            $(this).submit(); //Submit your form here
+            return false;
+        }
     });
 
     $('#msgForm').submit(function () {

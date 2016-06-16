@@ -6,7 +6,7 @@
     bottom: 0;
     width: 60%;
 }
-#msgForm input {
+#msgForm textarea {
     border: 0;
     padding: 10px;
     width:100%;
