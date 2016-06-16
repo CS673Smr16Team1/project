@@ -1,121 +1,199 @@
-<body>
-<h1>Issue Detail</h1>
-    <form id="issueForm" class="form-horizontal" method="post" action="/issue-save/{{ data.Id }}">
+<div class="container" id="issueTabContainer">
 
-        <fieldset>
-            <!-- Summary Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="summary">Summary</label>
-                <div class="col-md-4">
-                    <input type="text" value="{{ data.Summary }}" id="summary" name="summary" placeholder="Application Crash on saving of creating a new user" class="form-control input-md"  required/>
+    <ul class="nav nav-pills" id="tabs">
+        <li class="active">
+            <a href="#1a" data-toggle="tab">Issue Detail</a>
+        </li>
+        <li>
+            <a href="#1b" data-toggle="tab">Screenshots</a>
+        </li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div class="tab-pane active" id="1a">
+
+            <h3>Issue # {{ data.Id}}</h3>
+            <form id="issueForm" class="form-horizontal" method="post" action="/issues/issue-save/{{ data.Id }}">
+
+                <fieldset>
+                    <!-- Summary Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="summary">Summary</label>
+                        <div class="col-md-4">
+                            <input type="text" value="{{ data.Summary }}" id="summary" name="summary"
+                                   placeholder="Application Crash on saving of creating a new user"
+                                   class="form-control input-md" required/>
+                        </div>
+                    </div>
+
+                    <!-- Status Drop Down -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Status</label>
+                        <div class="col-md-4">
+                            <select name="status" class="form-control" title="status">
+                                <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New
+                                </option>
+                                <option value="Assigned"
+                                        {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned
+                                </option>
+                                <option value="In Progress"
+                                        {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress
+                                </option>
+                                <option value="Deployment"
+                                        {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment
+                                </option>
+                                <option value="Testing"{{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
+                                    Testing
+                                </option>
+                                <option value="Resolved"
+                                        {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved
+                                </option>
+                                <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}>
+                                    Closed
+                                </option>
+                                <option value="Reopened"
+                                        {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened
+                                </option>
+                                <option value="Rejected"
+                                        {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Priority Drop Down -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Priority</label>
+                        <div class="col-md-4">
+                            <select name="priority" class="form-control" title="Priority">
+                                <option value="Low" {{#if_equals data.Priority "Low" }}selected{{/if_equals}}>Low
+                                </option>
+                                <option value="Medium" {{#if_equals data.Priority "Medium" }}selected{{/if_equals}}>
+                                    Medium
+                                </option>
+                                <option value="High" {{#if_equals data.Priority "High" }}selected{{/if_equals}}>High
+                                </option>
+                                <option value="Urgent" {{#if_equals data.Priority "Urgent" }}selected{{/if_equals}}>
+                                    Urgent
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Severity Drop Down -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Severity</label>
+                        <div class="col-md-4">
+                            <select name="severity" class="form-control" title="Severity">
+                                <option value="Low" {{#if_equals data.Severity "Low" }}selected{{/if_equals}}>Low
+                                </option>
+                                <option value="Moderate" {{#if_equals data.Severity "Moderate" }}selected{{/if_equals}}>
+                                    Moderate
+                                </option>
+                                <option value="Major" {{#if_equals data.Severity "Major" }}selected{{/if_equals}}>
+                                    Major
+                                </option>
+                                <option value="Critical" {{#if_equals data.Severity "Critical" }}selected{{/if_equals}}>
+                                    Critical
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Description Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="description">Description</label>
+                        <div class="col-md-4">
+                            <textarea class="form-control" id="description"
+                                      name="description">{{ data.Description }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Created By -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="createdBy">Created By</label>
+                        <div class="col-md-4">
+                            <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy"
+                                   class="form-control input-md" readonly/>
+                        </div>
+                    </div>
+
+                    <!-- Created Date -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="createdDate">Created Date</label>
+                        <div class="col-md-4">
+                            <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate"
+                                   class="form-control input-md" readonly/>
+                        </div>
+                    </div>
+
+                    <!-- Last Modified By -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastModifiedBy">Last Modified By</label>
+                        <div class="col-md-4">
+                            <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy"
+                                   name="lastModifiedBy" class="form-control input-md" readonly/>
+                        </div>
+                    </div>
+
+                    <!-- Last Modified Date -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastModifiedDate">Last Modified Date</label>
+                        <div class="col-md-4">
+                            <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate"
+                                   name="lastModifiedDate" class="form-control input-md" readonly/>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="save"></label>
+                        <div class="col-md-4">
+                            <button id="save" name="save" class="btn btn-primary pull-left">Save</button>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+            </form>
+
+            <form id="issueFormDelete" class="form-horizontal" method="post"
+                  action="/issues/issue-delete/{{ data.Id }}">
+                <!-- Delete Button-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="delete"></label>
+                    <div class="col-md-4">
+                        <button id="delete" name="delete" class="btn btn-danger">Delete</button>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Status Drop Down -->
-            <div class="form-group">
-                <label class="col-md-4 control-label">Status</label>
-                <div class="col-md-4">
-                    <select name="status" class="form-control" title="status">
-                        <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
-                        <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
-                        <option value="In Progress" {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
-                        <option value="Deployment" {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment</option>
-                        <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>Testing</option>
-                        <option value="Resolved" {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved</option>
-                        <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}>Closed</option>
-                        <option value="Reopened" {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened</option>
-                        <option value="Rejected" {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Priority Drop Down -->
-            <div class="form-group">
-                <label class="col-md-4 control-label">Priority</label>
-                <div class="col-md-4">
-                    <select name="priority" class="form-control" title="Priority">
-                        <option value="Low" {{#if_equals data.Priority "Low" }}selected{{/if_equals}}>Low</option>
-                        <option value="Medium" {{#if_equals data.Priority "Medium" }}selected{{/if_equals}}>Medium</option>
-                        <option value="High" {{#if_equals data.Priority "High" }}selected{{/if_equals}}>High</option>
-                        <option value="Urgent" {{#if_equals data.Priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Severity Drop Down -->
-            <div class="form-group">
-                <label class="col-md-4 control-label">Severity</label>
-                <div class="col-md-4">
-                    <select name="severity" class="form-control" title="Severity">
-                        <option value="Low" {{#if_equals data.Severity "Low" }}selected{{/if_equals}}>Low</option>
-                        <option value="Moderate" {{#if_equals data.Severity "Moderate" }}selected{{/if_equals}}>Moderate</option>
-                        <option value="Major" {{#if_equals data.Severity "Major" }}selected{{/if_equals}}>Major</option>
-                        <option value="Critical" {{#if_equals data.Severity "Critical" }}selected{{/if_equals}}>Critical</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Description Textarea -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="description">Description</label>
-                <div class="col-md-4">
-                    <textarea class="form-control" id="description" name="description" >{{ data.Description }}</textarea>
-                </div>
-            </div>
-
-            <!-- Created By -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="createdBy">Created By</label>
-                <div class="col-md-4">
-                    <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy" class="form-control input-md" readonly/>
-                </div>
-            </div>
-
-            <!-- Created Date -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="createdDate">Created Date</label>
-                <div class="col-md-4">
-                    <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate" class="form-control input-md" readonly/>
-                </div>
-            </div>
-
-            <!-- Last Modified By -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="lastModifiedBy">Last Modified By</label>
-                <div class="col-md-4">
-                    <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy" name="lastModifiedBy" class="form-control input-md" readonly/>
-                </div>
-            </div>
-
-            <!-- Last Modified Date -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="lastModifiedDate">Last Modified Date</label>
-                <div class="col-md-4">
-                    <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate" name="lastModifiedDate" class="form-control input-md" readonly/>
-                </div>
-            </div>
-
-            <!-- Save Button -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="save"></label>
-                <div class="col-md-4">
-                    <button id="save" name="save" class="btn btn-primary pull-left">Save</button>
-                </div>
-            </div>
-
-
-
-        </fieldset>
-    </form>
-
-    <form id="issueFormDelete" class="form-horizontal" method="post" action="/issue-delete/{{ data.Id }}">
-        <!-- Delete Button-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="delete"></label>
-            <div class="col-md-4">
-                <button id="delete" name="delete" class="btn btn-danger">Delete</button>
-            </div>
+            </form>
         </div>
-    </form>
-</body>
 
+
+        <div class="tab-pane" id="1b">
+            <h3>Here are the existing images</h3>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Attached Images</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each images}}
+                    <tr>
+                        <td><img src="{{this.ImageFilePath}}" height="90" width="120" ></td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <h3>Upload a Screenshot of the Issue</h3>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                Select an image to upload:
+                <input type="file" name="image">
+                <input type="submit" value="Upload Image">
+                <input type="hidden" name="id" value="{{ data.Id}} ">
+
+            </form>
+        </div>
+    </div>
+</div>

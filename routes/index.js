@@ -1,6 +1,11 @@
 var express = require('express');
 var passport = require('passport');
+var multer = require('multer');
 var router = express.Router();
+
+var uploading = multer({
+    dest: './public/uploads/'
+})
 
 
 // chat room modules
@@ -32,22 +37,26 @@ router.get('/requirements/project/:projectId/:storyId', ensureAuthenticated, vie
 router.post('/requirements/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
 router.post('/requirements/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
 router.post('/requirements/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
-router.post('/requirements/:add',ensureAuthenticated, saveProjectRoute);
+router.post('/requirements/:add', ensureAuthenticated, saveProjectRoute);
 
 
 // issue modules
-var issueLogRoute = require("./issue-log");
-var issueCreateRoute = require("./issue-create");
-var issueDetailRoute = require("./issue-detail");
-var issueSaveRoute = require("./issue-save");
-var issueDeleteRoute = require("./issue-delete");
+var issueLogRoute = require("./issues/issue-log");
+var issueCreateRoute = require("./issues/issue-create");
+var issueDetailRoute = require("./issues/issue-detail");
+var issueSaveRoute = require("./issues/issue-save");
+var issueDeleteRoute = require("./issues/issue-delete");
+var issueUploadImageRoute = require("./issues/issue-upload-image");
 
-router.get('/issue-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
-router.get('/issue-log', ensureAuthenticated, issueLogRoute);
-router.get('/issue-detail/:id', ensureAuthenticated, issueDetailRoute);
-router.post('/issue-create', ensureAuthenticated, issueCreateRoute.createIssue);
-router.post('/issue-save/:id', ensureAuthenticated, issueSaveRoute);
-router.post('/issue-delete/:id', ensureAuthenticated, issueDeleteRoute);
+router.get('/issues/issue-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
+router.get('/issues/issue-log', ensureAuthenticated, issueLogRoute);
+router.get('/issues/issue-detail/:id', ensureAuthenticated, issueDetailRoute);
+
+router.post('/issues/issue-create', ensureAuthenticated, issueCreateRoute.createIssue);
+router.post('/issues/issue-save/:id', ensureAuthenticated, issueSaveRoute);
+router.post('/issues/issue-delete/:id', ensureAuthenticated, issueDeleteRoute);
+router.post('/issues/issue-upload-image/:id', ensureAuthenticated, issueUploadImageRoute);
+router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute)
 
 
 // shared modules
