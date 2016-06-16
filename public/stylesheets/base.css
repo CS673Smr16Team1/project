@@ -6808,3 +6808,7 @@ input[type="password"] {
 .navbar-default-active .navbar-brand-active {
   color: #ffffff;
 }
+
+.alert-info {
+  background: none !important;
+}
