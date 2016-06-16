@@ -1,6 +1,6 @@
 
 var connection =
-    require('./dbConnection.js').dbConnect();
+    require('./../dbConnection.js').dbConnect();
 
 
 module.exports =

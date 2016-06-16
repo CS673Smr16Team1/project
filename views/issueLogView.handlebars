@@ -24,7 +24,7 @@
                 {{#each data}}
                     <tr>
                         <td>{{this.Id}}</td>
-                        <td><a href="/issue-detail/{{this.Id}}">{{this.Summary}}</a></td>
+                        <td><a href="/issues/issue-detail/{{this.Id}}">{{this.Summary}}</a></td>
                         <td>{{this.IssueStatus}}</td>
                         <td>{{this.Priority}}</td>
                         <td>{{this.Severity}}</td>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div>
-        <a class="btn btn-success" href="/issue-create">Create an Issue</a>
+        <a class="btn btn-success" href="/issues/issue-create">Create an Issue</a>
     </div>
 </div>
 
