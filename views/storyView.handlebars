@@ -1,11 +1,9 @@
 <!---
-    Create Story View
+    Story Detail View
 
     Requirement:
-        - shall be able to add a new story
+        - shall be able to view, edit and update an existing story
             - following parameters:
-                - storyID
-                - projectID
                 - description
                 - title
                 - story_status
@@ -32,11 +30,11 @@
         <div class="form-group">
             <label class="col-md-4 control-label">Priority</label>
             <div class="col-md-4">
-                <select name="priority" class="form-control" title="Priority">
-                    <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
-                    <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
-                    <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
-                    <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+                <select name="priority" class="form-control" title="priority">
+                    <option value="0" {{#if_equals data.priority 0 }}selected{{/if_equals}}>Low</option>
+                    <option value="1" {{#if_equals data.priority 1 }}selected{{/if_equals}}>Medium</option>
+                    <option value="2" {{#if_equals data.priority 2 }}selected{{/if_equals}}>High</option>
+                    <option value="3" {{#if_equals data.priority 3 }}selected{{/if_equals}}>Urgent</option>
                 </select>
             </div>
         </div>
@@ -45,16 +43,16 @@
         <div class="form-group">
             <label class="col-md-4 control-label">Status</label>
             <div class="col-md-4">
-                <select name="status" class="form-control" title="story_status">
-                    <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
-                    <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
-                    <option value="In Progress" {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
-                    <option value="Deployment" {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment</option>
-                    <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>Testing</option>
-                    <option value="Resolved" {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved</option>
-                    <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}>Closed</option>
-                    <option value="Reopened" {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened</option>
-                    <option value="Rejected" {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected</option>
+                <select name="story_status" class="form-control" title="story_status">
+                    <option value="New" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>New</option>
+                    <option value="Assigned" {{#if_equals data.story_status "Assigned" }}selected{{/if_equals}}>Assigned</option>
+                    <option value="In Progress" {{#if_equals data.story_status "In Progress" }}selected{{/if_equals}}>In Progress</option>
+                    <option value="Deployment" {{#if_equals data.story_status "Deployment" }}selected{{/if_equals}}>Deployment</option>
+                    <option value="Testing" {{#if_equals data.story_status "Testing" }}selected{{/if_equals}}>Testing</option>
+                    <option value="Resolved" {{#if_equals data.story_status "Resolved" }}selected{{/if_equals}}>Resolved</option>
+                    <option value="Closed" {{#if_equals data.story_status "Closed" }}selected{{/if_equals}}>Closed</option>
+                    <option value="Reopened" {{#if_equals data.story_status "Reopened" }}selected{{/if_equals}}>Reopened</option>
+                    <option value="Rejected" {{#if_equals data.story_status "Rejected" }}selected{{/if_equals}}>Rejected</option>
                 </select>
             </div>
         </div>

@@ -6,5 +6,5 @@ module.exports =
           chatRoomSelected: 'pure-menu-selected',
           user: req.user,
           css: ['chat.css'],
-          js: ['socket.io-1.2.0.js', 'chat.js', 'bootstrap.min.js']});
+          js: ['socket.io-1.2.0.js', 'chat.js']});
     };

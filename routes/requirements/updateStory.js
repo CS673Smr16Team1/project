@@ -15,25 +15,26 @@ module.exports =
             projectId: parseInt(projectId),
             title: req.body.title,
             description: req.body.description,
-            story_status: req.body.status,
+            story_status: req.body.story_status,
             assignee: req.user.username,   // need to update to user name of member projects
-            priority: req.body.priority
+            type: 'feature',
+            priority: parseInt(req.body.priority)
         };
 
+        // # debug print outs
         console.log ("testing update story...");
 
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
         connection.query("UPDATE Story set ? WHERE storyId=?",
-            [inputFromForm, storyId],
+            [inputFromForm, storyId],       // passing inputForm and storyId
             function(err, rows)
             {
                 if (err)
                     console.log("Error inserting Story: %s ",err );
                 
                 res.redirect('/requirements/project/'+ projectId);
-
 
             });
 

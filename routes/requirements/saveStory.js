@@ -13,11 +13,13 @@ module.exports =
             projectId: parseInt(projectId),
             title: req.body.title,
             description: req.body.description,
-            story_status: req.body.status,
+            story_status: req.body.story_status,
             assignee: req.user.username,   // need to update to user name of member projects
-            priority: req.body.priority
+            type: 'feature',
+            priority: parseInt(req.body.priority)
         };
 
+        console.log ("testing...%s", req.body.priority);
         console.log ("testing...");
 
         // #debug: printing projectId of the currently requested view

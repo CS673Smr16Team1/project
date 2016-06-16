@@ -2,7 +2,7 @@
  * Created by jackie on 6/5/16.
  */
 var connection =
-    require('./dbConnection.js').dbConnect();
+    require('./../dbConnection.js').dbConnect();
 
 var createIssue = {};
 
@@ -35,7 +35,7 @@ createIssue.createIssue = function saveIssue(req, res){
             if(err) {
                 console.log("Error Inserting : %s ", err);
             }
-            res.redirect('/issue-log');
+            res.redirect('/issues/issue-log');
     });
 };
 
