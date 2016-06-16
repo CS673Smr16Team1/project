@@ -50,14 +50,14 @@ $(document).ready(function () {
         $('#channelList').empty();
         $.each(rooms, function (key, value) {
             if (value == current_room) {
-                $('#channelList').append('<li id="' + value + '" role="presentation" class="active">' + value + '</li>');
+                $('#channelList').append('<li id="' + value + '" role="presentation" class="active">#' + value + '</li>');
             }
             else {
-                $('#channelList').append('<li id="' + value + '" role="presentation"><a href="#" onclick="switchRoom(\'' + value + '\')">' + value + '</a></li>');
+                $('#channelList').append('<li id="' + value + '" role="presentation"><a href="#" onclick="switchRoom(\'' + value + '\')">#' + value + '</a></li>');
             }
         });
 
-        $("#channelCount").text("Channels (" + rooms.length + ")");
+        $("#channelCount").text("#" + current_room);
     });
 
     socket.on('updateUsernames', function (usernames) {
@@ -69,7 +69,7 @@ $(document).ready(function () {
             userList.append('<li>' + uName.username +'</li>');
         });
 
-        $("#userCount").text("Private Messages (" + usernames.length + ")");
+        $("#userCount").text("Private Message");
 
         userList.scrollTop(userList[0].scrollHeight - userList[0].clientHeight);
     });
