@@ -2,6 +2,7 @@
  * Created by sangjoonlee on 2016-06-11.
  */
 
+// connect to DB
 var connection =
     require('../dbConnection.js').dbConnect();
 
@@ -17,6 +18,7 @@ module.exports =
                 if(err) {
                     console.log("Error Selecting : %s ", err);
                 }
+
                 res.render('storyView', {
                     title: 'Queued - Story Detail - #' + storyId + ' | μProject',
                     requirementsSelected: 'pure-menu-selected',
