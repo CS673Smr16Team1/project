@@ -1,4 +1,8 @@
-
+/**
+ * Created by jackie on 6/5/16.
+ * This route will display the issue detail page
+ * loading the information and screenshots
+ */
 var connection =
     require('./../dbConnection.js').dbConnect();
 
@@ -8,7 +12,7 @@ module.exports =
         var id = req.params.id;
 
         connection.query({nestTables: true, sql: 'SELECT * FROM Issues' +
-            ' inner join IssueImages on Issues.Id = IssueImages.IssueId' +
+            ' left join IssueImages on Issues.Id = IssueImages.IssueId' +
             ' WHERE (Issues.Id = ?)'},
             id,
             function(err,rows){
@@ -18,17 +22,18 @@ module.exports =
                 }
                 var images = [];
                 for(var i = 0; i < rows.length; i++) {
-                    rows[i].IssueImages.ImageFilePath = rows[i].IssueImages.ImageFilePath.replace('public', '');
-                    images.push(rows[i].IssueImages);
+                    if(rows[i].IssueImages.Id) {
+                        rows[i].IssueImages.ImageFilePath = rows[i].IssueImages.ImageFilePath.replace('public', '');
+                        images.push(rows[i].IssueImages);
+                    }
                 }
                 res.render('issueDetailView', {
                     title: 'Bugs - Issue Detail - #' + id + ' | μProject',
                     issueLogSelected: 'pure-menu-selected',
                     data: rows[0].Issues,
-                    // need to iterate through the rows objects and grab all the images
-                    // each row consists of 2 objects, Issues & Issue Images
                     images: images,
                     css: ['issue-detail.css'],
+                    js: ['issueImages.js'],
                     user: req.user});
 
             });

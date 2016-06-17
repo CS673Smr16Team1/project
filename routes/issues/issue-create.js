@@ -1,5 +1,7 @@
 /**
  * Created by jackie on 6/5/16.
+ * This route will either return the empty create issue page
+ * or will insert a new issue
  */
 var connection =
     require('./../dbConnection.js').dbConnect();

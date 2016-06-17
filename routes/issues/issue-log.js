@@ -1,4 +1,7 @@
-
+/**
+ * Created by jackie on 6/5/16.
+ * This route will display the list of open issues
+ */
 var connection =
     require('./../dbConnection.js').dbConnect();
 
