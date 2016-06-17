@@ -4,5 +4,8 @@
 module.exports =
     function addCourse(req , res , next){
         res.render('addProjectView', {
-          title:"Queued - Add a Project | μProject"});
+            title:"Queued - Add a Project | μProject",
+            requirementsSelected: 'pure-menu-selected',
+            user: req.user
+        });
     };

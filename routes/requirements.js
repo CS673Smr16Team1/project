@@ -5,7 +5,7 @@ var connection =
 
 module.exports =
     function displayRequirements(req, res){
-        connection.query('SELECT * FROM Projects',
+        connection.query('SELECT * FROM QueuedProjects',
             function(err,rows){
                 if(err) {
                     console.log("Error Selecting : %s ", err);

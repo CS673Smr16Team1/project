@@ -16,7 +16,7 @@ module.exports =
         project_name = req.params.project_name;
 
         // query all stories that are related to this project
-        connection.query('SELECT * FROM Story WHERE projectId = ?',
+        connection.query('SELECT * FROM QueuedStory WHERE projectId = ?',
             projectId,
             function(err,rows){
                 if(err) {

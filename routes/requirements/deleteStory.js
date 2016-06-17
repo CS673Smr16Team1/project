@@ -16,7 +16,7 @@ module.exports =
         console.log("storyId: %s",storyId);
 
 
-        connection.query("DELETE FROM Story WHERE storyId=?",
+        connection.query("DELETE FROM QueuedStory WHERE storyId=?",
             storyId,
             function(err) {
                 if (err)
