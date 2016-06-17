@@ -6809,6 +6809,10 @@ input[type="password"] {
   color: #ffffff;
 }
 
+.navbar-default .navbar-toggle {
+  background: #ffffff;
+}
+
 .alert-info {
   background: none !important;
 }
