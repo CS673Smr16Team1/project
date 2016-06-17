@@ -6,20 +6,28 @@
   </ol>
   <div class="row">
     <div class="col-xs-6 col-sm-3">
-      <h2>Backlog</h2>
-      <div class="thumbnail">
-        {{#each data}}
-        <a href="/requirements/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-          {{this.title}}
-        </a>
-        {{/each}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Backlog</h3>
+        </div>
+        <div class="panel-body">
+          {{#each data}}
+          <a href="/requirements/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+            {{this.title}}
+          </a>
+          {{/each}}
+        </div>
       </div>
       <a class="btn btn-success" href="/requirements/project/{{this.projectId}}/story-create">Add a Story</a>
     </div>
     <div class="col-xs-6 col-sm-3">
-      <h2>Current</h2>
-      <div class="thumbnail">
-        <br><br><br>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Current</h3>
+        </div>
+        <div class="panel-body">
+            <br><br><br><br><br>
+        </div>
       </div>
     </div>
 
@@ -27,15 +35,23 @@
     <div class="clearfix visible-xs-block"></div>
 
     <div class="col-xs-6 col-sm-3">
-      <h2>Done</h2>
-      <div class="thumbnail">
-        <br><br><br>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Done</h3>
+        </div>
+        <div class="panel-body">
+            <br><br><br><br><br>
+        </div>
       </div>
     </div>
     <div class="col-xs-6 col-sm-3">
-      <h2>Release</h2>
-      <div class="thumbnail">
-        <br><br><br>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Release</h3>
+        </div>
+        <div class="panel-body">
+            <br><br><br><br><br>
+        </div>
       </div>
     </div>
   </div>
