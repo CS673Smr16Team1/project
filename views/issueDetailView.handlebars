@@ -41,7 +41,7 @@
                                 <option value="Deployment"
                                         {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment
                                 </option>
-                                <option value="Testing"{{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
+                                <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
                                     Testing
                                 </option>
                                 <option value="Resolved"
@@ -170,29 +170,41 @@
 
 
         <div class="tab-pane" id="1b">
-            <h3>Here are the existing images</h3>
-
+            <h3>Attached Screenshots</h3>
             <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th>Attached Images</th>
-                </tr>
-                </thead>
                 <tbody>
                 {{#each images}}
                     <tr>
-                        <td><img src="{{this.ImageFilePath}}" height="90" width="120" ></td>
+                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120" id="imageresource"></a></td>
                     </tr>
                 {{/each}}
                 </tbody>
             </table>
-            <h3>Upload a Screenshot of the Issue</h3>
+
+            <!-- Displays the screenshot in a modal -->
+            <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Screenshot</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Upload an Image</h3>
             <form action="/upload" method="POST" enctype="multipart/form-data">
                 Select an image to upload:
                 <input type="file" name="image">
                 <input type="submit" value="Upload Image">
                 <input type="hidden" name="id" value="{{ data.Id}} ">
-
             </form>
         </div>
     </div>
