@@ -32,6 +32,7 @@ module.exports =
                         title: 'Queued - Project Detail View - projectId:' + projectId + ' | μProject',
                         requirementsSelected: 'pure-menu-selected',
                         projectId: projectId,
+                        project_name: project_name,
                         data: rows,
                         user: req.user
                     });
