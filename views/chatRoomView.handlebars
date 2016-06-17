@@ -20,13 +20,14 @@ footer {display: none;}
           </div>
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span id="userCount">Private Message</span>
+              <span id="userCount">Direct Message</span>
               <span class="caret"></span>
             </button>
             <ul id="userList" class="dropdown-menu">
               <!-- List of users you can message -->
             </ul>
           </div>
+          <!--
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Search
@@ -36,6 +37,7 @@ footer {display: none;}
               <li><a href="#">Search Box</a></li>
             </ul>
           </div>
+          -->
       </div>
     </div>
     </div>
@@ -43,10 +45,16 @@ footer {display: none;}
       <div class="col-md-12">
         <div id="chatSection">
             <ul id="messages"></ul>
-            <form id="msgForm" action="">
-                <textarea id="chatInput" autocomplete="off"></textarea>
-            </form>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form id="msgForm" action="">
+          <div class="form-group">
+            <textarea id="chatInput" class="form-control" placeholder="Message..." autocomplete="off"></textarea>
+          </div>
+        </form>
       </div>
     </div>
   </div>

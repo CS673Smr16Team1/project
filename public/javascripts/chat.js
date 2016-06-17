@@ -34,8 +34,7 @@ $(document).ready(function () {
         var msg='';
         if(msgDate) {
             var dt = new Date(msgDate);
-            msg=username + ' (' + $.datepicker.formatDate("M d, yy ", dt) + padTimeWithZero(dt.getHours()) +
-                ':' + padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds()) + '): ' + data;
+            msg=username + ' (padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds()) + '): ' + data;
 
         }
         else {
@@ -69,7 +68,7 @@ $(document).ready(function () {
             userList.append('<li>' + uName.username +'</li>');
         });
 
-        $("#userCount").text("Private Message");
+        $("#userCount").text("Direct Message");
 
         userList.scrollTop(userList[0].scrollHeight - userList[0].clientHeight);
     });
@@ -77,15 +76,14 @@ $(document).ready(function () {
     socket.on('refreshmessages', function(data) {
         var messages = $('#messages');
         messages.empty();
-        var sender, msgDate, msg;
+        var sender, msgTime, msg;
         $.each(data, function (key, value) {
             sender = value.username;
             var dt = new Date(value.message_date);
-            msgDate = $.datepicker.formatDate("M d, yy ", dt) + padTimeWithZero(dt.getHours()) + ':' +
-                padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds());
+            msgTime = padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
             msg = value.message_content;
 
-            messages.append($('<li>').html(sender + ': ' + multiLine(msg)));
+            messages.append($('<li>').html('[' + msgTime + '] &lt;' + sender + '> ' + multiLine(msg)));
         });
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
     });
