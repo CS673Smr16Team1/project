@@ -27,7 +27,7 @@ module.exports =
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
-        connection.query("UPDATE Story set ? WHERE storyId=?",
+        connection.query("UPDATE QueuedStory set ? WHERE storyId=?",
             [inputFromForm, storyId],       // passing inputForm and storyId
             function(err, rows)
             {

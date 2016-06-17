@@ -25,7 +25,7 @@ module.exports =
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
-        connection.query("INSERT INTO Story set ?",
+        connection.query("INSERT INTO QueuedStory set ?",
             [inputFromForm],
             function(err, rows)
             {

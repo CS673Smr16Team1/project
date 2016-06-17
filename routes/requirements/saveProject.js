@@ -11,7 +11,7 @@ module.exports =
             project_name  : req.body.project_name,
             Description    : req.body.project_description
         };
-        connection.query("INSERT INTO Projects set ? ",
+        connection.query("INSERT INTO QueuedProjects set ? ",
             inputFromForm,
             function(err, rows)
             {

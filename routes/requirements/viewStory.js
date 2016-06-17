@@ -11,7 +11,7 @@ module.exports =
 
         var storyId = req.params.storyId;
 
-        connection.query('SELECT * FROM Story WHERE storyId = ?',
+        connection.query('SELECT * FROM QueuedStory WHERE storyId = ?',
             storyId,
             function(err,rows){
                 console.log(rows);

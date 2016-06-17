@@ -1,4 +1,7 @@
-
+/**
+ * Created by jackie on 6/5/16.
+ * This route will update an existing issue
+ */
 var connection =
     require('./../dbConnection.js').dbConnect();
 
