@@ -64,8 +64,8 @@ $(document).ready(function () {
         userList.empty();
 
         usernames.forEach(function (uName) {
-
-            userList.append('<li>' + uName.username +'</li>');
+            userList.append('<li><button type="button" class="btn btn-default" data-toggle="modal" data-target="#directMessage" data-whatever="@'
+            + uName.username +'">' + uName.username + '</button></li>');
         });
 
         $("#userCount").text("Direct Message");
@@ -144,6 +144,15 @@ $(document).ready(function () {
 
     $('#myModal').on('shown.bs.modal', function () {
         $('#newChannelName').focus();
+    });
+
+    // Bootstrap component
+    $('#directMessage').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var recipient = button.data('whatever')
+      var modal = $(this)
+      modal.find('.modal-title').text('New message to ' + recipient)
+      modal.find('.modal-body input').val(recipient)
     });
 
 });
