@@ -1,3 +1,8 @@
+/**
+ * Created by jackie on 6/5/16.
+ * This route will insert an issue's screenshot into the uploads folder
+ */
+
 var connection =
     require('./../dbConnection.js').dbConnect();
 
@@ -5,9 +10,7 @@ module.exports =  function saveImage(req , res){
 
     console.log(req.file);
     console.log(req);
-
-    var id = req.body.id
-
+    
     var inputFromForm = {
         OriginalName: req.file.originalname,
         ImageFilePath: req.file.path,
@@ -20,7 +23,7 @@ module.exports =  function saveImage(req , res){
             if(err) {
                 console.log("Error Inserting : %s ", err);
             }
-            res.redirect('/issues/issue-log');
+            res.redirect(req.get('referer'));
         });
 
 };

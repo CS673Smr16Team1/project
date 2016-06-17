@@ -1,3 +1,8 @@
+/**
+ * Created by jackie on 6/5/16.
+ * 
+ */
+
 
 var connection =
     require('./../dbConnection.js').dbConnect();
