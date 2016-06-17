@@ -34,7 +34,7 @@ $(document).ready(function () {
         var msg='';
         if(msgDate) {
             var dt = new Date(msgDate);
-            msg=username + ' (padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes()) + ':' + padTimeWithZero(dt.getSeconds()) + '): ' + data;
+            msg=username + ' (' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes()) + data;
 
         }
         else {
