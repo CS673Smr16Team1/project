@@ -3,10 +3,18 @@
  */
 var socket = io();
 var curRoom = "general";
+var privateMessageRecipient = false;
 
 function switchRoom(room) {
     window.curRoom = room;
+    window.privateMessageRecipient = false;
     socket.emit('switchRoom', room);
+}
+
+function switchRoomPrivate(recipientUsername) {
+    //window.curRoom = room;
+    window.privateMessageRecipient = recipientUsername;
+    socket.emit('switchRoomPrivate', recipientUsername);
 }
 
 function padTimeWithZero(num) {
@@ -56,7 +64,13 @@ $(document).ready(function () {
             }
         });
 
-        $("#channelCount").text("#" + current_room);
+        if (privateMessageRecipient) {
+            $("#currentChannel").text("@" + privateMessageRecipient);
+        }
+        else {
+            $("#currentChannel").text("#" + current_room);
+        }
+
     });
 
     socket.on('updateUsernames', function (usernames) {
@@ -64,8 +78,11 @@ $(document).ready(function () {
         userList.empty();
 
         usernames.forEach(function (uName) {
-            userList.append('<li><button type="button" class="btn btn-default" data-toggle="modal" data-target="#directMessage" data-whatever="@'
-            + uName.username +'">' + uName.username + '</button></li>');
+            // don't include ourselves
+            if(uName.username !== username) {
+                userList.append('<li><button type="button" class="btn btn-default" data-toggle="modal" data-target="#directMessage" data-whatever="@'
+                + uName.username +'">' + uName.username + '</button></li>');
+            }
         });
 
         $("#userCount").text("Direct Message");
@@ -96,7 +113,13 @@ $(document).ready(function () {
     });
 
     $('#msgForm').submit(function () {
-        socket.emit('sendchat', $('#chatInput').val());
+        if(privateMessageRecipient) {
+            socket.emit('sendChatPrivate', $('#chatInput').val(), privateMessageRecipient);
+        }
+        else {
+            socket.emit('sendChatPublic', $('#chatInput').val());
+        }
+
         $('#chatInput').val('');
         return false;
     });
@@ -147,12 +170,16 @@ $(document).ready(function () {
     });
 
     // Bootstrap component
-    $('#directMessage').on('show.bs.modal', function (event) {
+    /*$('#directMessage').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       var recipient = button.data('whatever')
       var modal = $(this)
       modal.find('.modal-title').text('New message to ' + recipient)
       modal.find('.modal-body input').val(recipient)
+    });*/
+
+    $('body').on('click', '#userList li', function() {
+       switchRoomPrivate($(this).text());
     });
 
 });

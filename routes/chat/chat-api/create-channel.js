@@ -1,4 +1,4 @@
-var dbFunctions = require('../../dbFunctions.js');
+var dbFunctions = require('../../../dbFunctions.js');
 
 module.exports =
     function createChannel(req, res){

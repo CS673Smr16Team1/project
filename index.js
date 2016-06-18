@@ -134,12 +134,23 @@ io.on('connection', function(socket) {
         io.emit('updaterooms', rooms, socket.room);
     });
 
-    socket.on('sendchat', function(data) {
+    socket.on('sendChatPublic', function(data) {
         var msgDate = new Date();
         io.to(socket.room).emit('updatechat', socket.username, data, msgDate);
         dbFunctions.archivePublicMessage({
             message_content: data, message_date: msgDate, sender_id: socket.userId, channel_id: socket.channelId
         });
+    });
+
+    socket.on('sendChatPrivate', function(data, recipientUsername) {
+        var msgDate = new Date();
+        io.to(socket.room).emit('updatechat', socket.username, data, msgDate);
+        dbFunctions.userExists(recipientUsername, function(result) {
+            dbFunctions.archivePrivateMessage({
+                message_content: data, message_date: msgDate, sender_id: socket.userId, recipient_id: result[0].idusers
+            });
+        });
+
     });
 
     socket.on('switchRoom', function(newroom) {
@@ -161,6 +172,31 @@ io.on('connection', function(socket) {
         socket.room = newroom;
         socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username + ' has joined this room');
         socket.emit('updaterooms', rooms, newroom);
+
+
+    });
+
+    socket.on('switchRoomPrivate', function(recipientUsername) {
+        var oldroom = socket.room;
+        socket.leave(oldroom);
+
+        // query db to get userids of both the sender and recipient, which will be used to join a new room
+        dbFunctions.getSenderReceiverIds([socket.username, recipientUsername], function(result) {
+           //console.log(result[0].idusers + ' ' + result[1].idusers);
+            var newroom = result[0].idusers + '-' + result[1].idusers;
+            socket.join(newroom);
+
+            dbFunctions.getPrivateMessages(result[0].idusers, result[1].idusers, function(result) {
+                // Clear messages and load archived
+                socket.emit('refreshmessages', result);
+                socket.emit('updatechat', 'SERVER', 'you have connected to @' + recipientUsername);
+            });
+
+            socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room');
+            socket.room = newroom;
+            socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username + ' has joined this room');
+            socket.emit('updaterooms', rooms, newroom);
+        });
 
 
     });

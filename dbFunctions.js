@@ -90,6 +90,39 @@ var f9 = function(channelId, callback) {
         });
 };
 
+var f10 = function(senderReceiverUsernames, callback) {
+    var qry = "SELECT idusers FROM users WHERE username IN(?) order by 1";
+    connection.query(qry,
+        [senderReceiverUsernames],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f11 = function(inputs) {
+    connection.query("INSERT INTO ChatNowPrivateMessage SET ?",
+        [inputs],
+        function(err, rows) {
+            if (err)
+                console.log("Error inserting: %s ", err);
+        })
+};
+
+var f12 = function(person1Id, person2Id, callback) {
+    var qry = "SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPrivateMessage  ";
+    qry += "on users.idusers=ChatNowPrivateMessage.sender_id WHERE (sender_id = " + connection.escape(person1Id);
+    qry += " and recipient_id = " + connection.escape(person2Id) +") or (recipient_id = " + connection.escape(person1Id);
+    qry += " and sender_id = " + connection.escape(person2Id) +") order by 2;";
+    connection.query(qry,
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -99,5 +132,8 @@ module.exports = {
     createChannel: f6,
     getChannelIdFromChannelName: f7,
     archivePublicMessage: f8,
-    getPublicMessages: f9
+    getPublicMessages: f9,
+    getSenderReceiverIds: f10,
+    archivePrivateMessage: f11,
+    getPrivateMessages: f12
 };

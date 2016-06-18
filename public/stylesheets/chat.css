@@ -33,3 +33,8 @@
     float:left;
     color:red;
 }
+#currentChannel {
+    text-align: center;
+    background-color: #0074d9;
+    color: white;
+}

@@ -5,12 +5,12 @@ var router = express.Router();
 
 var uploading = multer({
     dest: './public/uploads/'
-})
+});
 
 
 // chat room modules
-var chatRoomRoute = require("./chat-room");
-var createChannelRoute = require("./chat-api/create-channel");
+var chatRoomRoute = require("./chat/chat-room");
+var createChannelRoute = require("./chat/chat-api/create-channel");
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 
