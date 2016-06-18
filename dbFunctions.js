@@ -14,7 +14,7 @@ var f1 = function(username, callback) {
 };
 
 var f2 = function(username) {
-    connection.query("INSERT INTO users (username) VALUES(?)",
+    connection.query("INSERT INTO users SET ?",
         [username],
         function(err, rows) {
             if (err)
@@ -123,6 +123,25 @@ var f12 = function(person1Id, person2Id, callback) {
         });
 };
 
+var f13 = function(email, id) {
+    connection.query("UPDATE users SET email = ? WHERE idusers = ?",
+        [email, id],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
+var f14 = function(id, callback) {
+    connection.query("SELECT email FROM users WHERE idusers = ?",
+        [id],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -135,5 +154,7 @@ module.exports = {
     getPublicMessages: f9,
     getSenderReceiverIds: f10,
     archivePrivateMessage: f11,
-    getPrivateMessages: f12
+    getPrivateMessages: f12,
+    updateUserEmail: f13,
+    getUserEmail: f14
 };

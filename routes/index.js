@@ -65,7 +65,7 @@ var homeRoute = require("./home");
 
 router.get('/', homeRoute);
 router.get('/login', loginRoute);
-router.get('/auth/github', passport.authenticate('github'));
+router.get('/auth/github', passport.authenticate('github', {scope: ['user:email']}));
 router.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {

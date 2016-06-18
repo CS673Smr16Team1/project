@@ -6,6 +6,7 @@ var _ = require('underscore');
 var session = require('express-session');
 var GitHubStrategy = require('passport-github2').Strategy;
 var dbFunctions = require('./dbFunctions.js');
+var encryption = require('./encryption.js');
 
 var GITHUB_CLIENT_ID = "e42895897d3a576a6940";
 var GITHUB_CLIENT_SECRET = "6e3279e0e6ab7763ce1c0a4c301016346af6de4c";
@@ -23,15 +24,29 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+        callbackURL: "http://127.0.0.1:3000/auth/github/callback",
+        scope: ['user:email']
     },
     function(accessToken, refreshToken, profile, done) {
+        var testEnc = encryption.encrypt(profile.emails[0].value);
         // asynchronous verification, for effect...
         process.nextTick(function () {
             // Check if username exists in database. If not, insert it.
             dbFunctions.userExists(profile.username, function(result) {
                 if(result.length===0) {
-                    dbFunctions.createUser(profile.username);
+                    dbFunctions.createUser({
+                        username: profile.username,
+                        email: encryption.encrypt(profile.emails[0].value)
+                    });
+                }
+                // else block would not normally be needed, but in our project when users were originally created,
+                // email was not being saved at the time, so this code serves to fill it in after the fact
+                else {
+                    dbFunctions.updateUserEmail(encryption.encrypt(profile.emails[0].value), result[0].idusers);
+
+                    /*dbFunctions.getUserEmail(result[0].idusers, function(emailRow) {
+                       console.log(encryption.decrypt(emailRow[0].email));
+                    });*/
                 }
             });
             return done(null, profile);
