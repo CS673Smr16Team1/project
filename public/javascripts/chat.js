@@ -90,6 +90,16 @@ $(document).ready(function () {
         userList.scrollTop(userList[0].scrollHeight - userList[0].clientHeight);
     });
 
+    socket.on('onlinestatus', function(user, status) {
+        console.log('hi');
+        if(status==='online') {
+            $('button[data-whatever="@' + user +'"]').css("background-color", "#0EDF12");
+        }
+        else {
+            $('button[data-whatever="@' + user +'"]').css("background-color", "white");
+        }
+    });
+
     socket.on('refreshmessages', function(data) {
         var messages = $('#messages');
         messages.empty();
@@ -158,14 +168,14 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#myModal').on('hidden.bs.modal', function () {
+    $('#createChannel').on('hidden.bs.modal', function () {
         //erase error msg
         $('.modal-footer p').html('');
         //clear channel name
         $('#newChannelName').val('');
     });
 
-    $('#myModal').on('shown.bs.modal', function () {
+    $('#createChannel').on('shown.bs.modal', function () {
         $('#newChannelName').focus();
     });
 

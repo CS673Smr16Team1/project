@@ -7,6 +7,7 @@ var session = require('express-session');
 var GitHubStrategy = require('passport-github2').Strategy;
 var dbFunctions = require('./dbFunctions.js');
 var encryption = require('./encryption.js');
+var mailer = require('./mailer.js');
 
 var GITHUB_CLIENT_ID = "e42895897d3a576a6940";
 var GITHUB_CLIENT_SECRET = "6e3279e0e6ab7763ce1c0a4c301016346af6de4c";
@@ -113,6 +114,8 @@ dbFunctions.getChannels(function(channels) {
     rooms = (_.pluck(channels, 'channel_name'));
 });
 
+var users = []; // for keeping track of who is online, for email notifications
+
 io.on('connection', function(socket) {
 
     socket.on('adduser', function(username) {
@@ -120,6 +123,7 @@ io.on('connection', function(socket) {
         socket.room = 'general';
         dbFunctions.getUsernames(function(usernames) {
             io.emit('updateUsernames', usernames);
+            io.emit('onlinestatus', username, 'online');
         });
 
         socket.join('general');
@@ -142,6 +146,7 @@ io.on('connection', function(socket) {
             socket.userId = result[0].idusers;
         });
 
+        users.push(username);
     });
 
     socket.on('create', function(room) {
@@ -155,6 +160,7 @@ io.on('connection', function(socket) {
         dbFunctions.archivePublicMessage({
             message_content: data, message_date: msgDate, sender_id: socket.userId, channel_id: socket.channelId
         });
+
     });
 
     socket.on('sendChatPrivate', function(data, recipientUsername) {
@@ -166,6 +172,20 @@ io.on('connection', function(socket) {
             });
         });
 
+        // if the recipient is offline, send an email notification
+        if(_.indexOf(users, recipientUsername)===-1) {
+            dbFunctions.getUserEmailFromUsername(recipientUsername, function(result) {
+                if(result[0].email) {
+                    var decryptedEmail = encryption.decrypt(result[0].email);
+                    mailer.sendEmail(socket.username, decryptedEmail, data);
+                }
+                else {
+                    // no email on file for this recipient
+                    console.log('no email in db for this recipient');
+                }
+            });
+
+        }
     });
 
     socket.on('switchRoom', function(newroom) {
@@ -217,8 +237,10 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
+        io.emit('onlinestatus', socket.username, 'offline');
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
         socket.leave(socket.room);
+        users.splice(_.indexOf(users,socket.username, 1));
     });
 });
 

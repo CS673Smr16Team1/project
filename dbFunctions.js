@@ -142,6 +142,16 @@ var f14 = function(id, callback) {
         });
 };
 
+var f15 = function(username, callback) {
+    connection.query("SELECT email FROM users WHERE username = ?",
+        [username],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -156,5 +166,6 @@ module.exports = {
     archivePrivateMessage: f11,
     getPrivateMessages: f12,
     updateUserEmail: f13,
-    getUserEmail: f14
+    getUserEmail: f14,
+    getUserEmailFromUsername: f15
 };
