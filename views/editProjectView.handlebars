@@ -1,0 +1,28 @@
+<div class="table-responsive">
+    <form method="post" action='/requirements/editProject/{{data.projectId}}'>
+        <table class="table table-condensed">
+            <tbody>
+            <tr>
+                <th>Project Name: </td>
+                <td><input type="text" name="project_name" required
+                           value="{{data.project_name}}"></td>
+            </tr>
+            <tr>
+                <th>Project Description: </td>
+                <td><input type="text" name="project_description" required
+                           value="{{data.Description}}"></td>
+            </tr>
+            </tbody>
+            <tfooter>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Save" class="btn btn-success">
+                        <input type="button" value="Cancel" class="btn btn-danger"
+                               class="cancel" onclick="cancelAdd()">
+                    </td>
+                </tr>
+            </tfooter>
+        </table>
+    </form>
+</div>
