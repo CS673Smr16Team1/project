@@ -17,7 +17,9 @@ router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 
 // requirements modules
 var requirementsRoute = require("./requirements");
-var addProjectRoute = require("./requirements/addProject");
+var addProjectRoute = require("./requirements/addProject");     // route for creating new project
+var editProject	     = require("./requirements/editProject");                     // Route for Editing a project
+var saveProjectAfterEdit = require("./requirements/saveProjectAfterEdit")
 var saveProjectRoute = require("./requirements/saveProject");
 var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
 var addStoryRoute = require("./requirements/addStory");         // Route for View to add a new story to a project
@@ -28,6 +30,7 @@ var updateStoryRoute = require("./requirements/updateStory");   // Route for Upd
 
 // router.get for requirements
 router.get('/requirements', ensureAuthenticated, requirementsRoute);
+router.get('/requirements/editProject/:projectId', ensureAuthenticated, editProject);
 router.get('/requirements/:add', ensureAuthenticated, addProjectRoute);
 router.get('/requirements/project/:projectId', ensureAuthenticated, viewProjectRoute);
 router.get('/requirements/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
@@ -38,6 +41,7 @@ router.post('/requirements/project/:projectId/story-create', ensureAuthenticated
 router.post('/requirements/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
 router.post('/requirements/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
 router.post('/requirements/:add', ensureAuthenticated, saveProjectRoute);
+router.post('/requirements/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
 
 
 // issue modules
