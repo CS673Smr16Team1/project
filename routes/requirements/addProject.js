@@ -1,11 +1,25 @@
 /**
  * Created by Juanito on 6/9/16.
  */
+var dbFunctions = require('../../dbFunctions.js');
+var _ = require('underscore');
+
 module.exports =
     function addProject(req , res , next){
-        res.render('addProjectView', {
-            title:"Queued - Add a Project | μProject",
-            requirementsSelected: 'pure-menu-selected',
-            user: req.user
+        dbFunctions.getUsernames(function(result) {
+            var members = JSON.stringify(result);
+            member_list = (_.pluck(result, 'username'));
+            res.render('addProjectView', {
+                title:"Queued - Add a Project | μProject",
+                requirementsSelected: 'pure-menu-selected',
+                members: member_list,
+                user: req.user,
+                js: ['jquery-3.0.0.min.js']
+            });
+            //console.log(member_list);
+            //console.log(members);
         });
+
+        
+
     };

@@ -6,10 +6,18 @@ var connection =
 
 module.exports =
     function saveProject(req , res , next){
+        console.log(req.body.members);
+        console.log("from req body: " + req.body.members);
+
+        var project_members = JSON.stringify(req.body.members);
+        console.log(project_members);
+        console.log("from project_member value: " + project_members);
 
         var inputFromForm = {
-            project_name  : req.body.project_name,
-            Description    : req.body.project_description
+            project_name    :   req.body.project_name,
+            Description     :   req.body.project_description,
+            owner           :   req.user.username,
+            members         :   project_members
         };
         connection.query("INSERT INTO QueuedProjects set ? ",
             inputFromForm,

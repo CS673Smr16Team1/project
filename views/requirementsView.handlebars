@@ -15,6 +15,7 @@
                     <th><input type="text" class="form-control" placeholder="Project Name" disabled></th>
                     <th><input type="text" class="form-control" placeholder="Description" disabled></th>
                     <th><input type="text" class="form-control" placeholder="Action" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Owner" disabled></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,7 +25,7 @@
                         <td><a href="/requirements/project/{{this.projectId}}">{{this.project_name}}</a></td>
                         <td>{{this.Description}}</td>
                         <td><a href="/requirements/editProject/{{this.projectId}}">Edit</a></td>
-
+                        <td>{{this.owner}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
