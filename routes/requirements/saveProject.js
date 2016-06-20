@@ -5,7 +5,7 @@ var connection =
     require('../dbConnection.js').dbConnect();
 
 module.exports =
-    function saveCourse(req , res , next){
+    function saveProject(req , res , next){
 
         var inputFromForm = {
             project_name  : req.body.project_name,

@@ -2,7 +2,7 @@
  * Created by Juanito on 6/9/16.
  */
 module.exports =
-    function addCourse(req , res , next){
+    function addProject(req , res , next){
         res.render('addProjectView', {
             title:"Queued - Add a Project | μProject",
             requirementsSelected: 'pure-menu-selected',
