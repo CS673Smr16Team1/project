@@ -15,7 +15,7 @@ module.exports =
                 }
                 res.render('issueLogView', {
                     title: 'Bugs - Issue Log | μProject',
-                    issueLogSelected: 'pure-menu-selected',
+                    bugsSelected: 'active',
                     data: rows,
                     user: req.user,
                     css: ['filter-table.css'],

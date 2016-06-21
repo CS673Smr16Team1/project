@@ -11,7 +11,7 @@ module.exports =
             member_list = (_.pluck(result, 'username'));
             res.render('addProjectView', {
                 title:"Queued - Add a Project | μProject",
-                requirementsSelected: 'pure-menu-selected',
+                queuedSelected: 'active',
                 members: member_list,
                 user: req.user,
                 js: ['jquery-3.0.0.min.js']
@@ -20,6 +20,6 @@ module.exports =
             //console.log(members);
         });
 
-        
+
 
     };

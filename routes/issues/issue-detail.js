@@ -36,7 +36,7 @@ module.exports =
                 }
                 res.render('issueDetailView', {
                     title: 'Bugs - Issue Detail - #' + id + ' | μProject',
-                    issueLogSelected: 'pure-menu-selected',
+                    bugsSelected: 'active',
                     data: rows[0].Issues,
                     images: images,
                     comments: comments,

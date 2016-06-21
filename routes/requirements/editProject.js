@@ -21,9 +21,8 @@ module.exports =
                     {
 
                         title: 'Queued - Project Detail View - projectId:' + id + ' | μProject',
-                        requirementsSelected: 'pure-menu-selected',
+                        queuedSelected: 'active',
                         data:   rows[0],
                         user: req.user});
             });
     };
-

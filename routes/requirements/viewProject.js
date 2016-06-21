@@ -30,7 +30,7 @@ module.exports =
                 res.render('projectView',
                     {
                         title: 'Queued - Project Detail View - projectId:' + projectId + ' | μProject',
-                        requirementsSelected: 'pure-menu-selected',
+                        queuedSelected: 'active',
                         projectId: projectId,
                         project_name: project_name,
                         data: rows,

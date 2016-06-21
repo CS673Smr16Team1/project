@@ -1,7 +1,7 @@
 var connection = null;
 var credentials = require("../credentials.js");
 
-module.exports.dbConnect  = 
+module.exports.dbConnect  =
 	function (){
 	 if (connection == null) {
     connection = require('mysql').createConnection({
@@ -13,5 +13,3 @@ module.exports.dbConnect  =
    }
    return connection;
 	};
-
-

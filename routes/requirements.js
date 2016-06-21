@@ -12,7 +12,7 @@ module.exports =
                 }
                 res.render('requirementsView', {
                     title: 'Queued | μProject',
-                    requirementsSelected: 'pure-menu-selected',
+                    queuedSelected: 'active',
                     data: rows,
                     user: req.user});
 

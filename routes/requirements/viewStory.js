@@ -21,7 +21,7 @@ module.exports =
 
                 res.render('storyView', {
                     title: 'Queued - Story Detail - #' + storyId + ' | μProject',
-                    requirementsSelected: 'pure-menu-selected',
+                    queuedSelected: 'active',
                     data: rows[0],
                     user: req.user});
 

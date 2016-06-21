@@ -12,7 +12,7 @@ var createIssue = {};
 createIssue.displayCreateIssue = function displayCreateIssue(req, res){
     res.render('issueCreateView', {
         title: 'Bugs - Create Issue | μProject',
-        issueLogSelected: 'pure-menu-selected',
+        bugsSelected: 'active',
         user: req.user
     });
 };
