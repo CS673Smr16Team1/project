@@ -1,3 +1,4 @@
+var util = require('util');
 
 module.exports =
     function displayHomePage(req, res){

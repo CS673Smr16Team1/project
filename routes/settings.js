@@ -1,6 +1,6 @@
 
 module.exports =
-    function login(req, res){
+    function settings(req, res){
         res.render('settingsView', {
           title: 'Settings | μProject',
           settingsSelected: 'active',
