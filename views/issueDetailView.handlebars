@@ -1,3 +1,6 @@
+<head>
+    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+</head>
 <div class="container" id="issueTabContainer">
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
@@ -10,6 +13,9 @@
         </li>
         <li>
             <a href="#1b" data-toggle="tab">Screenshots</a>
+        </li>
+        <li>
+            <a href="#1c" data-toggle="tab">Comments</a>
         </li>
     </ul>
     <div class="tab-content clearfix">
@@ -210,6 +216,44 @@
                 <input type="submit" value="Upload Image">
                 <input type="hidden" name="id" value="{{ data.Id}} ">
             </form>
+        </div>
+
+
+        <div class="tab-pane" id="1c">
+            <h3>Comments</h3>
+            <table class="table table-condensed">
+                <tbody>
+                {{#each comments}}
+                    <tr>
+                        <td>{{this.Comment}}</td>
+                        <td>{{this.CreatedBy}}</td>
+                        <td>{{this.CreatedDate}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            </br>
+            </br>
+
+            <form id="comment" class="form-horizontal" method="post" action="/issues/issue-add-comment/{{ data.Id }}">
+                <fieldset>
+                    <!-- Comment Textarea -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <textarea class="form-control" id="Comment" name="Comment"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="comment"></label>
+                        <div class="col-md-4">
+                            <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
         </div>
     </div>
 </div>

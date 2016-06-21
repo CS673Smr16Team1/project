@@ -19,7 +19,7 @@ router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 var requirementsRoute = require("./requirements");
 var addProjectRoute = require("./requirements/addProject");     // route for creating new project
 var editProject	     = require("./requirements/editProject");                     // Route for Editing a project
-var saveProjectAfterEdit = require("./requirements/saveProjectAfterEdit")
+var saveProjectAfterEdit = require("./requirements/saveProjectAfterEdit");
 var saveProjectRoute = require("./requirements/saveProject");
 var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
 var addStoryRoute = require("./requirements/addStory");         // Route for View to add a new story to a project
@@ -51,6 +51,8 @@ var issueDetailRoute = require("./issues/issue-detail");
 var issueSaveRoute = require("./issues/issue-save");
 var issueDeleteRoute = require("./issues/issue-delete");
 var issueUploadImageRoute = require("./issues/issue-upload-image");
+var issueAddCommentRoute = require("./issues/issue-add-comment");
+
 
 router.get('/issues/issue-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
 router.get('/issues/issue-log', ensureAuthenticated, issueLogRoute);
@@ -60,7 +62,8 @@ router.post('/issues/issue-create', ensureAuthenticated, issueCreateRoute.create
 router.post('/issues/issue-save/:id', ensureAuthenticated, issueSaveRoute);
 router.post('/issues/issue-delete/:id', ensureAuthenticated, issueDeleteRoute);
 router.post('/issues/issue-upload-image/:id', ensureAuthenticated, issueUploadImageRoute);
-router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute)
+router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute);
+router.post('/issues/issue-add-comment/:id', ensureAuthenticated, issueAddCommentRoute);
 
 
 // shared modules
