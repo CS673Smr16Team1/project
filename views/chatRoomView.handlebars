@@ -1,7 +1,7 @@
 <div class="section">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 has-inner-drawer">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,39 +24,34 @@
               <!-- List of users you can message -->
             </ul>
           </div>
-          <!--
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Search
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Search Box</a></li>
-            </ul>
+            <button type="button" class="btn btn-default" href="#searchDrawer" data-toggle="drawer">&nbsp;<span class="fa fa-search"></span></button>
           </div>
-          -->
-      </div>
-    </div>
-    </div>
-      <div class="row">
-          <div class="col-md-12">
-              <div id="currentChannel">test</div>
-          </div>
-      </div>
-    <div class="row">
-      <div class="col-md-12">
+        </div>
+
+        <div id="currentChannel">Channel Name</div>
         <div id="chatSection">
             <ul id="messages"></ul>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
         <form id="msgForm" action="">
           <div class="form-group">
             <textarea id="chatInput" class="form-control" placeholder="Message..." autocomplete="off"></textarea>
           </div>
         </form>
+        <div class="drawerController">
+          <!-- Drawer -->
+          <div id="searchDrawer" class="drawer drawer-inside dw-xs-12 fold" aria-labelledby="searchDrawer">
+              <div class="drawer-contents">
+                <div class="col-md-12">
+                  <div class="drawer-heading">
+                    <h2 class="drawer-title">Search <button type="button" class="btn btn-default pull-right" href="#searchDrawer" data-toggle="drawer">Close <span class="fa fa-times"></span></button></h2>
+                  </div>
+                  <br>
+                  Search Results...
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

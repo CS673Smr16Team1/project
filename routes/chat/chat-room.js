@@ -5,6 +5,6 @@ module.exports =
           title: 'ChatNow | μProject',
           user: req.user,
           chatnowSelected: 'active',
-          css: ['chat.css'],
-          js: ['socket.io-1.2.0.js', 'chat.js']});
+          css: ['chat.css', 'bootstrap-drawer.css'],
+          js: ['socket.io-1.2.0.js', 'chat.js', 'drawer.js']});
     };
