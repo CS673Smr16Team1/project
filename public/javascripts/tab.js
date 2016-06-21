@@ -153,3 +153,7 @@
     .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
 
 }(jQuery);
+
+jQuery(function () {
+    jQuery('#settingsTabs a:last').tab('show')
+})

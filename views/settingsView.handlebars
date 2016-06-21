@@ -3,17 +3,28 @@
     <div class="row">
       <div class="col-md-12">
         <h1><span class="fa fa-cogs"></span> Settings</h1>
-        <ul class="nav nav-tabs nav-justified">
+        <ul class="nav nav-tabs" id="settingsTabs">
           <li class="active" role="presentation">
-            <a href="#">Home</a>
+            <a data-target="#queued" data-toggle="tab">Queued</a>
           </li>
           <li role="presentation">
-            <a href="#">Profile</a>
+            <a data-target="#chatnow" data-toggle="tab">ChatNow</a>
           </li>
           <li role="presentation">
-            <a href="#">Messages</a>
+            <a data-target="#bugs" data-toggle="tab">Bugs</a>
           </li>
         </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="queued">
+            Settings for Queued
+          </div>
+          <div class="tab-pane" id="chatnow">
+            Settings for ChatNow
+          </div>
+          <div class="tab-pane" id="bugs">
+            Settings for Bugs
+          </div>
+        </div>
       </div>
     </div>
   </div>
