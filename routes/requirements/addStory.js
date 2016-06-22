@@ -15,6 +15,7 @@ module.exports =
             {   title:"Queued - Add a Story | μProject",
                 queuedSelected: 'active',
                 projectId: projectId,
+                js: ['clickActions.js'],
                 user: req.user
             }
         );

@@ -22,6 +22,7 @@ module.exports =
                 res.render('storyView', {
                     title: 'Queued - Story Detail - #' + storyId + ' | μProject',
                     queuedSelected: 'active',
+                    js: ['clickActions.js'],
                     data: rows[0],
                     user: req.user});
 

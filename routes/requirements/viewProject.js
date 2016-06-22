@@ -33,6 +33,7 @@ module.exports =
                         queuedSelected: 'active',
                         projectId: projectId,
                         project_name: project_name,
+                        js: ['clickActions.js'],
                         data: rows,
                         user: req.user
                     });

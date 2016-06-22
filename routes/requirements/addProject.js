@@ -14,7 +14,7 @@ module.exports =
                 queuedSelected: 'active',
                 members: member_list,
                 user: req.user,
-                js: ['jquery-3.0.0.min.js']
+                js: ['jquery-3.0.0.min.js', 'clickActions.js']
             });
             //console.log(member_list);
             //console.log(members);
