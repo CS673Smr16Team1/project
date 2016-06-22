@@ -6816,3 +6816,62 @@ input[type="password"] {
 .alert-info {
   background: none !important;
 }
+
+/* Dashboard Styles */
+
+.title {
+  font-size:2em;
+}
+.panel-queued {
+    border-color: #6FB7E9;
+}
+
+.panel-queued .panel-heading {
+    border-color: #6FB7E9;
+    color: #fff;
+    background-color: #6FB7E9;
+}
+
+.panel-queued a {
+    color: #6FB7E9;
+}
+
+.panel-queued a:hover {
+    color: #3C8DC5;
+}
+
+.panel-chatnow {
+    border-color: #A1C436;
+}
+
+.panel-chatnow .panel-heading {
+    border-color: #A1C436;
+    color: #fff;
+    background-color: #A1C436;
+}
+
+.panel-chatnow a {
+    color: #A1C436;
+}
+
+.panel-chatnow a:hover {
+    color: #3d8b3d;
+}
+
+.panel-bugs {
+    border-color: #01A4A4;
+}
+
+.panel-bugs .panel-heading {
+    border-color: #01A4A4;
+    color: #fff;
+    background-color: #01A4A4;
+}
+
+.panel-bugs a {
+    color: #01A4A4;
+}
+
+.panel-bugs a:hover {
+    color: #b52b27;
+}
