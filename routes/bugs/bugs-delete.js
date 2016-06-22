@@ -16,6 +16,6 @@ module.exports =
             function(err) {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/issues/issue-log');
+                res.redirect('/bugs/bugs-log');
             });
     };
