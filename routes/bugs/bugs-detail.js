@@ -1,11 +1,17 @@
 /**
  * Created by jackie on 6/5/16.
  * This route will display the issue detail page
- * loading the information and screenshots
+ * loading the information, screenshots, and comments
  */
-var connection =
-    require('./../dbConnection.js').dbConnect();
+var connection = require('./../dbConnection.js').dbConnect();
 
+// remove duplicates from join
+function isUniqueIssueId(a) {
+    var seen = {};
+    return a.filter(function(item) {
+        return seen.hasOwnProperty(item.Id) ? false : (seen[item.Id] = true);
+    });
+}
 
 module.exports =
     function displayIssueDetail(req, res){
@@ -30,17 +36,23 @@ module.exports =
                         images.push(rows[i].IssueImages);
                     }
                     // check if any comments were returned before pushing data onto the array
-                    if(rows[i].IssueComments.id) {
+                    if(rows[i].IssueComments.Id) {
                         comments.push(rows[i].IssueComments);
                     }
                 }
-                res.render('issueDetailView', {
+
+                images = isUniqueIssueId(images);
+                comments = isUniqueIssueId(comments);
+
+                //make an object to keep track of issue IDs ive mouseenter
+                //check to see if that object, if youve seen it already
+                res.render('bugsDetailView', {
                     title: 'Bugs - Issue Detail - #' + id + ' | μProject',
                     bugsSelected: 'active',
                     data: rows[0].Issues,
                     images: images,
                     comments: comments,
-                    css: ['issue-detail.css'],
+                    css: ['issue-detail.css', 'issue-comment.css'],
                     js: ['issueImages.js'],
                     user: req.user});
 

@@ -2,11 +2,11 @@
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
 </head>
 <div class="container" id="issueTabContainer">
-<ol class="breadcrumb">
-  <li><a href="/">Home</a></li>
-  <li><a href="/issues/issue-log">Bugs</a></li>
-  <li class="active">#{{data.Id}} {{data.Summary}}</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/bugs/bugs-log">Bugs</a></li>
+        <li class="active">#{{data.Id}} {{data.Summary}}</li>
+    </ol>
     <ul class="nav nav-pills" id="tabs">
         <li class="active">
             <a href="#1a" data-toggle="tab">Issue Detail</a>
@@ -51,7 +51,8 @@
                                 <option value="Deployment"
                                         {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment
                                 </option>
-                                <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
+                                <option value="Testing"
+                                        {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
                                     Testing
                                 </option>
                                 <option value="Resolved"
@@ -185,22 +186,27 @@
                 <tbody>
                 {{#each images}}
                     <tr>
-                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120" id="imageresource"></a></td>
+                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120"
+                                                         id="imageresource"></a></td>
                     </tr>
                 {{/each}}
                 </tbody>
             </table>
 
             <!-- Displays the screenshot in a modal -->
-            <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Screenshot</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            {{#each images}}
+                                <h4 class="modal-title" id="myModalLabel">Screenshot: {{this.OriginalName}}</h4>
+                            {{/each}}
                         </div>
                         <div class="modal-body">
-                            <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+                            <img src="" id="imagepreview" style="width: 400px; height: 264px;">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -220,7 +226,7 @@
 
 
         <div class="tab-pane" id="1c">
-            <h3>Comments</h3>
+            <!--  <h3>Comments</h3>
             <table class="table table-condensed">
                 <tbody>
                 {{#each comments}}
@@ -233,27 +239,61 @@
                 </tbody>
             </table>
             </br>
-            </br>
+            </br> -->
 
-            <form id="comment" class="form-horizontal" method="post" action="/issues/issue-add-comment/{{ data.Id }}">
-                <fieldset>
-                    <!-- Comment Textarea -->
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            <textarea class="form-control" id="Comment" name="Comment"></textarea>
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>Comments</h3>
+                    </div><!-- /col-sm-12 -->
+                </div><!-- /row -->
+                {{#each comments}}
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo"
+                                     src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </div><!-- /thumbnail -->
+                        </div><!-- /col-sm-1 -->
+
+                        <div class="col-sm-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>{{this.CreatedBy}}</strong> <span
+                                        class="text-muted">commented 5 days ago</span>
+                                </div>
+                                <div class="panel-body">
+                                    {{this.Comment}}
+                                </div><!-- /panel-body -->
+                            </div><!-- /panel panel-default -->
+                        </div><!-- /col-sm-5 -->
                     </div>
+                {{/each}}
 
-                    <!-- Save Button -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="comment"></label>
-                        <div class="col-md-4">
-                            <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form id="comment" class="form-horizontal" method="post"
+                              action="/bugs/bugs-add-comment/{{ data.Id }}">
+                            <fieldset>
+                                <!-- Comment Textarea -->
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <textarea class="form-control" id="Comment" name="Comment"></textarea>
+                                    </div>
+                                </div>
 
+                                <!-- Save Button -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="comment"></label>
+                                    <div class="col-md-4">
+                                        <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div><!-- /col-sm-12 -->
+                </div><!-- /row -->
+            </div><!-- /container -->
         </div>
     </div>
 </div>

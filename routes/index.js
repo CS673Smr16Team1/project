@@ -45,25 +45,25 @@ router.post('/requirements/editProject/:projectId', ensureAuthenticated, savePro
 
 
 // issue modules
-var issueLogRoute = require("./issues/issue-log");
-var issueCreateRoute = require("./issues/issue-create");
-var issueDetailRoute = require("./issues/issue-detail");
-var issueSaveRoute = require("./issues/issue-save");
-var issueDeleteRoute = require("./issues/issue-delete");
-var issueUploadImageRoute = require("./issues/issue-upload-image");
-var issueAddCommentRoute = require("./issues/issue-add-comment");
+var issueLogRoute = require("./bugs/bugs-log");
+var issueCreateRoute = require("./bugs/bugs-create");
+var issueDetailRoute = require("./bugs/bugs-detail");
+var issueSaveRoute = require("./bugs/bugs-save");
+var issueDeleteRoute = require("./bugs/bugs-delete");
+var issueUploadImageRoute = require("./bugs/bugs-upload-image");
+var issueAddCommentRoute = require("./bugs/bugs-add-comment");
 
 
-router.get('/issues/issue-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
-router.get('/issues/issue-log', ensureAuthenticated, issueLogRoute);
-router.get('/issues/issue-detail/:id', ensureAuthenticated, issueDetailRoute);
+router.get('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
+router.get('/bugs/bugs-log', ensureAuthenticated, issueLogRoute);
+router.get('/bugs/bugs-detail/:id', ensureAuthenticated, issueDetailRoute);
 
-router.post('/issues/issue-create', ensureAuthenticated, issueCreateRoute.createIssue);
-router.post('/issues/issue-save/:id', ensureAuthenticated, issueSaveRoute);
-router.post('/issues/issue-delete/:id', ensureAuthenticated, issueDeleteRoute);
-router.post('/issues/issue-upload-image/:id', ensureAuthenticated, issueUploadImageRoute);
+router.post('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.createIssue);
+router.post('/bugs/bugs-save/:id', ensureAuthenticated, issueSaveRoute);
+router.post('/bugs/bugs-delete/:id', ensureAuthenticated, issueDeleteRoute);
+router.post('/bugs/bugs-upload-image/:id', ensureAuthenticated, issueUploadImageRoute);
 router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute);
-router.post('/issues/issue-add-comment/:id', ensureAuthenticated, issueAddCommentRoute);
+router.post('/bugs/bugs-add-comment/:id', ensureAuthenticated, issueAddCommentRoute);
 
 
 // shared modules

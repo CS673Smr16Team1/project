@@ -13,7 +13,7 @@ module.exports =
                 if(err) {
                     console.log("Error Selecting : %s ", err);
                 }
-                res.render('issueLogView', {
+                res.render('bugsLogView', {
                     title: 'Bugs - Issue Log | μProject',
                     bugsSelected: 'active',
                     data: rows,
