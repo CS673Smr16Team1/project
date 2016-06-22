@@ -46,6 +46,7 @@ router.post('/requirements/editProject/:projectId', ensureAuthenticated, savePro
 
 // issue modules
 var issueLogRoute = require("./bugs/bugs-log");
+var bugsJSONRoute = require("./bugs/bugs-json");
 var issueCreateRoute = require("./bugs/bugs-create");
 var issueDetailRoute = require("./bugs/bugs-detail");
 var issueSaveRoute = require("./bugs/bugs-save");
@@ -55,6 +56,7 @@ var issueAddCommentRoute = require("./bugs/bugs-add-comment");
 
 
 router.get('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
+router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute);
 router.get('/bugs/bugs-log', ensureAuthenticated, issueLogRoute);
 router.get('/bugs/bugs-detail/:id', ensureAuthenticated, issueDetailRoute);
 

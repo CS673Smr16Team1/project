@@ -1,40 +1,30 @@
 <div class="container">
     <div class="row">
-        <div class="panel panel-default filterable">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Open Issues</h3>
-                <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span></button>
-                </div>
             </div>
-            <table class="table table-condensed">
+            <table id="table"
+                data-toggle="table"
+                data-flat="true"
+                data-search="true"
+                data-show-columns="true"
+                data-show-multi-sort="true"
+                data-sort-priority='[{"sortName": "Id","sortOrder":"desc"},{"sortName":"Priority","sortOrder":"desc"}]'
+                data-url="data.json">
                 <thead>
-                <tr class="filters">
-                    <th><input type="text" class="form-control" placeholder="Issue #" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Summary" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Status" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Priority" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Severity" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Description" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Created By" disabled style="width: 130px"></th>
-                    <th><input type="text" class="form-control" placeholder="Last Modified By" disabled style="width: 150px"></th>
-                </tr>
+                  <tr>
+                    <th data-field="Id" data-sortable="true">ID</th>
+                    <th data-field="Summary" data-sortable="true">Summary</th>
+                    <th data-field="IssueStatus" data-sortable="true">Issue Status</th>
+                    <th data-field="Priority" data-sortable="true">Priority</th>
+                    <th data-field="Severity" data-sortable="true">Severity</th>
+                    <th data-field="Description" data-sortable="true">Description</th>
+                    <th data-field="CreatedBy" data-sortable="true">Created</th>
+                    <th data-field="LastModifiedBy" data-sortable="true">Last Modified</th>
+                  </tr>
                 </thead>
-                <tbody>
-                {{#each data}}
-                    <tr>
-                        <td>{{this.Id}}</td>
-                        <td><a href="/bugs/bugs-detail/{{this.Id}}">{{this.Summary}}</a></td>
-                        <td>{{this.IssueStatus}}</td>
-                        <td>{{this.Priority}}</td>
-                        <td>{{this.Severity}}</td>
-                        <td>{{this.Description}}</td>
-                        <td>{{this.CreatedBy}}</td>
-                        <td>{{this.LastModifiedBy}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
+              </table>
         </div>
     </div>
     <div>
