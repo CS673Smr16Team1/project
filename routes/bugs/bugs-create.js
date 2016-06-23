@@ -9,11 +9,17 @@ var connection =
 var createIssue = {};
 
 
-createIssue.displayCreateIssue = function displayCreateIssue(req, res){
-    res.render('issueCreateView', {
-        title: 'Bugs - Create Issue | μProject',
-        bugsSelected: 'active',
-        user: req.user
+createIssue.displayCreateIssue = function displayCreateIssue(req, res) {
+    connection.query('SELECT * FROM users', function (err, users) {
+        if (err) {
+            console.log("Error Selecting : %s ", err);
+        }
+        res.render('bugsCreateView', {
+            title: 'Bugs - Create Issue | μProject',
+            bugsSelected: 'active',
+            user: req.user,
+            users: users
+        });
     });
 };
 
@@ -23,12 +29,14 @@ createIssue.createIssue = function saveIssue(req, res){
         Summary: req.body.summary,
         Priority: req.body.priority,
         Severity: req.body.severity,
+        AssignedTo: req.body.assignedTo,
         IssueStatus: 'New',
         Description: req.body.description,
         CreatedBy: req.user.username,
         CreatedDate: new Date(),
         LastModifiedBy: req.user.username,
-        LastModifiedDate: new Date()
+        LastModifiedDate: new Date(),
+        Archived: 'False'
     };
 
     connection.query('INSERT INTO Issues set ?',

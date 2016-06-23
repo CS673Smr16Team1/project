@@ -11,6 +11,18 @@
             </div>
         </div>
 
+            <!-- Assigned To -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Assigned To</label>
+            <div class="col-md-4">
+                <select name="assignedTo" class="form-control" title="assignedTo">
+                     {{#each users}}
+                         <option value="{{this.username}}">{{this.username}}</option>
+                    {{/each}}
+               </select>
+            </div>
+        </div>
+
         <!-- Priority Drop Down -->
         <div class="form-group">
             <label class="col-md-4 control-label">Priority</label>

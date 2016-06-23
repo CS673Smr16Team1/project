@@ -21,7 +21,7 @@ module.exports =
             function(err) {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/requirements/project/' + projectId);
+                res.redirect('/queued/project/' + projectId);
             }
         );
 

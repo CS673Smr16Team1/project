@@ -1,0 +1,91 @@
+<!---
+    Create Story View
+
+    Requirement:
+        - shall be able to add a new story
+            - following parameters:
+                - storyID
+                - projectID
+                - description
+                - title
+                - story_status
+                - assignee
+                - type
+                - priority
+
+        - DB Design:
+        https://my.vertabelo.com/model/T7GMpn8wYb4zZbMYvIlF1Xinn4L9GrYk
+!-->
+<h1>Create a Story</h1>
+<h3>Project Id: {{this.projectId}}</h3>
+
+<form id="storyForm" class="form-horizontal" method="post" action="/queued/project/{{this.projectId}}/story-create">
+
+    <fieldset>
+        <!-- Title Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">Title</label>
+            <div class="col-md-4">
+                <input type="text" id="title" name="title" placeholder="add a story here" class="form-control input-md"  required/>
+            </div>
+        </div>
+
+        <!-- Priority Drop Down -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Priority</label>
+            <div class="col-md-4">
+                <select name="priority" class="form-control" title="priority">
+                    <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+                    <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+                    <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+                    <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Status Drop Down -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Status</label>
+            <div class="col-md-4">
+                <select name="story_status" class="form-control" title="story_status">
+                    <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
+                    <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
+                    <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
+                    <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Assigned To -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Owner</label>
+            <div class="col-md-4">
+                <select name="assignedTo" class="form-control" title="assignedTo">
+                    {{#each members}}
+                        <option value="{{this.username}}">{{this.username}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <!-- Description Text Area -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Description</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-success">Save</button>
+                <input type="button" value="Cancel"
+                       class="btn btn-danger" onclick="cancelAdd()">
+            </div>
+        </div>
+
+
+    </fieldset>
+</form>

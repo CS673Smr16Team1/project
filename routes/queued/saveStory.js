@@ -14,9 +14,9 @@ module.exports =
             title: req.body.title,
             description: req.body.description,
             story_status: req.body.story_status,
-            assignee: req.user.username,   // need to update to user name of member projects
+            assignee: req.body.assignedTo,   // need to update to user name of member projects
             type: 'feature',
-            priority: parseInt(req.body.priority)
+            priority: req.body.priority
         };
 
         console.log ("testing...%s", req.body.priority);
@@ -27,12 +27,12 @@ module.exports =
 
         connection.query("INSERT INTO QueuedStory set ?",
             [inputFromForm],
-            function(err, rows)
+            function(err)
             {
                 if (err)
                     console.log("Error inserting Story: %s ",err );
                 
-                res.redirect('/requirements/project/'+ projectId);
+                res.redirect('/queued/project/'+ projectId);
 
 
             });

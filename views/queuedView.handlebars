@@ -22,9 +22,9 @@
                 {{#each data}}
                     <tr>
                         <td>{{this.projectId}}</td>
-                        <td><a href="/requirements/project/{{this.projectId}}">{{this.project_name}}</a></td>
+                        <td><a href="/queued/project/{{this.projectId}}">{{this.project_name}}</a></td>
                         <td>{{this.Description}}</td>
-                        <td><a href="/requirements/editProject/{{this.projectId}}">Edit</a></td>
+                        <td><a href="/queued/editProject/{{this.projectId}}">Edit</a></td>
                         <td>{{this.owner}}</td>
                     </tr>
                 {{/each}}

@@ -21,10 +21,10 @@ module.exports =
         };
         connection.query("INSERT INTO QueuedProjects set ? ",
             inputFromForm,
-            function(err, rows)
+            function(err)
             {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/requirements');
+                res.redirect('/queued');
             });
     };

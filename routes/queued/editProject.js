@@ -17,10 +17,10 @@ module.exports =
             function(err,rows){
                 if(err)
                     console.log("Error Selecting : %s ", err);
-                res.render('editProjectView',
+                res.render('queuedEditProjectView',
                     {
 
-                        title: 'Queued - Project Detail View - projectId:' + id + ' | μProject',
+                        title: 'Queued | Project Detail View - projectId:' + id + ' | μProject',
                         queuedSelected: 'active',
                         js: ['clickActions.js'],
                         data:   rows[0],

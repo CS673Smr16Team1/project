@@ -15,33 +15,33 @@ router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 
 
-// requirements modules
-var requirementsRoute = require("./requirements");
-var addProjectRoute = require("./requirements/addProject");     // route for creating new project
-var editProject	     = require("./requirements/editProject");                     // Route for Editing a project
-var saveProjectAfterEdit = require("./requirements/saveProjectAfterEdit");
-var saveProjectRoute = require("./requirements/saveProject");
-var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
-var addStoryRoute = require("./requirements/addStory");         // Route for View to add a new story to a project
-var saveStoryRoute = require("./requirements/saveStory");       // Route for Save a new story to a project with Id
-var viewStoryDetailRoute = require ("./requirements/viewStory");// Route for View detail of a story
-var deleteStoryRoute = require("./requirements/deleteStory");   // Route for Delete a story
-var updateStoryRoute = require("./requirements/updateStory");   // Route for Update a story
+// queued modules
+var requirementsRoute = require("./queued/queued");
+var addProjectRoute = require("./queued/addProject");     // route for creating new project
+var editProject	     = require("./queued/editProject");                     // Route for Editing a project
+var saveProjectAfterEdit = require("./queued/saveProjectAfterEdit");
+var saveProjectRoute = require("./queued/saveProject");
+var viewProjectRoute = require("./queued/viewProject");   // View detail stories of a specific project
+var addStoryRoute = require("./queued/addStory");         // Route for View to add a new story to a project
+var saveStoryRoute = require("./queued/saveStory");       // Route for Save a new story to a project with Id
+var viewStoryDetailRoute = require ("./queued/viewStory");// Route for View detail of a story
+var deleteStoryRoute = require("./queued/deleteStory");   // Route for Delete a story
+var updateStoryRoute = require("./queued/updateStory");   // Route for Update a story
 
-// router.get for requirements
-router.get('/requirements', ensureAuthenticated, requirementsRoute);
-router.get('/requirements/editProject/:projectId', ensureAuthenticated, editProject);
-router.get('/requirements/:add', ensureAuthenticated, addProjectRoute);
-router.get('/requirements/project/:projectId', ensureAuthenticated, viewProjectRoute);
-router.get('/requirements/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
-router.get('/requirements/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
+// router.get for queued
+router.get('/queued', ensureAuthenticated, requirementsRoute);
+router.get('/queued/editProject/:projectId', ensureAuthenticated, editProject);
+router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
+router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
+router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
+router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
 
-// router.post for requirements
-router.post('/requirements/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
-router.post('/requirements/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
-router.post('/requirements/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
-router.post('/requirements/:add', ensureAuthenticated, saveProjectRoute);
-router.post('/requirements/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
+// router.post for queuedS
+router.post('/queued/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
+router.post('/queued/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
+router.post('/queued/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
+router.post('/queued/:add', ensureAuthenticated, saveProjectRoute);
+router.post('/queued/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
 
 
 // issue modules
@@ -50,22 +50,22 @@ var bugsJSONRoute = require("./bugs/bugs-json");
 var issueCreateRoute = require("./bugs/bugs-create");
 var issueDetailRoute = require("./bugs/bugs-detail");
 var issueSaveRoute = require("./bugs/bugs-save");
-var issueDeleteRoute = require("./bugs/bugs-delete");
+var issueDeleteRoute = require("./bugs/bugs-archive");
 var issueUploadImageRoute = require("./bugs/bugs-upload-image");
 var issueAddCommentRoute = require("./bugs/bugs-add-comment");
 
 
-router.get('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue);
-router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute);
-router.get('/bugs/bugs-log', ensureAuthenticated, issueLogRoute);
-router.get('/bugs/bugs-detail/:id', ensureAuthenticated, issueDetailRoute);
+router.get('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue); // route for returning an empty create issue page
+router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute); // route for returning issue data for log view
+router.get('/bugs/bugs-log', ensureAuthenticated, issueLogRoute); // route for returning issue log view
+router.get('/bugs/bugs-detail/:id', ensureAuthenticated, issueDetailRoute); // route for returning an issue detail view
 
-router.post('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.createIssue);
-router.post('/bugs/bugs-save/:id', ensureAuthenticated, issueSaveRoute);
-router.post('/bugs/bugs-delete/:id', ensureAuthenticated, issueDeleteRoute);
-router.post('/bugs/bugs-upload-image/:id', ensureAuthenticated, issueUploadImageRoute);
-router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute);
-router.post('/bugs/bugs-add-comment/:id', ensureAuthenticated, issueAddCommentRoute);
+router.post('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.createIssue); // route for creating an issue in the database
+router.post('/bugs/bugs-save/:id', ensureAuthenticated, issueSaveRoute); // route for saving an updated issue detail page
+router.post('/bugs/bugs-archive/:id', ensureAuthenticated, issueDeleteRoute); // route for archiving an issue
+router.post('/bugs/bugs-upload-image/:id', ensureAuthenticated, issueUploadImageRoute); // route for saving an image to the database
+router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute); // route for uploading an image
+router.post('/bugs/bugs-add-comment/:id', ensureAuthenticated, issueAddCommentRoute); // route for adding a comment to an issue detail page
 
 
 // shared modules
