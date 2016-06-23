@@ -2,9 +2,9 @@
  * Created by Juanito on 6/9/16.
  */
 function addProject(){
-    window.location.href = '/requirements/add';
+    window.location.href = '/queued/add';
 }
 
 function cancelAdd(){
-    window.location.href = '/requirements';
+    window.location.href = '/queued';
 }

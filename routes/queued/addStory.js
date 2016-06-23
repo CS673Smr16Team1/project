@@ -11,8 +11,8 @@ module.exports =
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
-        res.render('storyCreateView',
-            {   title:"Queued - Add a Story | μProject",
+        res.render('queuedStoryCreateView',
+            {   title:"Queued | Add a Story | μProject",
                 queuedSelected: 'active',
                 projectId: projectId,
                 js: ['clickActions.js'],

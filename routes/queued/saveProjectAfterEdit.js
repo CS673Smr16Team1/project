@@ -18,6 +18,6 @@ module.exports =
             {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/requirements');
+                res.redirect('/queued');
             });
     };

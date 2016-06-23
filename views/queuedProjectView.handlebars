@@ -1,7 +1,7 @@
 <div class="container">
   <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="/requirements">Queued</a></li>
+    <li><a href="/queued">Queued</a></li>
     <li class="active">Project {{this.projectId}}</li>
   </ol>
   <div class="row">
@@ -12,13 +12,13 @@
         </div>
         <div class="panel-body">
           {{#each data}}
-          <a href="/requirements/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
             {{this.title}}
           </a>
           {{/each}}
         </div>
       </div>
-      <a class="btn btn-success" href="/requirements/project/{{this.projectId}}/story-create">Add a Story</a>
+      <a class="btn btn-success" href="/queued/project/{{this.projectId}}/story-create">Add a Story</a>
     </div>
     <div class="col-xs-6 col-sm-3">
       <div class="panel panel-default">

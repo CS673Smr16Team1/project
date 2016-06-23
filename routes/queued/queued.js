@@ -1,6 +1,6 @@
 
 var connection =
-    require('./dbConnection.js').dbConnect();
+    require('./../dbConnection.js').dbConnect();
 
 
 module.exports =
@@ -10,7 +10,7 @@ module.exports =
                 if(err) {
                     console.log("Error Selecting : %s ", err);
                 }
-                res.render('requirementsView', {
+                res.render('queuedView', {
                     title: 'Queued | μProject',
                     queuedSelected: 'active',
                     js: ['clickActions.js'],

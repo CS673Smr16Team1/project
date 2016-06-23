@@ -5,10 +5,12 @@ var connection =
     require('../dbConnection.js').dbConnect();
 
 module.exports =
-    function saveStory(req , res , next){
+    function updateStory(req , res , next){
 
         var projectId = req.params.projectId;
+        var storyId = req.params.storyId;
 
+        // get input data from form
         var inputFromForm = {
             projectId: parseInt(projectId),
             title: req.body.title,
@@ -19,21 +21,20 @@ module.exports =
             priority: parseInt(req.body.priority)
         };
 
-        console.log ("testing...%s", req.body.priority);
-        console.log ("testing...");
+        // # debug print outs
+        console.log ("testing update story...");
 
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
 
-        connection.query("INSERT INTO QueuedStory set ?",
-            [inputFromForm],
-            function(err, rows)
+        connection.query("UPDATE QueuedStory set ? WHERE storyId=?",
+            [inputFromForm, storyId],       // passing inputForm and storyId
+            function(err)
             {
                 if (err)
                     console.log("Error inserting Story: %s ",err );
                 
-                res.redirect('/requirements/project/'+ projectId);
-
+                res.redirect('/queued/project/'+ projectId);
 
             });
 

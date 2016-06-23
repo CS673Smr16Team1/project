@@ -9,8 +9,8 @@ module.exports =
         dbFunctions.getUsernames(function(result) {
             var members = JSON.stringify(result);
             member_list = (_.pluck(result, 'username'));
-            res.render('addProjectView', {
-                title:"Queued - Add a Project | μProject",
+            res.render('queuedAddProjectView', {
+                title:"Queued | Add a Project | μProject",
                 queuedSelected: 'active',
                 members: member_list,
                 user: req.user,
@@ -19,7 +19,5 @@ module.exports =
             //console.log(member_list);
             //console.log(members);
         });
-
-
 
     };

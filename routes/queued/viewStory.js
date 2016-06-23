@@ -19,7 +19,7 @@ module.exports =
                     console.log("Error Selecting : %s ", err);
                 }
 
-                res.render('storyView', {
+                res.render('queuedStoryView', {
                     title: 'Queued - Story Detail - #' + storyId + ' | μProject',
                     queuedSelected: 'active',
                     js: ['clickActions.js'],

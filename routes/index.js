@@ -15,33 +15,33 @@ router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', createChannelRoute);
 
 
-// requirements modules
-var requirementsRoute = require("./requirements");
-var addProjectRoute = require("./requirements/addProject");     // route for creating new project
-var editProject	     = require("./requirements/editProject");                     // Route for Editing a project
-var saveProjectAfterEdit = require("./requirements/saveProjectAfterEdit");
-var saveProjectRoute = require("./requirements/saveProject");
-var viewProjectRoute = require("./requirements/viewProject");   // View detail stories of a specific project
-var addStoryRoute = require("./requirements/addStory");         // Route for View to add a new story to a project
-var saveStoryRoute = require("./requirements/saveStory");       // Route for Save a new story to a project with Id
-var viewStoryDetailRoute = require ("./requirements/viewStory");// Route for View detail of a story
-var deleteStoryRoute = require("./requirements/deleteStory");   // Route for Delete a story
-var updateStoryRoute = require("./requirements/updateStory");   // Route for Update a story
+// queued modules
+var requirementsRoute = require("./queued/queued");
+var addProjectRoute = require("./queued/addProject");     // route for creating new project
+var editProject	     = require("./queued/editProject");                     // Route for Editing a project
+var saveProjectAfterEdit = require("./queued/saveProjectAfterEdit");
+var saveProjectRoute = require("./queued/saveProject");
+var viewProjectRoute = require("./queued/viewProject");   // View detail stories of a specific project
+var addStoryRoute = require("./queued/addStory");         // Route for View to add a new story to a project
+var saveStoryRoute = require("./queued/saveStory");       // Route for Save a new story to a project with Id
+var viewStoryDetailRoute = require ("./queued/viewStory");// Route for View detail of a story
+var deleteStoryRoute = require("./queued/deleteStory");   // Route for Delete a story
+var updateStoryRoute = require("./queued/updateStory");   // Route for Update a story
 
-// router.get for requirements
-router.get('/requirements', ensureAuthenticated, requirementsRoute);
-router.get('/requirements/editProject/:projectId', ensureAuthenticated, editProject);
-router.get('/requirements/:add', ensureAuthenticated, addProjectRoute);
-router.get('/requirements/project/:projectId', ensureAuthenticated, viewProjectRoute);
-router.get('/requirements/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
-router.get('/requirements/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
+// router.get for queued
+router.get('/queued', ensureAuthenticated, requirementsRoute);
+router.get('/queued/editProject/:projectId', ensureAuthenticated, editProject);
+router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
+router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
+router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
+router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
 
-// router.post for requirements
-router.post('/requirements/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
-router.post('/requirements/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
-router.post('/requirements/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
-router.post('/requirements/:add', ensureAuthenticated, saveProjectRoute);
-router.post('/requirements/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
+// router.post for queuedS
+router.post('/queued/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
+router.post('/queued/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
+router.post('/queued/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
+router.post('/queued/:add', ensureAuthenticated, saveProjectRoute);
+router.post('/queued/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
 
 
 // issue modules
