@@ -56,6 +56,18 @@
             </div>
         </div>
 
+        <!-- Assigned To -->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Owner</label>
+            <div class="col-md-4">
+                <select name="assignedTo" class="form-control" title="assignedTo">
+                    {{#each members}}
+                        <option value="{{this.username}}">{{this.username}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
         <!-- Description Text Area -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="description">Description</label>

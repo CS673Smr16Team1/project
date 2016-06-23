@@ -63,11 +63,16 @@
 
         <!-- Owner -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="owner">Owner</label>
+            <label class="col-md-4 control-label">Owner</label>
             <div class="col-md-4">
-                <input type="text" value="{{ data.assignee }}" id="owner" name="owner" class="form-control input-md" readonly/>
+                <select name="assignedTo" class="form-control" title="assignedTo">
+                    {{#each members}}
+                        <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
+
 
         <!-- Save Button -->
         <div class="form-group">

@@ -14,7 +14,7 @@ module.exports =
             title: req.body.title,
             description: req.body.description,
             story_status: req.body.story_status,
-            assignee: req.user.username,   // need to update to user name of member projects
+            assignee: req.body.assignedTo,   // need to update to user name of member projects
             type: 'feature',
             priority: req.body.priority
         };
