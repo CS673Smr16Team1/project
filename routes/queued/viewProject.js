@@ -45,13 +45,14 @@ module.exports =
                         // #debug: printing projectId of the currently requested view
                         console.log("projectId: %s", projectId);
                         console.log("projectName: %s", projectName[0].project_name);
+                        project_name = projectName[0].project_name;
 
                         res.render('queuedProjectView',
                             {
-                                title: 'Queued | Project:' + projectId + ' | μProject',
+                                title: 'Queued | Project: ' + project_name + ' | μProject',
                                 requirementsSelected: 'pure-menu-selected',
                                 projectId: projectId,
-                                project_name: projectName,
+                                project_name: project_name,
                                 js: ['clickActions.js'],
                                 data: rows,
                                 user: req.user

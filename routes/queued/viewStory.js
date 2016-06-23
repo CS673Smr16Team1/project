@@ -10,22 +10,33 @@ module.exports =
     function viewStory(req , res , next){
 
         var storyId = req.params.storyId;
+        var projectId = req.params.projectId;
+        var project_name;
+        console.log("projectId in Story : %s ", projectId);
 
         connection.query('SELECT * FROM QueuedStory WHERE storyId = ?',
             storyId,
-            function(err,rows){
-                console.log(rows);
-                if(err) {
-                    console.log("Error Selecting : %s ", err);
-                }
+            function(err,rows) {
+                connection.query('SELECT project_name FROM QueuedProjects WHERE projectId = ?',
+                    projectId,
+                    function (err, projectName) {
 
-                res.render('queuedStoryView', {
-                    title: 'Queued - Story Detail - #' + storyId + ' | μProject',
-                    queuedSelected: 'active',
-                    js: ['clickActions.js'],
-                    data: rows[0],
-                    user: req.user});
+                        console.log(rows);
+                        if (err) {
+                            console.log("Error Selecting : %s ", err);
+                        }
+                        project_name = projectName[0].project_name;
 
+                        res.render('queuedStoryView', {
+                            title: 'Queued | Project ' + project_name + ' Story Id: ' + storyId + ' | μProject',
+                            queuedSelected: 'active',
+                            project_name: project_name,
+                            js: ['clickActions.js'],
+                            data: rows[0],
+                            user: req.user
+                        });
+
+                    });
             });
 
     };

@@ -12,7 +12,7 @@ module.exports =
         console.log("projectId: %s",projectId);
 
         res.render('queuedStoryCreateView',
-            {   title:"Queued | Add a Story | μProject",
+            {   title:"Queued | Add Story | μProject",
                 queuedSelected: 'active',
                 projectId: projectId,
                 js: ['clickActions.js'],

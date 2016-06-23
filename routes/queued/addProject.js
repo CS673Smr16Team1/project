@@ -10,7 +10,7 @@ module.exports =
             var members = JSON.stringify(result);
             member_list = (_.pluck(result, 'username'));
             res.render('queuedAddProjectView', {
-                title:"Queued | Add a Project | μProject",
+                title:"Queued | Add Project | μProject",
                 queuedSelected: 'active',
                 members: member_list,
                 user: req.user,
