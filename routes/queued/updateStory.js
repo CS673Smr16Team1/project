@@ -18,7 +18,7 @@ module.exports =
             story_status: req.body.story_status,
             assignee: req.user.username,   // need to update to user name of member projects
             type: 'feature',
-            priority: parseInt(req.body.priority)
+            priority: req.body.priority
         };
 
         // # debug print outs

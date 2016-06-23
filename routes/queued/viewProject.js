@@ -9,17 +9,21 @@ module.exports =
 
         var projectId;
         var project_name;
+        var status_Backlog = "Backlog";
+        var status_Current = "Current";
+        var status_Done = "Done";
+        var status_Release = "Release";
+
 
         projectId = req.params.projectId;
 
-        connection.query('SELECT project_name FROM QueuedProjects WHERE projectId = ?',
-            projectId,
+        connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
+            [projectId, status_Backlog],
             function(err,rows) {
                 if (err) {
                     console.log("Error Get all Stories : %s ", err);
                 }
-                project_name = rows[0].project_name;
-                console.log("project_name: %s",project_name);
+                console.log(rows);
                 
             }
         );
@@ -33,29 +37,51 @@ module.exports =
         // query all stories that are related to this project
 
         connection.query('SELECT * FROM QueuedStory WHERE projectId = ?',
-            projectId,
+            projectId ,
             function(err,rows){
                 connection.query('SELECT project_name FROM QueuedProjects WHERE projectId = ?',
                 projectId,
                     function(err,projectName) {
-                        if (err) {
-                            console.log("Error Get all Stories : %s ", err);
-                        }
+                        connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
+                            [projectId, status_Backlog],
+                            function(err,Backlog) {
+                                connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
+                                    [projectId, status_Current],
+                                    function (err, Current) {
+                                        connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
+                                            [projectId, status_Done],
+                                            function (err, Done) {
+                                                connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
+                                                    [projectId, status_Release],
+                                                    function (err, Release) {
 
-                        // #debug: printing projectId of the currently requested view
-                        console.log("projectId: %s", projectId);
-                        console.log("projectName: %s", projectName[0].project_name);
-                        project_name = projectName[0].project_name;
 
-                        res.render('queuedProjectView',
-                            {
-                                title: 'Queued | Project: ' + project_name + ' | μProject',
-                                requirementsSelected: 'pure-menu-selected',
-                                projectId: projectId,
-                                project_name: project_name,
-                                js: ['clickActions.js'],
-                                data: rows,
-                                user: req.user
+                                                        if (err) {
+                                                            console.log("Error Get all Stories : %s ", err);
+                                                        }
+
+                                                        // #debug: printing projectId of the currently requested view
+                                                        console.log("projectId: %s", projectId);
+                                                        console.log("projectName: %s", projectName[0].project_name);
+                                                        project_name = projectName[0].project_name;
+
+                                                        res.render('queuedProjectView',
+                                                            {
+                                                                title: 'Queued | Project: ' + project_name + ' | μProject',
+                                                                requirementsSelected: 'pure-menu-selected',
+                                                                projectId: projectId,
+                                                                project_name: project_name,
+                                                                js: ['clickActions.js'],
+                                                                data: rows,
+                                                                backlog: Backlog,
+                                                                current: Current,
+                                                                done: Done,
+                                                                release: Release,
+                                                                user: req.user
+                                                            });
+                                                    });
+                                            });
+                                    });
                             });
                     });
             });
