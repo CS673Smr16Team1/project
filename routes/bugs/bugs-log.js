@@ -16,8 +16,8 @@ module.exports =
             bugsSelected: 'active',
             data: rows,
             user: req.user,
-            css: ['bootstrap-table.css'],
-            js: ['bootstrap-table.js', 'bootstrap-table-flat-json.js', 'bootstrap-table-multiple-sort.js']
+            css: [],
+            js: []
           });
         });
       };

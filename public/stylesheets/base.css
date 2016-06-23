@@ -6875,3 +6875,24 @@ input[type="password"] {
 .panel-bugs a:hover {
     color: #b52b27;
 }
+
+/* BUGS status colors */
+.label-new {
+    background-color: #5cb85c;
+}
+
+.label-deployment {
+    background-color: #091D5C;
+}
+
+.label-closed {
+    background-color: #E7420C;
+}
+
+.label-in {
+    background-color: #0A4ECB;
+}
+
+.label-open {
+    background-color: #FFC965;
+}
