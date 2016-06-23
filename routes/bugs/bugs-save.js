@@ -16,6 +16,7 @@ module.exports =
             IssueStatus: req.body.status,
             Description: req.body.description,
             LastModifiedBy: req.user.username,
+            AssignedTo: req.body.assignedTo,
             LastModifiedDate: new Date()
         };
 

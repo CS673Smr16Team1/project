@@ -22,7 +22,7 @@
         <div class="tab-pane active" id="1a">
 
             <h3>Issue # {{ data.Id}}</h3>
-            <form id="issueForm" class="form-horizontal" method="post" action="/issues/issue-save/{{ data.Id }}">
+            <form id="issueForm" class="form-horizontal" method="post" action="/bugs/bugs-save/{{ data.Id }}">
 
                 <fieldset>
                     <!-- Summary Text input-->
@@ -30,8 +30,20 @@
                         <label class="col-md-4 control-label" for="summary">Summary</label>
                         <div class="col-md-4">
                             <input type="text" value="{{ data.Summary }}" id="summary" name="summary"
-                                   placeholder="Application Crash on saving of creating a new user"
                                    class="form-control input-md" required/>
+                        </div>
+                    </div>
+
+                    <!-- Assigned To -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Assigned To</label>
+                        <div class="col-md-4">
+                            <select name="assignedTo" class="form-control" title="assignedTo">
+
+                            {{#each users}}
+                                <option value="{{this.username}}" {{#if_equals ../data.AssignedTo this.username}}selected{{/if_equals}}>{{this.username}}</option>
+                            {{/each}}
+                            </select>
                         </div>
                     </div>
 
@@ -40,33 +52,15 @@
                         <label class="col-md-4 control-label">Status</label>
                         <div class="col-md-4">
                             <select name="status" class="form-control" title="status">
-                                <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New
-                                </option>
-                                <option value="Assigned"
-                                        {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned
-                                </option>
-                                <option value="In Progress"
-                                        {{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress
-                                </option>
-                                <option value="Deployment"
-                                        {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment
-                                </option>
-                                <option value="Testing"
-                                        {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>
-                                    Testing
-                                </option>
-                                <option value="Resolved"
-                                        {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved
-                                </option>
-                                <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}>
-                                    Closed
-                                </option>
-                                <option value="Reopened"
-                                        {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened
-                                </option>
-                                <option value="Rejected"
-                                        {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected
-                                </option>
+                                <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
+                                <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
+                                <option value="In Progress"{{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
+                                <option value="Deployment" {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment</option>
+                                <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>Testing</option>
+                                <option value="Resolved" {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved</option>
+                                <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}> Closed</option>
+                                <option value="Reopened" {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened </option>
+                                <option value="Rejected" {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected</option>
                             </select>
                         </div>
                     </div>
@@ -76,16 +70,10 @@
                         <label class="col-md-4 control-label">Priority</label>
                         <div class="col-md-4">
                             <select name="priority" class="form-control" title="Priority">
-                                <option value="Low" {{#if_equals data.Priority "Low" }}selected{{/if_equals}}>Low
-                                </option>
-                                <option value="Medium" {{#if_equals data.Priority "Medium" }}selected{{/if_equals}}>
-                                    Medium
-                                </option>
-                                <option value="High" {{#if_equals data.Priority "High" }}selected{{/if_equals}}>High
-                                </option>
-                                <option value="Urgent" {{#if_equals data.Priority "Urgent" }}selected{{/if_equals}}>
-                                    Urgent
-                                </option>
+                                <option value="Low" {{#if_equals data.Priority "Low" }}selected{{/if_equals}}>Low</option>
+                                <option value="Medium" {{#if_equals data.Priority "Medium" }}selected{{/if_equals}}>Medium</option>
+                                <option value="High" {{#if_equals data.Priority "High" }}selected{{/if_equals}}>High</option>
+                                <option value="Urgent" {{#if_equals data.Priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
                             </select>
                         </div>
                     </div>
@@ -95,17 +83,10 @@
                         <label class="col-md-4 control-label">Severity</label>
                         <div class="col-md-4">
                             <select name="severity" class="form-control" title="Severity">
-                                <option value="Low" {{#if_equals data.Severity "Low" }}selected{{/if_equals}}>Low
-                                </option>
-                                <option value="Moderate" {{#if_equals data.Severity "Moderate" }}selected{{/if_equals}}>
-                                    Moderate
-                                </option>
-                                <option value="Major" {{#if_equals data.Severity "Major" }}selected{{/if_equals}}>
-                                    Major
-                                </option>
-                                <option value="Critical" {{#if_equals data.Severity "Critical" }}selected{{/if_equals}}>
-                                    Critical
-                                </option>
+                                <option value="Low" {{#if_equals data.Severity "Low" }}selected{{/if_equals}}>Low</option>
+                                <option value="Moderate" {{#if_equals data.Severity "Moderate" }}selected{{/if_equals}}>Moderate</option>
+                                <option value="Major" {{#if_equals data.Severity "Major" }}selected{{/if_equals}}>Major</option>
+                                <option value="Critical" {{#if_equals data.Severity "Critical" }}selected{{/if_equals}}>Critical</option>
                             </select>
                         </div>
                     </div>
@@ -114,8 +95,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="description">Description</label>
                         <div class="col-md-4">
-                            <textarea class="form-control" id="description"
-                                      name="description">{{ data.Description }}</textarea>
+                            <textarea class="form-control" id="description" name="description">{{ data.Description }}</textarea>
                         </div>
                     </div>
 
@@ -123,8 +103,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="createdBy">Created By</label>
                         <div class="col-md-4">
-                            <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy"
-                                   class="form-control input-md" readonly/>
+                            <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy" class="form-control input-md" readonly/>
                         </div>
                     </div>
 
@@ -132,8 +111,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="createdDate">Created Date</label>
                         <div class="col-md-4">
-                            <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate"
-                                   class="form-control input-md" readonly/>
+                            <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate" class="form-control input-md" readonly/>
                         </div>
                     </div>
 
@@ -141,8 +119,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="lastModifiedBy">Last Modified By</label>
                         <div class="col-md-4">
-                            <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy"
-                                   name="lastModifiedBy" class="form-control input-md" readonly/>
+                            <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy" name="lastModifiedBy" class="form-control input-md" readonly/>
                         </div>
                     </div>
 
@@ -150,8 +127,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="lastModifiedDate">Last Modified Date</label>
                         <div class="col-md-4">
-                            <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate"
-                                   name="lastModifiedDate" class="form-control input-md" readonly/>
+                            <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate" name="lastModifiedDate" class="form-control input-md" readonly/>
                         </div>
                     </div>
 
@@ -168,12 +144,12 @@
             </form>
 
             <form id="issueFormDelete" class="form-horizontal" method="post"
-                  action="/issues/issue-delete/{{ data.Id }}">
+                  action="/bugs/bugs-archive/{{ data.Id }}">
                 <!-- Delete Button-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="delete"></label>
                     <div class="col-md-4">
-                        <button id="delete" name="delete" class="btn btn-danger">Delete</button>
+                        <button id="archive" name="archive" class="btn btn-danger">Archive Issue</button>
                     </div>
                 </div>
             </form>
@@ -186,8 +162,7 @@
                 <tbody>
                 {{#each images}}
                     <tr>
-                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120"
-                                                         id="imageresource"></a></td>
+                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120" id="imageresource"></a></td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -199,11 +174,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span
-                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            {{#each images}}
-                                <h4 class="modal-title" id="myModalLabel">Screenshot: {{this.OriginalName}}</h4>
-                            {{/each}}
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         </div>
                         <div class="modal-body">
                             <img src="" id="imagepreview" style="width: 400px; height: 264px;">
@@ -216,84 +187,66 @@
             </div>
 
             <h3>Upload an Image</h3>
-            <form action="/upload" method="POST" enctype="multipart/form-data">
+            <form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
                 Select an image to upload:
                 <input type="file" name="image">
-                <input type="submit" value="Upload Image">
+                <input type="submit" value="Upload Image" disabled>
                 <input type="hidden" name="id" value="{{ data.Id}} ">
             </form>
         </div>
 
 
         <div class="tab-pane" id="1c">
-            <!--  <h3>Comments</h3>
-            <table class="table table-condensed">
-                <tbody>
-                {{#each comments}}
-                    <tr>
-                        <td>{{this.Comment}}</td>
-                        <td>{{this.CreatedBy}}</td>
-                        <td>{{this.CreatedDate}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-            </br>
-            </br> -->
-
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
                         <h3>Comments</h3>
-                    </div><!-- /col-sm-12 -->
-                </div><!-- /row -->
+                    </div>
+                </div>
                 {{#each comments}}
                     <div class="row">
                         <div class="col-sm-1">
                             <div class="thumbnail">
                                 <img class="img-responsive user-photo"
                                      src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                            </div><!-- /thumbnail -->
-                        </div><!-- /col-sm-1 -->
+                            </div>
+                        </div>
 
                         <div class="col-sm-5">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <strong>{{this.CreatedBy}}</strong> <span
-                                        class="text-muted">commented 5 days ago</span>
+                                    <strong>{{this.CreatedBy}}</strong> <span class="text-muted">commented 5 days ago</span>
                                 </div>
                                 <div class="panel-body">
                                     {{this.Comment}}
-                                </div><!-- /panel-body -->
-                            </div><!-- /panel panel-default -->
-                        </div><!-- /col-sm-5 -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 {{/each}}
 
                 <div class="row">
-                    <div class="col-sm-12">
-                        <form id="comment" class="form-horizontal" method="post"
-                              action="/bugs/bugs-add-comment/{{ data.Id }}">
-                            <fieldset>
-                                <!-- Comment Textarea -->
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <textarea class="form-control" id="Comment" name="Comment"></textarea>
-                                    </div>
+                    <form id="comment" class="form-horizontal" method="post"
+                          action="/bugs/bugs-add-comment/{{ data.Id }}">
+                        <fieldset>
+                            <!-- Comment Textarea -->
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <textarea class="form-control" id="Comment" name="Comment"></textarea>
                                 </div>
+                            </div>
 
-                                <!-- Save Button -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="comment"></label>
-                                    <div class="col-md-4">
-                                        <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
-                                    </div>
+                            <!-- Save Button -->
+                            <div class="form-group">
+                                <label class="control-label" for="comment"></label>
+                                <div class="col-md-5 col-md-offset-1">
+                                    <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
                                 </div>
-                            </fieldset>
-                        </form>
-                    </div><!-- /col-sm-12 -->
-                </div><!-- /row -->
-            </div><!-- /container -->
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
