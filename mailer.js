@@ -7,7 +7,7 @@ var credentials = require('./credentials.js');
 // Chris - used nodermailer example for reference
 
 var f1 = function(sender, recipient, message) {
-    console.log(recipient);
+    //console.log(recipient);
 // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport('smtps://' + credentials.SMTPUser +'%40gmail.com:' +
         credentials.SMTPPassword + '@smtp.gmail.com');
@@ -26,7 +26,7 @@ var f1 = function(sender, recipient, message) {
         if(error){
             return console.log(error);
         }
-        console.log('Message sent: ' + info.response);
+        //console.log('Message sent: ' + info.response);
     });
 };
 

@@ -154,7 +154,7 @@ $(document).ready(function () {
                     }
                     else {
                         socket.emit('create', name);
-                        $('#myModal').modal('hide');
+                        $('#createChannel').modal('hide');
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

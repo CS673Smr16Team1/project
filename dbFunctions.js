@@ -152,6 +152,35 @@ var f15 = function(username, callback) {
         });
 };
 
+var f16 = function(setting, id) {
+    connection.query("UPDATE users SET email_notification = ? WHERE idusers = ?",
+        [setting, id],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
+var f17 = function(id, callback) {
+    connection.query("SELECT email_notification FROM users WHERE idusers = ?",
+        [id],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f18 = function(username, callback) {
+    connection.query("SELECT email_notification FROM users WHERE username = ?",
+        [username],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -167,5 +196,8 @@ module.exports = {
     getPrivateMessages: f12,
     updateUserEmail: f13,
     getUserEmail: f14,
-    getUserEmailFromUsername: f15
+    getUserEmailFromUsername: f15,
+    updateEmailNotification: f16,
+    getEmailNotificationStatus: f17,
+    getEmailNotificationStatusFromUsername: f18
 };
