@@ -87,10 +87,13 @@ app.engine('handlebars',
 
 app.set('view engine', 'handlebars');
 
-// enable relative time calculation for handlebars
+// Handlebars time calculation and text filtering
 var Handlebars = require("handlebars");
 var MomentHandler = require("handlebars.moment");
+var Filter = require("handlebars.filter");
+
 MomentHandler.registerHelpers(Handlebars);
+Filter.registerHelper(Handlebars);
 
 // static resources
 app.use(express.static(__dirname + '/public'));
