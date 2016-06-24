@@ -174,7 +174,7 @@ io.on('connection', function(socket) {
 
         // if the recipient is offline and has the email notification setting turned on, send an email notification
         if(_.indexOf(users, recipientUsername)===-1) {
-            dbFunctions.getEmailNotificationStatus(socket.userId, function(result1) {
+            dbFunctions.getEmailNotificationStatusFromUsername(recipientUsername, function(result1) {
                 if(result1[0].email_notification) {
                     dbFunctions.getUserEmailFromUsername(recipientUsername, function(result2) {
                         if(result2[0].email) {
