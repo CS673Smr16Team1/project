@@ -6896,3 +6896,12 @@ input[type="password"] {
 .label-open {
     background-color: #FFC965;
 }
+
+/* Bugs mouseover color */
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #dededc;
+}
