@@ -11,8 +11,10 @@ var uploading = multer({
 // chat room modules
 var chatRoomRoute = require("./chat/chat-room");
 var createChannelRoute = require("./chat/chat-api/create-channel");
+var updateEmailNotificationRoute = require('./chat/chat-api/update-email-notification');
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
-router.get('/chat-api/create-channel/:channelName', createChannelRoute);
+router.get('/chat-api/create-channel/:channelName', ensureAuthenticated, createChannelRoute);
+router.post('/chat-api/update-email-notification/:setting', ensureAuthenticated, updateEmailNotificationRoute);
 
 
 // queued modules

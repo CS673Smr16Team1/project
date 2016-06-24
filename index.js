@@ -172,17 +172,22 @@ io.on('connection', function(socket) {
             });
         });
 
-        // if the recipient is offline, send an email notification
+        // if the recipient is offline and has the email notification setting turned on, send an email notification
         if(_.indexOf(users, recipientUsername)===-1) {
-            dbFunctions.getUserEmailFromUsername(recipientUsername, function(result) {
-                if(result[0].email) {
-                    var decryptedEmail = encryption.decrypt(result[0].email);
-                    mailer.sendEmail(socket.username, decryptedEmail, data);
+            dbFunctions.getEmailNotificationStatus(socket.userId, function(result1) {
+                if(result1[0].email_notification) {
+                    dbFunctions.getUserEmailFromUsername(recipientUsername, function(result2) {
+                        if(result2[0].email) {
+                            var decryptedEmail = encryption.decrypt(result2[0].email);
+                            mailer.sendEmail(socket.username, decryptedEmail, data);
+                        }
+                        else {
+                            // no email on file for this recipient
+                            console.log('no email in db for this recipient');
+                        }
+                    });
                 }
-                else {
-                    // no email on file for this recipient
-                    console.log('no email in db for this recipient');
-                }
+
             });
 
         }
