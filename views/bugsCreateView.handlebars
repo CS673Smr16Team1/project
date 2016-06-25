@@ -16,9 +16,10 @@
             <label class="col-md-4 control-label">Assigned To</label>
             <div class="col-md-4">
                 <select name="assignedTo" class="form-control" title="assignedTo">
-                     {{#each users}}
-                         <option value="{{this.username}}">{{this.username}}</option>
-                    {{/each}}
+                  <option value="" selected="selected">Unassigned</option>
+                  {{#each users}}
+                  <option value="{{this.username}}">{{this.username}}</option>
+                  {{/each}}
                </select>
             </div>
         </div>
@@ -28,10 +29,10 @@
             <label class="col-md-4 control-label">Priority</label>
             <div class="col-md-4">
                 <select name="priority" class="form-control" title="Priority">
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Urgent">Urgent</option>
+                    <option value="LOW">Low</option>
+                    <option value="MEDIUM" selected="selected">Medium</option>
+                    <option value="HIGH">High</option>
+                    <option value="URGENT">Urgent</option>
 
                 </select>
             </div>
@@ -39,13 +40,13 @@
 
         <!-- Severity Drop Down -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Priority</label>
+            <label class="col-md-4 control-label">Severity</label>
             <div class="col-md-4">
                 <select name="severity" class="form-control" title="Severity">
-                    <option value="Low">Low</option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Major">Major</option>
-                    <option value="Critical">Critical</option>
+                    <option value="LOW">Low</option>
+                    <option value="MODERATE" selected="selected">Moderate</option>
+                    <option value="MAJOR">Major</option>
+                    <option value="CRITICAL">Critical</option>
                 </select>
             </div>
         </div>
@@ -70,4 +71,3 @@
 </form>
 
 </body>
-
