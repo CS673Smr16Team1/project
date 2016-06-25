@@ -17,7 +17,7 @@
             <div class="clearfix visible-xs-block"></div>
             <div class="col-xs-4 col-sm-2">Status</div>
             <div class="col-xs-4 col-sm-2">Priority</div>
-            <div class="col-xs-4 col-sm-2">Assigned To</div>
+            <div class="hidden-xs col-sm-2">Assigned To</div>
             <div class="col-xs-4 col-sm-1">Comments</div>
           </div>
           <!-- List group -->
@@ -32,10 +32,10 @@
                   </p>
                 </div>
                 <div class="clearfix visible-xs-block"></div>
-                <div class="col-xs-4 col-sm-2 text-muted"><span class="label label-success label-{{this.IssueStatus}}">&nbsp;</span>&nbsp;&nbsp;{{filter this.IssueStatus "uppercase"}}</div>
+                <div class="col-xs-5 col-sm-2 text-muted"><span class="label label-success label-{{this.IssueStatus}}">&nbsp;</span>&nbsp;&nbsp;{{filter this.IssueStatus "uppercase"}}</div>
                 <div class="col-xs-4 col-sm-2 text-muted">{{filter this.Priority "uppercase"}}</div>
-                <div class="col-xs-4 col-sm-2 text-muted">{{this.AssignedTo}}</div>
-                <div class="col-xs-4 col-sm-1 text-muted">{{#if this.numComments}}<span class="fa fa-comment">&nbsp;</span>{{this.numComments}}{{/if}}</div>
+                <div class="hidden-xs col-sm-2 text-muted">{{this.AssignedTo}}</div>
+                <div class="col-xs-3 col-sm-1 text-muted">{{#if this.numComments}}<span class="fa fa-comment">&nbsp;</span>{{this.numComments}}{{/if}}</div>
               </div>
               <div class="clearfix"></div>
             </a>
