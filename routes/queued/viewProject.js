@@ -17,22 +17,7 @@ module.exports =
 
         projectId = req.params.projectId;
 
-        connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
-            [projectId, status_Backlog],
-            function(err,rows) {
-                if (err) {
-                    console.log("Error Get all Stories : %s ", err);
-                }
-                console.log(rows);
-                
-            }
-        );
-/*
-        SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-        FROM Orders
-        INNER JOIN Customers
-        ON Orders.CustomerID=Customers.CustomerID;
-*/
+
 
         // query all stories that are related to this project
 
@@ -60,6 +45,7 @@ module.exports =
                                                             console.log("Error Get all Stories : %s ", err);
                                                         }
 
+
                                                         // #debug: printing projectId of the currently requested view
                                                         console.log("projectId: %s", projectId);
                                                         console.log("projectName: %s", projectName[0].project_name);
@@ -77,6 +63,8 @@ module.exports =
                                                                 current: Current,
                                                                 done: Done,
                                                                 release: Release,
+                                                                css: ['queued-projectview.css'],
+                                                                js: ['queued.js'],
                                                                 user: req.user
                                                             });
                                                     });

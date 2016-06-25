@@ -1,0 +1,29 @@
+@import "jquery.ui.base.css";
+@import "jquery.ui.theme.css";
+
+#backlog_sortlist,
+#current_sortlist,
+#done_sortlist,
+#release_sortlist
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 2.5em;
+    float: left;
+    margin-right: 10px;
+    min-height: 100px;
+
+}
+
+#backlog_sortlist li,
+#current_sortlist li,
+#done_sortlist li,
+#release_sortlist li
+{
+    margin: 0 5px 5px 5px;
+    padding: 1px;
+    font-size: 1.2em;
+    width: 240px;
+    min-height: 10px;
+
+}
