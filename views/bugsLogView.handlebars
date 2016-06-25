@@ -13,11 +13,10 @@
             <a class="btn btn-success pull-right" href="/bugs/bugs-create"><span class="fa fa-plus"></span> Create Issue</a>
           </div>
           <div class="panel-body">
-            <div class="col-xs-12 col-sm-5 col-sm-push-1">Title</div>
+            <div class="col-xs-12 col-sm-6">Title</div>
             <div class="clearfix visible-xs-block"></div>
-            <div class="col-xs-2 col-sm-1 col-sm-pull-5">ID</div>
-            <div class="col-xs-3 col-sm-2">Status</div>
-            <div class="col-xs-3 col-sm-2">Priority</div>
+            <div class="col-xs-4 col-sm-2">Status</div>
+            <div class="col-xs-4 col-sm-2">Priority</div>
             <div class="col-xs-4 col-sm-2">Assigned To</div>
           </div>
           <!-- List group -->
@@ -25,15 +24,16 @@
             {{#each data}}
             <a href="/bugs/bugs-detail/{{this.Id}}" class="list-group-item">
               <div class="list-group-item-text">
-                <div class="col-xs-12 col-sm-5 col-sm-push-1">
-                  <p><strong>{{this.Summary}}</strong></p>
-                  <span class="hidden-xs small text-muted">{{moment this.LastModifiedDate "fromNow"}}</span>
+                <div class="col-xs-12 col-sm-6">
+                  <p>
+                    <strong class="lead">{{this.Summary}}</strong><br>
+                    <span class="small text-muted">#{{this.Id}} updated {{moment this.LastModifiedDate "fromNow"}}</span>
+                  </p>
                 </div>
                 <div class="clearfix visible-xs-block"></div>
-                <div class="col-xs-2 col-sm-1 col-sm-pull-5 text-muted">#{{this.Id}}</div>
                 <div class="col-xs-4 col-sm-2 text-muted"><span class="label label-success label-{{this.IssueStatus}}">&nbsp;</span>&nbsp;&nbsp;{{filter this.IssueStatus "uppercase"}}</div>
-                <div class="col-xs-2 col-sm-2 text-muted">{{filter this.Priority "uppercase"}}</div>
-                <div class="col-xs-3 col-sm-2 text-muted">{{this.AssignedTo}}</div>
+                <div class="col-xs-4 col-sm-2 text-muted">{{filter this.Priority "uppercase"}}</div>
+                <div class="col-xs-4 col-sm-2 text-muted">{{this.AssignedTo}}</div>
               </div>
               <div class="clearfix"></div>
             </a>

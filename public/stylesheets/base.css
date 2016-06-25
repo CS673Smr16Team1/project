@@ -6885,7 +6885,7 @@ input[type="password"] {
     background-color: #091D5C;
 }
 
-.label-closed {
+.label-closed, .label-resolved {
     background-color: #E7420C;
 }
 

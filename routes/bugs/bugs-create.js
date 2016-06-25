@@ -30,7 +30,7 @@ createIssue.createIssue = function saveIssue(req, res){
         Priority: req.body.priority,
         Severity: req.body.severity,
         AssignedTo: req.body.assignedTo,
-        IssueStatus: 'New',
+        IssueStatus: 'NEW',
         Description: req.body.description,
         CreatedBy: req.user.username,
         CreatedDate: new Date(),
