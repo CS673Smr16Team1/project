@@ -13,6 +13,7 @@
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
+    "handlebars": "^4.0.5",
     "handlebars.filter": "^1.0.1",
     "handlebars.moment": "^1.0.4",
     "jsonfile": "^2.3.1",
