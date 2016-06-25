@@ -6876,7 +6876,7 @@ input[type="password"] {
     color: #b52b27;
 }
 
-/* BUGS status colors */
+/* BUGS styles */
 .label-new {
     background-color: #5cb85c;
 }
@@ -6897,11 +6897,13 @@ input[type="password"] {
     background-color: #FFC965;
 }
 
-/* Bugs mouseover color */
-
 a.list-group-item:hover,
 a.list-group-item:focus {
   text-decoration: none;
   color: #555555;
   background-color: #dededc;
+}
+
+.bugs-title {
+  font-size: 1.15em;
 }
