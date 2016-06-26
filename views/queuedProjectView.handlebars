@@ -1,3 +1,5 @@
+
+
 <div class="container">
   <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
@@ -11,11 +13,12 @@
           <h3 class="panel-title">Backlog</h3>
         </div>
         <div class="panel-body">
-          {{#each backlog}}
-          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-            {{this.title}}
-          </a>
-          {{/each}}
+            <ul id="backlog_sortlist" class="connectedSortable">
+                {{#each backlog}}
+                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+                        {{this.title}}</a></li>
+                {{/each}}
+            </ul>
         </div>
       </div>
       <a class="btn btn-success" href="/queued/project/{{this.projectId}}/story-create">Add a Story</a>
@@ -26,11 +29,12 @@
           <h3 class="panel-title">Current</h3>
         </div>
         <div class="panel-body">
-            {{#each current}}
-                <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                    {{this.title}}
-                </a>
-            {{/each}}
+            <ul id="current_sortlist" class="connectedSortable">
+                {{#each current}}
+                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+                        {{this.title}}</a></li>
+                {{/each}}
+            </ul>
         </div>
       </div>
     </div>
@@ -44,11 +48,12 @@
           <h3 class="panel-title">Done</h3>
         </div>
         <div class="panel-body">
-            {{#each done}}
-                <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                    {{this.title}}
-                </a>
-            {{/each}}
+            <ul id="done_sortlist" class="connectedSortable">
+                {{#each done}}
+                <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+                    {{this.title}}</a></li>
+                {{/each}}
+            </ul>
         </div>
       </div>
     </div>
@@ -58,11 +63,12 @@
           <h3 class="panel-title">Release</h3>
         </div>
         <div class="panel-body">
-            {{#each release}}
-                <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                    {{this.title}}
-                </a>
-            {{/each}}
+            <ul id="release_sortlist" class="connectedSortable">
+                {{#each release}}
+                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
+                        {{this.title}}</a></li>
+                {{/each}}
+            </ul>
         </div>
       </div>
     </div>
