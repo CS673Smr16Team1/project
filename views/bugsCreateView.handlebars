@@ -1,30 +1,57 @@
 <div class="section">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-8">
-        <textarea name="text" id="createIssue" placeholder="Description of issue"></textarea>
+      <div class="col-xs-12">
+        <h2>Create Issue</h2>
       </div>
+      <form method="post" action="/bugs/bugs-create">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control" name="summary" type="text" placeholder="Title" autofocus />
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-8">
+          <textarea id="createIssue" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the issue" rows="10"></textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Assigned To</label>
+              <select name="assignedTo" class="form-control" title="assignedTo">
+                <option value="" selected="selected">Unassigned</option>
+                {{#each users}}
+                <option value="{{this.username}}">{{this.username}}</option>
+                {{/each}}
+             </select>
+             <hr>
+             <label class="control-label">Priority</label>
+             <select name="priority" class="form-control" title="Priority">
+               <option value="LOW">Low</option>
+               <option value="MEDIUM" selected="selected">Medium</option>
+               <option value="HIGH">High</option>
+               <option value="URGENT">Urgent</option>
+             </select>
+             <hr>
+             <label class="control-label">Severity</label>
+             <select name="severity" class="form-control" title="Severity">
+               <option value="LOW">Low</option>
+               <option value="MODERATE" selected="selected">Moderate</option>
+               <option value="MAJOR">Major</option>
+               <option value="CRITICAL">Critical</option>
+             </select>
+           </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+          <button type="submit" class="btn btn-success pull-right">Create new issue</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <script>
-$('#createIssue').markdownEditor({
-  // Activate the preview:
-  preview: true,
-  fullscreen: false,
-  onPreview: function (content, callback) {
-    $.ajax({
-      url: '/bugs/preview',
-      type: 'POST',
-      dataType: 'html',
-      data: {content: content},
-    })
-    .done(function(result) {
-      // Return the html:
-      callback(result);
-    });
-
-  }
+$("#createIssue").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
 });
 </script>

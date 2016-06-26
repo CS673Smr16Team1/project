@@ -17,8 +17,8 @@ createIssue.displayCreateIssue = function displayCreateIssue(req, res) {
         res.render('bugsCreateView', {
             title: 'Bugs - Create Issue | μProject',
             bugsSelected: 'active',
-            css: ['bootstrap-markdown-editor.css', 'bugs-create.css'],
-            js: ['bootstrap-markdown-editor.js', 'ace/ace.js'],
+            css: ['bootstrap-markdown.css', 'bugs-create.css'],
+            js: ['bootstrap-markdown.js'],
             user: req.user,
             users: users
         });
@@ -33,14 +33,13 @@ createIssue.createIssue = function saveIssue(req, res){
         Severity: req.body.severity,
         AssignedTo: req.body.assignedTo,
         IssueStatus: 'NEW',
-        Description: req.body.description,
+        Description: req.body.content,
         CreatedBy: req.user.username,
         CreatedDate: new Date(),
         LastModifiedBy: req.user.username,
         LastModifiedDate: new Date(),
         Archived: 'False'
     };
-
     connection.query('INSERT INTO Issues set ?',
         inputFromForm,
         function(err){
