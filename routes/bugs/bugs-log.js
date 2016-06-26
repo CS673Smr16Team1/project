@@ -16,7 +16,7 @@ module.exports =
             bugsSelected: 'active',
             data: rows,
             user: req.user,
-            css: [],
+            css: ['bugs-log.css'],
             js: []
           });
         });

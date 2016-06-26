@@ -6875,35 +6875,3 @@ input[type="password"] {
 .panel-bugs a:hover {
     color: #b52b27;
 }
-
-/* BUGS styles */
-.label-new {
-    background-color: #5cb85c;
-}
-
-.label-deployment {
-    background-color: #091D5C;
-}
-
-.label-closed, .label-resolved {
-    background-color: #E7420C;
-}
-
-.label-in {
-    background-color: #0A4ECB;
-}
-
-.label-open {
-    background-color: #FFC965;
-}
-
-a.list-group-item:hover,
-a.list-group-item:focus {
-  text-decoration: none;
-  color: #555555;
-  background-color: #dededc;
-}
-
-.bugs-title {
-  font-size: 1.15em;
-}
