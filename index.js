@@ -94,6 +94,7 @@ var Filter = require("handlebars.filter");
 
 MomentHandler.registerHelpers(Handlebars);
 Filter.registerHelper(Handlebars);
+Handlebars.registerHelper('markdown', require('helper-markdown'));
 
 // static resources
 app.use(express.static(__dirname + '/public'));
@@ -112,7 +113,9 @@ app.use('/', routes);
 
 app.use(function(req, res) {
     res.status(404);
-    res.render('404');
+    res.render('404',{
+        user: req.user
+      });
 });
 
 
