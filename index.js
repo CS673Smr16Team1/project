@@ -131,7 +131,7 @@ io.on('connection', function(socket) {
         socket.username = username;
         socket.room = 'general';
         dbFunctions.getUsernames(function(usernames) {
-            io.emit('updateUsernames', usernames);
+            io.emit('updateUsernames', usernames, users);
             io.emit('onlinestatus', username, 'online');
         });
 
@@ -254,7 +254,7 @@ io.on('connection', function(socket) {
         io.emit('onlinestatus', socket.username, 'offline');
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
         socket.leave(socket.room);
-        users.splice(_.indexOf(users,socket.username, 1));
+        users.splice(_.indexOf(users,socket.username), 1);
     });
 });
 
