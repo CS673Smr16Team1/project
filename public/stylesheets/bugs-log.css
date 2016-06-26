@@ -1,0 +1,28 @@
+/* BUGS styles */
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
+.label-medium {
+    background-color: #5cb85c;
+}
+
+.label-high {
+    background-color: #FFD034;
+}
+
+.label-urgent {
+    background-color: #E7420C;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #dededc;
+}
+
+.bugs-title {
+  font-size: 1.15em;
+}
