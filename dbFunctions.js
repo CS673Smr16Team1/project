@@ -181,6 +181,31 @@ var f18 = function(username, callback) {
         });
 };
 
+var f19 = function(personId, message, callback) {
+    //connection.escape adds single quotes to the message, which breaks the syntax. workaround: parse the string to remove the quotes
+    var msgLen = connection.escape(message).length;
+    var cleanMessage = connection.escape(message).substring(1, msgLen-1).toUpperCase();
+    //console.log(cleanMessage);
+    var qry = "SELECT username, message_date, message_content, channel_name "
+    + " FROM users INNER JOIN ChatNowPublicMessage ON users.idusers=ChatNowPublicMessage.sender_id "
+        +"INNER JOIN ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+    + "WHERE upper(message_content) LIKE '%" + cleanMessage + "%'"
+
+    +" UNION ALL "
+
+    + "SELECT username, message_date, message_content, CONCAT(CONCAT(CONCAT('Direct Message: ',username),'-'),(SELECT username FROM users WHERE idusers=recipient_id)) "
+    + "FROM users INNER JOIN ChatNowPrivateMessage ON users.idusers=ChatNowPrivateMessage.sender_id "
+    + "WHERE UPPER(message_content) LIKE '%" + cleanMessage + "%'"
+    + "AND (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") ORDER BY 2 DESC;";
+
+    connection.query(qry,
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -199,5 +224,6 @@ module.exports = {
     getUserEmailFromUsername: f15,
     updateEmailNotification: f16,
     getEmailNotificationStatus: f17,
-    getEmailNotificationStatusFromUsername: f18
+    getEmailNotificationStatusFromUsername: f18,
+    searchMessages: f19
 };

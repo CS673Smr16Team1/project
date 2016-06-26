@@ -91,7 +91,7 @@ $(document).ready(function () {
     });
 
     socket.on('onlinestatus', function(user, status) {
-        console.log('hi');
+        //console.log('hi');
         if(status==='online') {
             $('button[data-whatever="@' + user +'"]').css("background-color", "#0EDF12");
         }
@@ -131,6 +131,49 @@ $(document).ready(function () {
         }
 
         $('#chatInput').val('');
+        return false;
+    });
+
+    $('#searchForm').submit(function () {
+        var searchString = $('#searchInput').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/chat-api/search-messages/' + searchString,
+            success: function(data) {
+                if(data.length) {
+                    var h = '<thead>'
+                        + '<tr>'
+                        + '<th>User</th>'
+                        + '<th>Date</th>'
+                        + '<th>Message</th>'
+                        + '<th>Channel</th>'
+                        + '</tr>'
+                        + '</thead>'
+                        + '<tbody>';
+
+                    $.each(data, function (key, value) {
+                        var dt = new Date(value.message_date);
+                        var formattedDate=dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear() + ', ' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
+
+                        h += '<tr>'
+                            + '<td>' + value.username + '</td>'
+                            + '<td>' + formattedDate + '</td>'
+                            + '<td>' + multiLine(value.message_content) + '</td>'
+                            + '<td>' + value.channel_name + '</td>'
+                            +'</tr>';
+                    });
+                    h+= '</tbody>';
+                    $('#searchResultsTable').html(h);
+                }
+                else {
+                    $('#searchResultsTable').html('No Results');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log('ajax error:' + xhr.status + ' ' + thrownError);
+            }
+        });
         return false;
     });
 

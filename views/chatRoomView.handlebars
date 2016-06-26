@@ -45,10 +45,35 @@
               <div class="drawer-contents">
                 <div class="col-md-12">
                   <div class="drawer-heading">
-                    <h2 class="drawer-title">Search <button type="button" class="btn btn-default pull-right" href="#searchDrawer" data-toggle="drawer">Close <span class="fa fa-times"></span></button></h2>
+                    <!--<h2 class="drawer-title">-->
+                        <form class="drawer-title" id="searchForm" action="">
+                            <input type="text" id="searchInput" placeholder="Search" autocomplete="off" maxlength="200"/>
+                            <button type="button" class="btn btn-default pull-right" href="#searchDrawer" data-toggle="drawer">Close <span class="fa fa-times"></span></button>
+                        </form>
+                    <!--</h2>-->
                   </div>
                   <br>
-                  Search Results...
+
+                    <div class="table-responsive">
+                        <table class="table" id="searchResultsTable">
+                            <!--<thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                                <th>Channel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
                 </div>
               </div>
           </div>
