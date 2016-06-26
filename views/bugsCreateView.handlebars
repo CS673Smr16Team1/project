@@ -1,73 +1,30 @@
-<body>
-<h1>Create Issue</h1>
-<form id="issueForm" class="form-horizontal" method="post" action="/bugs/bugs-create">
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        <textarea name="text" id="createIssue" placeholder="Description of issue"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <fieldset>
-        <!-- Summary Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="summary">Summary</label>
-            <div class="col-md-4">
-                <input type="text" id="summary" name="summary" placeholder="Application Crash on saving of creating a new user" class="form-control input-md"  required/>
-            </div>
-        </div>
+<script>
+$('#createIssue').markdownEditor({
+  // Activate the preview:
+  preview: true,
+  fullscreen: false,
+  onPreview: function (content, callback) {
+    $.ajax({
+      url: '/bugs/preview',
+      type: 'POST',
+      dataType: 'html',
+      data: {content: content},
+    })
+    .done(function(result) {
+      // Return the html:
+      callback(result);
+    });
 
-            <!-- Assigned To -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Assigned To</label>
-            <div class="col-md-4">
-                <select name="assignedTo" class="form-control" title="assignedTo">
-                  <option value="" selected="selected">Unassigned</option>
-                  {{#each users}}
-                  <option value="{{this.username}}">{{this.username}}</option>
-                  {{/each}}
-               </select>
-            </div>
-        </div>
-
-        <!-- Priority Drop Down -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Priority</label>
-            <div class="col-md-4">
-                <select name="priority" class="form-control" title="Priority">
-                    <option value="LOW">Low</option>
-                    <option value="MEDIUM" selected="selected">Medium</option>
-                    <option value="HIGH">High</option>
-                    <option value="URGENT">Urgent</option>
-
-                </select>
-            </div>
-        </div>
-
-        <!-- Severity Drop Down -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Severity</label>
-            <div class="col-md-4">
-                <select name="severity" class="form-control" title="Severity">
-                    <option value="LOW">Low</option>
-                    <option value="MODERATE" selected="selected">Moderate</option>
-                    <option value="MAJOR">Major</option>
-                    <option value="CRITICAL">Critical</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Description Textarea -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="description">Description</label>
-            <div class="col-md-4">
-                <textarea class="form-control" id="description" name="description"></textarea>
-            </div>
-        </div>
-
-        <!-- Save Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="save"></label>
-            <div class="col-md-4">
-                <button id="save" name="save" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-
-    </fieldset>
-</form>
-
-</body>
+  }
+});
+</script>

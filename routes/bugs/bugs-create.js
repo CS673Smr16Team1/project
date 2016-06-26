@@ -17,6 +17,8 @@ createIssue.displayCreateIssue = function displayCreateIssue(req, res) {
         res.render('bugsCreateView', {
             title: 'Bugs - Create Issue | μProject',
             bugsSelected: 'active',
+            css: ['bootstrap-markdown-editor.css', 'bugs-create.css'],
+            js: ['bootstrap-markdown-editor.js', 'ace/ace.js'],
             user: req.user,
             users: users
         });
