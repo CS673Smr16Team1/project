@@ -6,7 +6,7 @@
 var connection = require('./../dbConnection.js').dbConnect();
 
 // remove duplicates from join
-function isUniqueIssueId(a) {
+function isUniqueBugsId(a) {
     var seen = {};
     return a.filter(function(item) {
         return seen.hasOwnProperty(item.Id) ? false : (seen[item.Id] = true);
@@ -15,7 +15,7 @@ function isUniqueIssueId(a) {
 
 module.exports =
 
-    function displayIssueDetail(req, res){
+    function displayBugsDetail(req, res){
         var id = req.params.id;
 
         connection.query({nestTables: true, sql: 'SELECT * FROM Issues' +
@@ -40,8 +40,8 @@ module.exports =
                         }
                     }
 
-                    images = isUniqueIssueId(images);
-                    comments = isUniqueIssueId(comments);
+                    images = isUniqueBugsId(images);
+                    comments = isUniqueBugsId(comments);
 
                     //make an object to keep track of issue IDs ive mouseenter
                     //check to see if that object, if youve seen it already

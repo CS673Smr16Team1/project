@@ -25,6 +25,6 @@ module.exports =
             function(err) {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/bugs/bugs-log');
+                res.redirect('/bugs');
             });
     };

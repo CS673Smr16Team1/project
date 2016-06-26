@@ -1,6 +1,6 @@
 /**
  * Created by jackie on 6/5/16.
- * 
+ *
  */
 
 
@@ -16,6 +16,6 @@ module.exports =
             function(err) {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/bugs/bugs-log');
+                res.redirect('/bugs');
             });
     };

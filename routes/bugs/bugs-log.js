@@ -5,13 +5,13 @@
 var connection = require('./../dbConnection.js').dbConnect();
 
 module.exports =
-    function displayIssueLog(req, res){
+    function displayBugsLog(req, res){
       connection.query('SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" AND IssueStatus != "Closed" AND Archived != 1  GROUP BY Issues.Id ORDER BY LastModifiedDate DESC',
         function(err,rows){
           if(err) {
             console.log("Error Selecting : %s ", err);
           }
-          res.render('bugsLogView', {
+          res.render('bugsView', {
             title: 'Bugs - Issue Log | μProject',
             bugsSelected: 'active',
             data: rows,

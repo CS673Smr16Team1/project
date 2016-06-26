@@ -1,10 +1,7 @@
-<head>
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
-</head>
 <div class="container" id="issueTabContainer">
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="/bugs/bugs-log">Bugs</a></li>
+        <li><a href="/bugs">Bugs</a></li>
         <li class="active">#{{data.Id}} {{data.Summary}}</li>
     </ol>
     <ul class="nav nav-pills" id="tabs">
@@ -22,7 +19,7 @@
         <div class="tab-pane active" id="1a">
 
             <h3>Issue # {{ data.Id}}</h3>
-            <form id="issueForm" class="form-horizontal" method="post" action="/bugs/bugs-save/{{ data.Id }}">
+            <form id="issueForm" class="form-horizontal" method="post" action="/bugs/issue/{{data.Id}}">
 
                 <fieldset>
                     <!-- Summary Text input-->
@@ -144,7 +141,7 @@
             </form>
 
             <form id="issueFormDelete" class="form-horizontal" method="post"
-                  action="/bugs/bugs-archive/{{ data.Id }}">
+                  action="/bugs/issue/{{data.Id}}/archive">
                 <!-- Delete Button-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="delete"></label>
@@ -187,7 +184,7 @@
             </div>
 
             <h3>Upload an Image</h3>
-            <form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+            <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
                 Select an image to upload:
                 <input type="file" name="image">
                 <input type="submit" value="Upload Image" disabled>
@@ -227,7 +224,7 @@
 
                 <div class="row">
                     <form id="comment" class="form-horizontal" method="post"
-                          action="/bugs/bugs-add-comment/{{ data.Id }}">
+                          action="/bugs/issue/{{data.Id}}/comment">
                         <fieldset>
                             <!-- Comment Textarea -->
                             <div class="form-group">

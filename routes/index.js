@@ -49,28 +49,28 @@ router.post('/queued/editProject/:projectId', ensureAuthenticated, saveProjectAf
 
 
 // issue modules
-var issueLogRoute = require("./bugs/bugs-log");
+var bugsRoute = require("./bugs/bugs-log");
 var bugsJSONRoute = require("./bugs/bugs-json");
-var issueCreateRoute = require("./bugs/bugs-create");
+var bugsCreateRoute = require("./bugs/bugs-create");
 var bugsPreviewRoute = require("./bugs/bugs-preview");
-var issueDetailRoute = require("./bugs/bugs-detail");
-var issueSaveRoute = require("./bugs/bugs-save");
-var issueDeleteRoute = require("./bugs/bugs-archive");
-var issueUploadImageRoute = require("./bugs/bugs-upload-image");
-var issueAddCommentRoute = require("./bugs/bugs-add-comment");
+var bugsDetailRoute = require("./bugs/bugs-detail");
+var bugsSaveRoute = require("./bugs/bugs-save");
+var bugsDeleteRoute = require("./bugs/bugs-archive");
+var bugsUploadImageRoute = require("./bugs/bugs-upload-image");
+var bugsAddCommentRoute = require("./bugs/bugs-add-comment");
 
-router.get('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.displayCreateIssue); // route for returning an empty create issue page
+router.get('/bugs', ensureAuthenticated, bugsRoute); // route for returning issue log view
+router.get('/bugs/create', ensureAuthenticated, bugsCreateRoute.displayCreateIssue); // route for returning an empty create issue page
 router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute); // route for returning issue data for log view
-router.get('/bugs/bugs-log', ensureAuthenticated, issueLogRoute); // route for returning issue log view
-router.get('/bugs/bugs-detail/:id', ensureAuthenticated, issueDetailRoute); // route for returning an issue detail view
+router.get('/bugs/issue/:id', ensureAuthenticated, bugsDetailRoute); // route for returning an issue detail view
 
-router.post('/bugs/bugs-create', ensureAuthenticated, issueCreateRoute.createIssue); // route for creating an issue in the database
+router.post('/bugs/create', ensureAuthenticated, bugsCreateRoute.createIssue); // route for creating an issue in the database
 router.post('/bugs/preview', ensureAuthenticated, bugsPreviewRoute); // preview markdown for create issue
-router.post('/bugs/bugs-save/:id', ensureAuthenticated, issueSaveRoute); // route for saving an updated issue detail page
-router.post('/bugs/bugs-archive/:id', ensureAuthenticated, issueDeleteRoute); // route for archiving an issue
-router.post('/bugs/bugs-upload-image/:id', ensureAuthenticated, issueUploadImageRoute); // route for saving an image to the database
-router.post('/upload', ensureAuthenticated, uploading.single('image'), issueUploadImageRoute); // route for uploading an image
-router.post('/bugs/bugs-add-comment/:id', ensureAuthenticated, issueAddCommentRoute); // route for adding a comment to an issue detail page
+router.post('/bugs/issue/:id', ensureAuthenticated, bugsSaveRoute); // route for saving an updated issue detail page
+router.post('/bugs/issue/:id/archive', ensureAuthenticated, bugsDeleteRoute); // route for archiving an issue
+router.post('/bugs/bugs-upload-image/:id', ensureAuthenticated, bugsUploadImageRoute); // route for saving an image to the database
+router.post('/bugs/upload', ensureAuthenticated, uploading.single('image'), bugsUploadImageRoute); // route for uploading an image
+router.post('/bugs/issue/:id/comment', ensureAuthenticated, bugsAddCommentRoute); // route for adding a comment to an issue detail page
 
 // shared modules
 var loginRoute = require("./login");

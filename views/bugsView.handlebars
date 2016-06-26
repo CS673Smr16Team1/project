@@ -5,12 +5,12 @@
         <div class="panel panel-default">
           <!-- Default panel contents -->
           <div class="panel-heading">
-            <div class="btn-group" role="group" aria-label="...">
+            <div class="btn-group" role="group">
               <button type="button" class="btn btn-default">Open</button>
               <button type="button" class="btn btn-default">Closed</button>
               <button type="button" class="btn btn-default">Yours</button>
             </div>
-            <a class="btn btn-success pull-right" href="/bugs/bugs-create"><span class="fa fa-plus"></span> Create Issue</a>
+            <a class="btn btn-success pull-right" href="/bugs/create"><span class="fa fa-plus"></span> Create Issue</a>
           </div>
           <div class="panel-body">
             <div class="col-xs-12 col-sm-5 hidden-xs">Title</div>
@@ -23,7 +23,7 @@
           <!-- List group -->
           <div class="list-group">
             {{#each data}}
-            <a href="/bugs/bugs-detail/{{this.Id}}" class="list-group-item">
+            <a href="/bugs/issue/{{this.Id}}" class="list-group-item">
               <div class="list-group-item-text">
                 <div class="col-xs-12 col-sm-5">
                   <p>
