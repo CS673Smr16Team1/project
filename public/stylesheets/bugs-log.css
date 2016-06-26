@@ -1,19 +1,19 @@
 /* BUGS styles */
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
 .label-medium {
     background-color: #5cb85c;
 }
 
+.label-high {
+    background-color: #FFD034;
+}
 
 .label-urgent {
     background-color: #E7420C;
-}
-
-.label-low {
-    background-color: #cecece;
-}
-
-.label-high {
-    background-color: #FFC965;
 }
 
 a.list-group-item:hover,
