@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     });
 
-    socket.on('updateUsernames', function (usernames) {
+    socket.on('updateUsernames', function (usernames, onlineUsers) {
         var userList = $('#userList');
         userList.empty();
 
@@ -82,6 +82,12 @@ $(document).ready(function () {
             if(uName.username !== username) {
                 userList.append('<li><button type="button" class="btn btn-default" data-toggle="modal" data-target="#directMessage" data-whatever="@'
                 + uName.username +'">' + uName.username + '</button></li>');
+
+                //check if this user is online, if so, make the button green to indicate online status
+                if($.inArray(uName.username, onlineUsers) !==-1) {
+                    console.log(onlineUsers);
+                    $('button[data-whatever="@' + uName.username +'"]').css("background-color", "#0EDF12");
+                }
             }
         });
 
