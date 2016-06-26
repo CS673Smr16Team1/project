@@ -38,3 +38,9 @@
     background-color: #0074d9;
     color: white;
 }
+.textCenter {
+    text-align: center;
+}
+.bold {
+    font-weight: bold;
+}

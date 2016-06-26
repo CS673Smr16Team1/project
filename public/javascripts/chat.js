@@ -38,11 +38,20 @@ $(document).ready(function () {
     });
 
     socket.on('updatechat', function (username, data, msgDate) {
+
         var messages = $('#messages');
         var msg='';
         if(msgDate) {
             var dt = new Date(msgDate);
-            msg='[' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes()) + '] &lt' + username + '> ' + data;
+
+            //check if today's date has already been displayed - if not, display it
+            var monthDayYear = dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear();
+            var exists = $("#messages li.textCenter:contains(" + monthDayYear + ")");
+            if(!exists.html()) {
+                messages.append($('<li class="textCenter bold">').html(monthDayYear));
+            }
+
+            msg='[' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes()) + ' (EST)] &lt' + username + '> ' + data;
 
         }
         else {
@@ -109,14 +118,18 @@ $(document).ready(function () {
     socket.on('refreshmessages', function(data) {
         var messages = $('#messages');
         messages.empty();
-        var sender, msgTime, msg;
+        var sender, msgTime, msg, day=-1;
         $.each(data, function (key, value) {
             sender = value.username;
             var dt = new Date(value.message_date);
+            if(day!==dt.getDate()) {
+                day = dt.getDate();
+                messages.append($('<li class="textCenter bold">').html(dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear()));
+            }
             msgTime = padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
             msg = value.message_content;
 
-            messages.append($('<li>').html('[' + msgTime + '] &lt;' + sender + '> ' + multiLine(msg)));
+            messages.append($('<li>').html('[' + msgTime + ' (EST)] &lt;' + sender + '> ' + multiLine(msg)));
         });
         messages.scrollTop(messages[0].scrollHeight - messages[0].clientHeight);
     });
