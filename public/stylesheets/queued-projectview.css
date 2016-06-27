@@ -1,29 +1,39 @@
-@import "jquery.ui.base.css";
-@import "jquery.ui.theme.css";
+.queued-title {
+  font-size: 1.15em;
+  color: #000000;
+}
+
+.queued-black {
+  color: #000000;
+}
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
+.label-medium {
+    background-color: #5cb85c;
+}
+
+.label-high {
+    background-color: #FFD034;
+}
+
+.label-urgent {
+    background-color: #E7420C;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #dededc;
+}
 
 #backlog_sortlist,
 #current_sortlist,
 #done_sortlist,
 #release_sortlist
 {
-    list-style-type: none;
-    margin: 0;
-    padding: 0 0 2.5em;
-    float: left;
-    margin-right: 10px;
-    min-height: 100px;
-
-}
-
-#backlog_sortlist li,
-#current_sortlist li,
-#done_sortlist li,
-#release_sortlist li
-{
-    margin: 0 5px 5px 5px;
-    padding: 1px;
-    font-size: 1.2em;
-    width: 240px;
-    min-height: 10px;
-
+  min-height: 50px;
 }

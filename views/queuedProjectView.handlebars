@@ -12,30 +12,45 @@
         <div class="panel-heading">
           <h3 class="panel-title">Backlog</h3>
         </div>
-        <div class="panel-body">
-            <ul id="backlog_sortlist" class="connectedSortable">
-                {{#each backlog}}
-                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                        {{this.title}}</a></li>
-                {{/each}}
-            </ul>
+        <div id="backlog_sortlist" class="list-group connectedSortable">
+          {{#each backlog}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
         </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
       </div>
-      <a class="btn btn-success" href="/queued/project/{{this.projectId}}/story-create">Add a Story</a>
     </div>
     <div class="col-xs-6 col-sm-3">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Current</h3>
         </div>
-        <div class="panel-body">
-            <ul id="current_sortlist" class="connectedSortable">
-                {{#each current}}
-                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                        {{this.title}}</a></li>
-                {{/each}}
-            </ul>
+        <div id="current_sortlist" class="list-group connectedSortable">
+          {{#each current}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
         </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
       </div>
     </div>
 
@@ -47,14 +62,22 @@
         <div class="panel-heading">
           <h3 class="panel-title">Done</h3>
         </div>
-        <div class="panel-body">
-            <ul id="done_sortlist" class="connectedSortable">
-                {{#each done}}
-                <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                    {{this.title}}</a></li>
-                {{/each}}
-            </ul>
+        <div id="done_sortlist" class="list-group connectedSortable">
+          {{#each done}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
         </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
       </div>
     </div>
     <div class="col-xs-6 col-sm-3">
@@ -62,15 +85,26 @@
         <div class="panel-heading">
           <h3 class="panel-title">Release</h3>
         </div>
-        <div class="panel-body">
-            <ul id="release_sortlist" class="connectedSortable">
-                {{#each release}}
-                    <li class="ui-state-default"><a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="thumbnail">
-                        {{this.title}}</a></li>
-                {{/each}}
-            </ul>
+        <div id="release_sortlist" class="list-group connectedSortable">
+          {{#each release}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
         </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
       </div>
+    </div>
+    <div class="col-xs-12">
+      <a class="btn btn-success" href="/queued/project/{{this.projectId}}/story-create">Add a Story</a>
     </div>
   </div>
 </div>
