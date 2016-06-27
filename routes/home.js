@@ -3,7 +3,7 @@ var connection = require('./dbConnection.js').dbConnect();
 module.exports =
     function displayHomePage(req, res){
       var username = username = req.user ? req.user.username : "Anonymous"
-      connection.query('SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ? GROUP BY Issues.Id ORDER BY LastModifiedDate DESC',
+      connection.query('SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ? GROUP BY Issues.Id ORDER BY LastModifiedDate DESC LIMIT 3',
       username,
       function(err,bugsData){
         if(err) {
