@@ -46,9 +46,42 @@
             </div>
           </a>
           <div class="list-group">
-            <a href="/chat-room" class="list-group-item">#general</a>
-            <a href="/chat-room" class="list-group-item">@davidblair</a>
-            <a href="/chat-room" class="list-group-item">@chriscarducci</a>
+            <a href="/chat-room" class="list-group-item">
+              <div class="col-xs-12">
+                <p>
+                  <strong class="text-muted">{{truncate '#general' 39}}</strong><br>
+                  <span class="small text-muted">received a few seconds ago</span>
+                </p>
+              </div>
+              <div class="col-xs-12 bugs-black">
+                &lt;davidblair&gt; {{truncate 'Scissors cuts paper, paper covers rock, rock crushes lizard, lizard poisons Spock' 80}}
+              </div>
+              <div class="clearfix"></div>
+            </a>
+            <a href="/chat-room" class="list-group-item">
+              <div class="col-xs-12">
+                <p>
+                  <strong class="text-muted">{{truncate '@sangDev' 39}}</strong><br>
+                  <span class="small text-muted">received 3 hours ago</span>
+                </p>
+              </div>
+              <div class="col-xs-12 bugs-black">
+                &lt;sangDev&gt; {{truncate 'Disabling the email notification does not work' 80}}
+              </div>
+              <div class="clearfix"></div>
+            </a>
+            <a href="/chat-room" class="list-group-item">
+              <div class="col-xs-12">
+                <p>
+                  <strong class="text-muted">{{truncate '@chriscarducci' 39}}</strong><br>
+                  <span class="small text-muted">received 1 day ago</span>
+                </p>
+              </div>
+              <div class="col-xs-12 bugs-black">
+                &lt;davidblair&gt; {{truncate 'We need another hour, maybe two in order to complete our work' 80}}
+              </div>
+              <div class="clearfix"></div>
+            </a>
           </div>
           <a href="/chat-room">
             <div class="panel-footer">
