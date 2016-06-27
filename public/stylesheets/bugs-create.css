@@ -21,3 +21,7 @@
 .md-preview p {
   white-space: pre;
 }
+
+.bugs-title {
+  border-radius: 4px 4px 0 0;
+}

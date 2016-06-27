@@ -6,7 +6,7 @@
       </div>
       <form method="post" action="/bugs/create">
         <div class="col-xs-12 col-sm-8">
-          <input class="form-control" name="summary" type="text" placeholder="Title" autofocus />
+          <input class="form-control bugs-title" name="summary" type="text" placeholder="Title" autofocus />
         </div>
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-8">
@@ -52,10 +52,6 @@
 $("#createIssue").markdown({
   autofocus:false,
   savable:false,
-  fullscreen:false,
-  dropZoneOptions: {
-            url: '/img_upload/',
-            disablePreview: true
-        }
+  fullscreen:false
 });
 </script>

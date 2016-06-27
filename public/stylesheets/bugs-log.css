@@ -25,4 +25,9 @@ a.list-group-item:focus {
 
 .bugs-title {
   font-size: 1.15em;
+  color: #000000;
+}
+
+.bugs-black {
+  color: #000000;
 }
