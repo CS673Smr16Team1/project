@@ -25,3 +25,19 @@
 .bugs-title {
   border-radius: 4px 4px 0 0;
 }
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
+.label-medium {
+    background-color: #5cb85c;
+}
+
+.label-high {
+    background-color: #FFD034;
+}
+
+.label-urgent {
+    background-color: #E7420C;
+}

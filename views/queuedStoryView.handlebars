@@ -22,13 +22,13 @@
       </div>
       <div class="col-xs-12 col-sm-3">
         <div class="form-group">
-          <p class="control-label">Priority</p>
-          <strong>{{data.priority}}</strong>
+          <p><strong>Priority</strong></p>
+          <span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}
           <hr>
-          <p>Status</p>
-          {{data.story_status}}
+          <p><strong>Status</strong></p>
+          {{filter data.story_status "uppercase"}}
           <hr>
-          <p>Assigned To</p>
+          <p><strong>Assigned to</strong></p>
           {{data.assignee}}
         </div>
       </div>
@@ -61,7 +61,7 @@
               <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
             </select>
             <hr>
-            <label class="control-label">Assigned To</label>
+            <label class="control-label">Assigned to</label>
             <select name="assignedTo" class="form-control" title="assignedTo">
               {{#each members}}
               <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
