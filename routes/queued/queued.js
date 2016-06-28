@@ -14,7 +14,7 @@ module.exports =
                     title: 'Queued | μProject',
                     queuedSelected: 'active',
                     css: ['queued.css'],
-                    js: ['clickActions.js'],
+                    js: ['queued.js'],
                     data: rows,
                     user: req.user});
 

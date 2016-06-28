@@ -67,7 +67,7 @@ module.exports =
                                                                 done: Done,
                                                                 release: Release,
                                                                 css: ['queued-projectview.css', 'bootstrap-editable.css'],
-                                                                js: ['queued.js', 'clickActions.js', 'bootstrap-editable.js'],
+                                                                js: ['queued-project.js', 'bootstrap-editable.js'],
                                                                 user: req.user
                                                             });
                                                     });
