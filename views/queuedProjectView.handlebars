@@ -4,9 +4,16 @@
   <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li><a href="/queued">Queued</a></li>
-    <li class="active">Project: {{this.project_name}}</li>
+    <li class="active">{{this.project_name}}</li>
   </ol>
   <div class="row">
+    <div class="col-xs-12">
+      <div class="queued-editable">
+        <a id="project" data-type="Project"><h3>{{this.project_name}}</h3><span class="queued-editable-description">{{this.description}}</span></a>
+      </div>
+      <br>
+    </div>
+    <div class="clearfix"><br></div>
     <div class="col-xs-6 col-sm-3">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -105,3 +112,92 @@
     </div>
   </div>
 </div>
+
+<script>
+$(function(){
+    $('#project').editable({
+        mode: 'inline',
+        url: '/queued/editProject/{{this.projectId}}',
+        send: 'always',
+        title: 'Update Project Information',
+        value: {
+            project_name: "{{this.project_name}}",
+            project_description: "{{this.description}}"
+        }
+    });
+});
+</script>
+<script>
+(function ($) {
+    "use strict";
+
+    var Project = function (options) {
+        this.init('Project', options, Project.defaults);
+    };
+
+    //inherit from Abstract input
+    $.fn.editableutils.inherit(Project, $.fn.editabletypes.abstractinput);
+
+    $.extend(Project.prototype, {
+        render: function() {
+           this.$input = this.$tpl.find('input');
+        },
+        value2html: function(value, element) {
+            if(!value) {
+                $(element).empty();
+                return;
+            }
+            var html = '<h3>' + $('<h3>').text(value.project_name).html() + '</h3><span class="queued-editable-description">' + $('<p>').text(value.project_description).html() + '</span>';
+            $(element).html(html);
+        },
+        html2value: function(html) {
+          return null;
+        },
+       value2str: function(value) {
+           var str = '';
+           if(value) {
+               for(var k in value) {
+                   str = str + k + ':' + value[k] + ';';
+               }
+           }
+           return str;
+       },
+       str2value: function(str) {
+           return str;
+       },
+       value2input: function(value) {
+           if(!value) {
+             return;
+           }
+           this.$input.filter('[name="project_name"]').val(value.project_name);
+           this.$input.filter('[name="project_description"]').val(value.project_description);
+       },
+       input2value: function() {
+           return {
+              project_name: this.$input.filter('[name="project_name"]').val(),
+              project_description: this.$input.filter('[name="project_description"]').val()
+           };
+       },
+       activate: function() {
+            this.$input.filter('[name="project_name"]').focus();
+       },
+       autosubmit: function() {
+           this.$input.keydown(function (e) {
+                if (e.which === 13) {
+                    $(this).closest('form').submit();
+                }
+           });
+       }
+    });
+
+    Project.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
+        tpl: '<div class="editable-project"><h3><input type="text" name="project_name" class="input-small"></h3></div>'+
+             '<div class="editable-project"><input type="text" name="project_description" class="input-mini"></div>',
+
+        inputclass: ''
+    });
+
+    $.fn.editabletypes.Project = Project;
+
+}(window.jQuery));
+</script>
