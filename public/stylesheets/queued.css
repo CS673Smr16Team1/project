@@ -5,11 +5,13 @@
   background: #F2F2F2;
 }
 
+.queued-footer {
+  background: #ffffff;
+}
+
 .queued-panel a:hover {
   text-decoration: none;
 }
-
-
 
 .panel-body, .panel-footer {
   padding: 10px;
