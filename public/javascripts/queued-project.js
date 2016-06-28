@@ -10,7 +10,7 @@ $(function() {
             var order2 = $('#current_sortlist').sortable('toArray').toString();
             var order3 = $('#done_sortlist').sortable('toArray').toString();
             var order4 = $('#release_sortlist').sortable('toArray').toString();
-            
+
         },
         dropOnEmpty: true
     }).disableSelection();
