@@ -1,38 +1,31 @@
-
-<div class="container">
+<div class="section">
+  <div class="container">
     <div class="row">
-        <div class="panel panel-default filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">Projects</h3>
-                <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span></button>
-                </div>
-            </div>
-            <table class="table table-condensed">
-                <thead>
-                <tr class="filters">
-                    <th><input type="text" class="form-control" placeholder="Project ID" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Project Name" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Description" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Action" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Owner" disabled></th>
-                </tr>
-                </thead>
-                <tbody>
-                {{#each data}}
-                    <tr>
-                        <td>{{this.projectId}}</td>
-                        <td><a href="/queued/project/{{this.projectId}}">{{this.project_name}}</a></td>
-                        <td>{{this.Description}}</td>
-                        <td><a href="/queued/editProject/{{this.projectId}}">Edit</a></td>
-                        <td>{{this.owner}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
+      <div class="col-xs-12 ">
+        <div class="queued-buttons pull-right">
+          <a class="btn btn-success" href="/queued/add"><span class="fa fa-plus"></span> Create Project</a>&nbsp;&nbsp;
+          <button class="btn btn-default settings"><span class="fa fa-cog"></span>&nbsp;</button>
         </div>
+      </div>
+      <div class="col-xs-12">
+        {{#each data}}
+
+        <div class="col-sm-6 col-md-4">
+          <div class="panel panel-default queued-panel">
+            <a href="/queued/project/{{this.projectId}}">
+            <div class="panel-body">
+              <h3>{{truncate this.project_name 27}}</h3>
+              <p>{{truncate this.Description 55}}</p>
+            </div>
+            </a>
+            <div class="panel-footer queued-footer hidden">
+              <a class="btn btn-default" href="/queued/editProject/{{this.projectId}}"><span class="fa fa-pencil"></span> Edit</a>
+              <a class="btn btn-default" href="#"><span class="fa fa-archive"></span> Archive</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
     </div>
-    <div class="col-md-3">
-        <button class="btn btn-success btn-block" role="button" onClick="addProject();"><span class="fa fa-plus">&nbsp;</span>Create Project</button>
-    </div>
+  </div>
 </div>

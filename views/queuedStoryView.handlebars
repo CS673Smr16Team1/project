@@ -1,102 +1,95 @@
-<!---
-    Story Detail View
-
-    Requirement:
-        - shall be able to view, edit and update an existing story
-            - following parameters:
-                - description
-                - title
-                - story_status
-                - assignee
-                - type
-                - priority
-
-        - DB Design:
-        https://my.vertabelo.com/model/T7GMpn8wYb4zZbMYvIlF1Xinn4L9GrYk
-!-->
-<h1>{{this.project_name}} Story Detail</h1>
-<form id="storyForm" class="form-horizontal" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
-
-    <fieldset>
-        <!-- Title Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="title">Title</label>
-            <div class="col-md-4">
-                <input type="text" value="{{ data.title }}" id="title" name="title" placeholder="title" class="form-control input-md"  required/>
-            </div>
-        </div>
-
-        <!-- Priority Drop Down -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Priority</label>
-            <div class="col-md-4">
-                <select name="priority" class="form-control" title="priority">
-                    <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
-                    <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
-                    <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
-                    <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Status Drop Down -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Status</label>
-            <div class="col-md-4">
-                <select name="story_status" class="form-control" title="story_status">
-                    <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
-                    <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
-                    <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
-                    <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
-                </select>
-            </div>
-        </div>
-
-
-        <!-- Description Text area -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="description">Description</label>
-            <div class="col-md-4">
-                <textarea class="form-control" id="description" name="description" >{{ data.description }}</textarea>
-            </div>
-        </div>
-
-        <!-- Owner -->
-        <div class="form-group">
-            <label class="col-md-4 control-label">Owner</label>
-            <div class="col-md-4">
-                <select name="assignedTo" class="form-control" title="assignedTo">
-                    {{#each members}}
-                        <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
-                    {{/each}}
-                </select>
-            </div>
-        </div>
-
-
-        <!-- Save Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="save"></label>
-            <div class="col-md-4">
-                <button id="save" name="save" class="btn btn-success pull-left">Save</button>
-            </div>
-            <input type="button" value="Cancel"
-                   class="btn btn-Warning" onclick="cancelAdd()">
-            <input type="button" value="Delete"
-                   class="btn btn-danger" onclick="cancelAdd()">
-        </div>
-
-
-
-    </fieldset>
-</form>
-
-<form id="storyFormDelete" class="form-horizontal" method="post" action="/queued/project/{{ data.projectId }}/{{ data.storyId}}/story-delete">
-    <!-- Delete Button-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="delete"></label>
-        <div class="col-md-4">
-            <button id="delete" name="delete" class="btn btn-danger">Delete</button>
-        </div>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/queued">Queued</a></li>
+    <li><a href="/queued/project/{{data.projectId}}">{{this.project_name}}</a></li>
+    <li class="active">Detail view</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12 ">
+        <button class="btn btn-default settings queued-info show"><span class="fa fa-pencil"></span> Edit</button>&nbsp;
     </div>
-</form>
+    <div class="queued-info show">
+      <div class="col-xs-12 col-sm-8">
+        <h3>{{data.title}}</h3>
+        <hr>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-8">
+        {{#markdown data.description}}
+        {{/markdown}}
+        <br>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="form-group">
+          <p><strong>Priority</strong></p>
+          <span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}
+          <hr>
+          <p><strong>Status</strong></p>
+          {{filter data.story_status "uppercase"}}
+          <hr>
+          <p><strong>Assigned to</strong></p>
+          {{data.assignee}}
+        </div>
+      </div>
+    </div>
+    <div class="queued-info hidden">
+      <form id="storyForm" class="form-horizontal" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-8">
+          <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="10">{{data.description}}</textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Priority</label>
+            <select name="priority" class="form-control" title="priority">
+              <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+              <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+              <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+              <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+            </select>
+            <hr>
+            <label class="control-label">Status</label>
+            <select name="story_status" class="form-control" title="story_status">
+              <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
+              <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
+              <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
+              <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+            </select>
+            <hr>
+            <label class="control-label">Assigned to</label>
+            <select name="assignedTo" class="form-control" title="assignedTo">
+              {{#each members}}
+              <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+          <button type="submit" name="save" class="btn btn-success pull-right">Update Story</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#queuedDetail").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
+});
+</script>
+
+<script>
+$(function () {
+  $('.settings').click(function (event) {
+    $('.queued-info').toggleClass('hidden show');
+  });
+});
+
+</script>

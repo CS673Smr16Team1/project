@@ -9,6 +9,7 @@ module.exports =
 
         var projectId;
         var project_name;
+        var description;
         var status_Backlog = "Backlog";
         var status_Current = "Current";
         var status_Done = "Done";
@@ -22,9 +23,9 @@ module.exports =
         // query all stories that are related to this project
 
         connection.query('SELECT * FROM QueuedStory WHERE projectId = ?',
-            projectId ,
+            projectId,
             function(err,rows){
-                connection.query('SELECT project_name FROM QueuedProjects WHERE projectId = ?',
+                connection.query('SELECT project_name, Description FROM QueuedProjects WHERE projectId = ?',
                 projectId,
                     function(err,projectName) {
                         connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ?',
@@ -49,22 +50,24 @@ module.exports =
                                                         // #debug: printing projectId of the currently requested view
                                                         console.log("projectId: %s", projectId);
                                                         console.log("projectName: %s", projectName[0].project_name);
+                                                        console.log("projectName: %s", projectName[0].Description);
                                                         project_name = projectName[0].project_name;
+                                                        description  = projectName[0].Description;
 
                                                         res.render('queuedProjectView',
                                                             {
-                                                                title: 'Queued | Project: ' + project_name + ' | μProject',
+                                                                title: project_name + ' | μProject',
                                                                 requirementsSelected: 'pure-menu-selected',
                                                                 projectId: projectId,
                                                                 project_name: project_name,
-                                                                js: ['clickActions.js'],
+                                                                description: description,
                                                                 data: rows,
                                                                 backlog: Backlog,
                                                                 current: Current,
                                                                 done: Done,
                                                                 release: Release,
-                                                                css: ['queued-projectview.css'],
-                                                                js: ['queued.js'],
+                                                                css: ['queued-projectview.css', 'bootstrap-editable.css'],
+                                                                js: ['queued-project.js', 'bootstrap-editable.js'],
                                                                 user: req.user
                                                             });
                                                     });

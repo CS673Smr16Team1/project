@@ -13,7 +13,8 @@ module.exports =
                 res.render('queuedView', {
                     title: 'Queued | μProject',
                     queuedSelected: 'active',
-                    js: ['clickActions.js'],
+                    css: ['queued.css'],
+                    js: ['queued.js'],
                     data: rows,
                     user: req.user});
 

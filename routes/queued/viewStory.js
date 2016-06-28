@@ -33,7 +33,8 @@ module.exports =
                                     title: 'Queued | Project ' + project_name + ' Story Id: ' + storyId + ' | μProject',
                                     queuedSelected: 'active',
                                     project_name: project_name,
-                                    js: ['clickActions.js'],
+                                    css: ['bootstrap-markdown.css', 'queued-detail.css'],
+                                    js: ['clickActions.js', 'bootstrap-markdown.js'],
                                     data: rows[0],
                                     user: req.user,
                                     members: users

@@ -1,3 +1,20 @@
+.queued-editable h3 {
+  margin: 0;
+}
+
+.queued-editable-description {
+  text-decoration: none;
+  color: #000000;
+}
+
+
+
+.editable-click,
+a.editable-click,
+a.editable-click:hover {
+    border-bottom: none!important;
+}
+
 .queued-title {
   font-size: 1.15em;
   color: #000000;
