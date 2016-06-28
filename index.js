@@ -140,6 +140,8 @@ dbFunctions.getChannels(function(channels) {
     rooms = (_.pluck(channels, 'channel_name'));
 });
 
+var userCounter = require('./routes/chat/userCounter.js');
+
 var users = []; // for keeping track of who is online, for email notifications
 
 io.on('connection', function(socket) {
@@ -173,6 +175,7 @@ io.on('connection', function(socket) {
         });
 
         users.push(username);
+        userCounter.incrementOnlineUsers();
     });
 
     socket.on('create', function(room) {
@@ -272,6 +275,7 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
         socket.leave(socket.room);
         users.splice(_.indexOf(users,socket.username), 1);
+        userCounter.decrementOnlineUsers();
     });
 });
 

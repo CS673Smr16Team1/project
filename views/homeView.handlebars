@@ -40,7 +40,14 @@
                 </div>
                 <div class="col-xs-9 text-right">
                   <div class="title">18 Unread</div>
-                  <div>3 Online Users</div>
+                    {{#if chatNowOnlineUsers.isSingle}}
+                        <div>1 Online User</div>
+
+                        {{else}}
+                        <div>{{chatNowOnlineUsers.count}} Online Users</div>
+
+                    {{/if}}
+
                 </div>
               </div>
             </div>
