@@ -8,11 +8,15 @@ var connection =
 module.exports =
     function saveProject(req , res , next){
         var id = req.params.projectId;
+        var project_members = JSON.stringify(req.body.members);
+        console.log(req.body.project_owner);
         var inputFromForm = {
-            project_name  : req.body.project_name,
-            Description    : req.body.project_description,
-            owner           :   req.project_owner
+            project_name    :   req.body.project_name,
+            Description     :   req.body.project_description,
+            Owner           :   req.body.project_owner,
+            members         :   project_members
         };
+        console.log(inputFromForm);
         connection.query("UPDATE QueuedProjects set ? WHERE projectId=?",
             [inputFromForm, id],
             function(err, rows)
