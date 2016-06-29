@@ -282,10 +282,10 @@ module.exports = {
     getEmailNotificationStatus: f17,
     getEmailNotificationStatusFromUsername: f18,
     searchMessages: f19,
-    getArchivableChannelList: f20,
-    getUnarchivableChannelList: f21,
-    archiveChannel: f22,
-    unarchiveChannel: f23,
-    getActiveProjectCount: f24,
-    getArchivedProjectCount: f25
+    getActiveProjectCount: f20,
+    getArchivedProjectCount: f21,
+    getArchivableChannelList: f22,
+    getUnarchivableChannelList: f23,
+    archiveChannel: f24,
+    unarchiveChannel: f25
 };
