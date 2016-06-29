@@ -10,7 +10,8 @@ module.exports =
         var id = req.params.projectId;
         var inputFromForm = {
             project_name  : req.body.project_name,
-            Description    : req.body.project_description
+            Description    : req.body.project_description,
+            owner           :   req.project_owner
         };
         connection.query("UPDATE QueuedProjects set ? WHERE projectId=?",
             [inputFromForm, id],

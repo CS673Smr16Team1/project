@@ -12,6 +12,19 @@
                 <td><input type="text" name="project_description" required
                            value="{{data.Description}}"></td>
             </tr>
+            <tr>
+                <th>Project Owner: </td>
+                <td><input type="text" name="project_owner" required
+                           value="{{data.owner}}" disabled></td>
+            </tr>
+            <tr>
+                <th>Project Members:</th>
+                {{#each members}}
+                    <td>
+                        <input type="checkbox" name="members" value="{{this}}" checked>{{this}}<br>
+                    </td>
+                {{/each}}
+            </tr>
             </tbody>
             <tfooter>
                 <tr>

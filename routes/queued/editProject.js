@@ -14,9 +14,12 @@ module.exports =
         connection.query('SELECT * FROM QueuedProjects WHERE projectId = ?',
             [id],
 
+
             function(err,rows){
                 if(err)
                     console.log("Error Selecting : %s ", err);
+                var test = JSON.parse(rows[0].members);
+                console.log(test);
                 res.render('queuedEditProjectView',
                     {
 
@@ -24,6 +27,7 @@ module.exports =
                         queuedSelected: 'active',
                         js: ['clickActions.js'],
                         data:   rows[0],
+                        members: test,
                         user: req.user});
             });
     };
