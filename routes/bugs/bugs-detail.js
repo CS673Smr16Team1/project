@@ -43,8 +43,6 @@ module.exports =
                     images = isUniqueBugsId(images);
                     comments = isUniqueBugsId(comments);
 
-                    //make an object to keep track of issue IDs ive mouseenter
-                    //check to see if that object, if youve seen it already
                     res.render('bugsDetailView', {
                         title: 'Bugs - Issue Detail - #' + id + ' | μProject',
                         bugsSelected: 'active',
