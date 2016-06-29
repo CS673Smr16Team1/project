@@ -230,6 +230,18 @@ $(document).ready(function () {
         return false;
     });
 
+    $('.archiveForm').submit(function () {
+        socket.emit('archiveChannel', $('#archiveChannelDropdown').val());
+        $('#archiveChannel').modal('hide');
+        return false;
+    });
+
+    $('.unarchiveForm').submit(function () {
+        socket.emit('unarchiveChannel', $('#unarchiveChannelDropdown').val());
+        $('#unarchiveChannel').modal('hide');
+        return false;
+    });
+
     $('#createChannel').on('hidden.bs.modal', function () {
         //erase error msg
         $('.modal-footer p').html('');
@@ -241,17 +253,54 @@ $(document).ready(function () {
         $('#newChannelName').focus();
     });
 
-    // Bootstrap component
-    /*$('#directMessage').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      var recipient = button.data('whatever')
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    });*/
-
     $('body').on('click', '#userList li', function() {
        switchRoomPrivate($(this).text());
+    });
+
+    $('#archiveChannel').on('show.bs.modal', function() {
+        $.ajax({
+            type: 'GET',
+            url: '/chat-api/archivable-channels',
+            success: function(data) {
+                if(data.length) {
+                    var optionsHtml = '';
+                    data.forEach(function(channel) {
+                        optionsHtml+='<option value="' + channel.channel_name + '">' + channel.channel_name + '</option>';
+                    });
+
+                    $('#archiveChannelDropdown').html(optionsHtml);
+                }
+                else {
+                    $('.archiveForm').html('There are no channels that can be archived.');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log('ajax error:' + xhr.status + ' ' + thrownError);
+            }
+        });
+    });
+
+    $('#unarchiveChannel').on('show.bs.modal', function() {
+        $.ajax({
+            type: 'GET',
+            url: '/chat-api/unarchivable-channels',
+            success: function(data) {
+                if(data.length) {
+                    var optionsHtml = '';
+                    data.forEach(function(channel) {
+                        optionsHtml+='<option value="' + channel.channel_name + '">' + channel.channel_name + '</option>';
+                    });
+
+                    $('#unarchiveChannelDropdown').html(optionsHtml);
+                }
+                else {
+                    $('.unarchiveForm').html('There are no channels that can be unarchived.');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log('ajax error:' + xhr.status + ' ' + thrownError);
+            }
+        });
     });
 
 });

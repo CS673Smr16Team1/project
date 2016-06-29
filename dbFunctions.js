@@ -32,7 +32,7 @@ var f3 = function(callback) {
 };
 
 var f4 = function(callback) {
-    connection.query("SELECT channel_name FROM ChatNowChannel",
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0",
         function(err, rows) {
             if (err)
                 console.log("Error selecting: %s ", err);
@@ -206,6 +206,62 @@ var f19 = function(personId, message, callback) {
         });
 };
 
+var f20 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsActive FROM  QueuedProjects WHERE archived = 1",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+
+var f21 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsArchived FROM QueuedProjects WHERE archived = 0",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f22 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0 AND channel_name <> 'general'",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+
+var f23 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 1",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+var f24 = function(channelName) {
+    connection.query("UPDATE ChatNowChannel SET archived = 1 WHERE channel_name = ?",
+        [channelName],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
+var f25 = function(channelName) {
+    connection.query("UPDATE ChatNowChannel SET archived = 0 WHERE channel_name = ?",
+        [channelName],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -225,5 +281,11 @@ module.exports = {
     updateEmailNotification: f16,
     getEmailNotificationStatus: f17,
     getEmailNotificationStatusFromUsername: f18,
-    searchMessages: f19
+    searchMessages: f19,
+    getActiveProjectCount: f20,
+    getArchivedProjectCount: f21,
+    getArchivableChannelList: f22,
+    getUnarchivableChannelList: f23,
+    archiveChannel: f24,
+    unarchiveChannel: f25
 };

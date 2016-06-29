@@ -17,7 +17,8 @@ module.exports =
             project_name    :   req.body.project_name,
             Description     :   req.body.project_description,
             owner           :   req.user.username,
-            members         :   project_members
+            members         :   project_members,
+            archived    :   1
         };
         connection.query("INSERT INTO QueuedProjects set ? ",
             inputFromForm,

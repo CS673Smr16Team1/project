@@ -8,11 +8,15 @@
               <span id="channelCount">Channels</span>
               <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu channelMenu">
               <!-- Channels dynamically added to list -->
               <span id="channelList"></span>
               <li role="separator" class="divider"></li>
-              <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#createChannel">Create Channel <i class="fa fa-plus-circle"></i></a></li>
+              <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#createChannel">Create a Channel... <i class="fa fa-plus-circle"></i></a></li>
+                <li role="separator" class="divider"></li>
+                <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#archiveChannel">Archive a Channel... <i class="fa fa-archive"></i></a></li>
+                <li role="separator" class="divider"></li>
+                <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#unarchiveChannel">Unarchive a Channel... <i class="fa fa-undo"></i></a></li>
             </ul>
           </div>
           <div class="btn-group" role="group">
@@ -90,7 +94,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Create New Channel</h4>
+                <h4 class="modal-title" id="createChannelLabel">Create New Channel</h4>
             </div>
 
             <div class="modal-body">
@@ -113,30 +117,56 @@
     </div>
 </div>
 
-<!-- Direct Message Controller -->
-<!--<div class="modal fade" id="directMessage" tabindex="-1" role="dialog" aria-labelledby="directMessageLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+<!-- Modal for archiving a channel-->
+<div class="modal fade" id="archiveChannel" tabindex="-1" role="dialog" aria-labelledby="archiveChannelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="archiveChannelLabel">Archive a Channel</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-inline archiveForm">
+                    <select id="archiveChannelDropdown">
+                    </select>
+
+                    <button type="submit" class="btn btn-primary" id="archiveChannelBtn">Archive</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>-->
+</div>
+
+<!-- Modal for unarchiving a channel-->
+<div class="modal fade" id="unarchiveChannel" tabindex="-1" role="dialog" aria-labelledby="unarchiveChannelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="unarchiveChannelLabel">Unarchive a Channel</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-inline unarchiveForm">
+                    <select id="unarchiveChannelDropdown">
+                    </select>
+
+                    <button type="submit" class="btn btn-primary" id="unarchiveChannelBtn">Unarchive</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -270,6 +270,20 @@ io.on('connection', function(socket) {
 
     });
 
+    socket.on('archiveChannel', function(channel) {
+        dbFunctions.archiveChannel(channel);
+        rooms.splice(_.indexOf(rooms, channel), 1);
+        socket.emit('updaterooms', rooms, socket.room);
+
+    });
+
+    socket.on('unarchiveChannel', function(channel) {
+        dbFunctions.unarchiveChannel(channel);
+        rooms.push(channel);
+        socket.emit('updaterooms', rooms, socket.room);
+
+    });
+
     socket.on('disconnect', function() {
         io.emit('onlinestatus', socket.username, 'offline');
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
