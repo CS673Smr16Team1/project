@@ -12,7 +12,7 @@ module.exports =
 
         var id = req.params.projectId;
         var inputFromForm = {
-            archived    :   0
+            archived    :   1
         };
         console.log(inputFromForm);
         connection.query("UPDATE QueuedProjects set ? WHERE projectId=?",
