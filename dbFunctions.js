@@ -206,6 +206,24 @@ var f19 = function(personId, message, callback) {
         });
 };
 
+var f20 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsActive FROM  QueuedProjects WHERE archived = 1",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        })
+};
+
+var f21 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsArchived FROM QueuedProjects WHERE archived = 0",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        })
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -225,5 +243,7 @@ module.exports = {
     updateEmailNotification: f16,
     getEmailNotificationStatus: f17,
     getEmailNotificationStatusFromUsername: f18,
-    searchMessages: f19
+    searchMessages: f19,
+    getActiveProjectCount: f20,
+    getArchivedProjectCount: f21
 };
