@@ -45,8 +45,10 @@ createIssue.createIssue = function saveIssue(req, res){
         function(err){
             if(err) {
                 console.log("Error Inserting : %s ", err);
+                res.redirect('/bugs/create');
+            } else {
+                res.redirect('/bugs');
             }
-            res.redirect('/bugs');
     });
 };
 

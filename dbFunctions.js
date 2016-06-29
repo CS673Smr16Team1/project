@@ -207,16 +207,17 @@ var f19 = function(personId, message, callback) {
 };
 
 var f20 = function(callback) {
-    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0 AND channel_name <> 'general'",
+    connection.query("SELECT Count(*) AS projectsActive FROM  QueuedProjects WHERE archived = 1",
         function(err, rows) {
             if (err)
                 console.log("Error selecting: %s ", err);
             return callback(rows);
         });
 };
+
 
 var f21 = function(callback) {
-    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 1",
+    connection.query("SELECT Count(*) AS projectsArchived FROM QueuedProjects WHERE archived = 0",
         function(err, rows) {
             if (err)
                 console.log("Error selecting: %s ", err);
@@ -224,7 +225,26 @@ var f21 = function(callback) {
         });
 };
 
-var f22 = function(channelName) {
+var f22 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0 AND channel_name <> 'general'",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+
+var f23 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 1",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+var f24 = function(channelName) {
     connection.query("UPDATE ChatNowChannel SET archived = 1 WHERE channel_name = ?",
         [channelName],
         function(err, rows) {
@@ -233,7 +253,7 @@ var f22 = function(channelName) {
         })
 };
 
-var f23 = function(channelName) {
+var f25 = function(channelName) {
     connection.query("UPDATE ChatNowChannel SET archived = 0 WHERE channel_name = ?",
         [channelName],
         function(err, rows) {
@@ -265,5 +285,7 @@ module.exports = {
     getArchivableChannelList: f20,
     getUnarchivableChannelList: f21,
     archiveChannel: f22,
-    unarchiveChannel: f23
+    unarchiveChannel: f23,
+    getActiveProjectCount: f24,
+    getArchivedProjectCount: f25
 };

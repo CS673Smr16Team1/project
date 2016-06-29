@@ -1,3 +1,13 @@
+<script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js" ></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script>
+    $(function() {
+        var availableTags = {{{all_users}}};
+        $( "#project_owner" ).autocomplete({
+            source: availableTags
+        });
+    });
+</script>
 <div class="table-responsive">
     <form method="post" action='/queued/editProject/{{data.projectId}}'>
         <table class="table table-condensed">
@@ -11,6 +21,22 @@
                 <th>Project Description: </td>
                 <td><input type="text" name="project_description" required
                            value="{{data.Description}}"></td>
+            </tr>
+            <tr>
+                <th>Project Owner: </td>
+                <td>
+                <td><input type="text" id ="project_owner" name="project_owner" required
+                           value="{{data.owner}}"></td>
+
+                </td>
+            </tr>
+            <tr>
+                <th>Project Members:</th>
+                {{#each members}}
+                    <td>
+                        <input type="checkbox" name="members" value="{{this}}" checked>{{this}}<br>
+                    </td>
+                {{/each}}
             </tr>
             </tbody>
             <tfooter>

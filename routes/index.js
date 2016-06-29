@@ -37,6 +37,7 @@ var saveStoryRoute = require("./queued/saveStory");       // Route for Save a ne
 var viewStoryDetailRoute = require ("./queued/viewStory");// Route for View detail of a story
 var deleteStoryRoute = require("./queued/deleteStory");   // Route for Delete a story
 var updateStoryRoute = require("./queued/updateStory");   // Route for Update a story
+var archiveProjectRoute = require("./queued/archiveProject");
 
 // router.get for queued
 router.get('/queued', ensureAuthenticated, requirementsRoute);
@@ -45,6 +46,7 @@ router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
 router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
 router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
 router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
+router.get('/queued/archiveProject/:projectId', ensureAuthenticated, archiveProjectRoute );
 
 // router.post for queuedS
 router.post('/queued/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
