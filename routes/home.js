@@ -8,6 +8,10 @@ module.exports =
         var activeProjectCount;
         var archivedProjectCount;
 
+        //variable to store all projects for current user
+
+        var currentUserProjects;
+
         //get active projects count
         dbFunctions.getActiveProjectCount(function (result) {
             var activeCount = JSON.stringify(result);
@@ -23,6 +27,12 @@ module.exports =
 
             console.log("archived projects: ");
             console.log(archivedProjectCount);
+
+        });
+        
+
+        dbFunctions.getActiveProjectsPerUser(req.user.username,function(result){
+            currentUserProjects = result;
 
         });
 
@@ -41,10 +51,12 @@ module.exports =
                     title: 'μProject | A Tiny Project Management Service',
                     homeSelected: 'active',
                     css: ['bugs-log.css'],
+                    css: ['bugs-log.css'],
                     bugs: bugsData,
                     user: req.user,
                     activeProjectCount: JSON.parse(activeProjectCount),
                     archivedProjectCount: JSON.parse(archivedProjectCount),
+                    currentUserProjects: currentUserProjects,
                     chatNowOnlineUsers: {
                         count: userCounter.getOnlineUserCount(),
                         isSingle: userCounter.getOnlineUserCount() === 1
