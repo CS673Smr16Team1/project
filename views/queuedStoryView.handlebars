@@ -30,6 +30,9 @@
           <hr>
           <p><strong>Assigned to</strong></p>
           {{data.assignee}}
+            <hr>
+            <p><strong>Due Date</strong></p>
+            {{data.assignee}}
         </div>
       </div>
     </div>
@@ -67,6 +70,14 @@
               <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
               {{/each}}
             </select>
+            <hr>
+              <label class="control-label">Due Date</label>
+              <!-- Due Date -->
+              <div class="form-group">
+                  <div class="col-md-4">
+                      <input type="text" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
+                  </div>
+              </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
