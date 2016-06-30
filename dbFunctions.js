@@ -224,6 +224,34 @@ var f21 = function(callback) {
         })
 };
 
+var f22 = function(idusers,projectId,username, callback) {
+    var inputFromForm = {
+        idusers         :   idusers,
+        projectId       :   projectId,
+        username        :   username,
+        role            : "developer"
+    };
+    connection.query("INSERT INTO member set ? ",
+        inputFromForm,
+        function(err, rows) {
+            if (err)
+                console.log("Error inserting: %s ", err);
+            else {
+                callback(true,err);
+            }
+        })
+};
+
+var f23 = function(username, callback) {
+    connection.query("SELECT * FROM QueuedProjects JOIN member ON member.projectId = QueuedProjects.projectId WHERE archived = 1 AND username = ?",
+        [username],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -245,5 +273,7 @@ module.exports = {
     getEmailNotificationStatusFromUsername: f18,
     searchMessages: f19,
     getActiveProjectCount: f20,
-    getArchivedProjectCount: f21
+    getArchivedProjectCount: f21,
+    createProjectMember: f22,
+    getActiveProjectsPerUser: f23
 };
