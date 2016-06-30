@@ -262,7 +262,7 @@ var f25 = function(channelName) {
         })
 };
 
-var f22 = function(idusers,projectId,username, callback) {
+var f26 = function(idusers,projectId,username, callback) {
     var inputFromForm = {
         idusers         :   idusers,
         projectId       :   projectId,
@@ -280,7 +280,7 @@ var f22 = function(idusers,projectId,username, callback) {
         })
 };
 
-var f23 = function(username, callback) {
+var f27 = function(username, callback) {
     connection.query("SELECT * FROM QueuedProjects JOIN member ON member.projectId = QueuedProjects.projectId WHERE archived = 1 AND username = ?",
         [username],
         function(err, rows) {
@@ -315,8 +315,7 @@ module.exports = {
     getArchivableChannelList: f22,
     getUnarchivableChannelList: f23,
     archiveChannel: f24,
-    unarchiveChannel: f25
-    getArchivedProjectCount: f21,
-    createProjectMember: f22,
-    getActiveProjectsPerUser: f23
+    unarchiveChannel: f25,
+    createProjectMember: f26,
+    getActiveProjectsPerUser: f27
 };
