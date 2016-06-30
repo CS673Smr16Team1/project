@@ -13,10 +13,16 @@ var chatRoomRoute = require("./chat/chat-room");
 var createChannelRoute = require("./chat/chat-api/create-channel");
 var updateEmailNotificationRoute = require('./chat/chat-api/update-email-notification');
 var searchMessagesRoute = require('./chat/chat-api/search-messages');
+var archivableChannelsRoute = require('./chat/chat-api/archivable-channels');
+var unarchivableChannelsRoute = require('./chat/chat-api/unarchivable-channels');
+
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', ensureAuthenticated, createChannelRoute);
-router.post('/chat-api/update-email-notification/:setting', ensureAuthenticated, updateEmailNotificationRoute);
 router.get('/chat-api/search-messages/:message', ensureAuthenticated, searchMessagesRoute);
+router.get('/chat-api/archivable-channels', ensureAuthenticated, archivableChannelsRoute);
+router.get('/chat-api/unarchivable-channels', ensureAuthenticated, unarchivableChannelsRoute);
+
+router.post('/chat-api/update-email-notification/:setting', ensureAuthenticated, updateEmailNotificationRoute);
 
 
 // queued modules

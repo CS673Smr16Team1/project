@@ -24,12 +24,16 @@ describe('BugsCreate', function() {
             
             res = {
                 redirect: function(url) {
-                    if (url === '/bugs') {
-                        done();
-                    } else {
-                        throw new Error('Error inserting issue');
-                    }
-                    connection.query('DELETE FROM Issues Where Summary = ?', 'Test Summary Issue 123');
+                    connection.query('select * from Issues where Summary = ?', 'Test Summary Issue 123', function(err, rows) {
+                        connection.query('delete from Issues where Summary = ?', 'Test Summary Issue 123', function() {
+                            if (rows) {
+                                done();
+                            } else {
+                                throw new Error("Error inserting summary");
+                            }
+                        });
+
+                    });
                 }
             };
             bugsCreate.createIssue(req, res);

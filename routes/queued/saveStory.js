@@ -12,7 +12,7 @@ module.exports =
         var inputFromForm = {
             projectId: parseInt(projectId),
             title: req.body.title,
-            description: req.body.content,
+            description: req.body.description,
             story_status: req.body.story_status,
             assignee: req.body.assignedTo,   // need to update to user name of member projects
             type: 'feature',
