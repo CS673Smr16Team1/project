@@ -24,6 +24,6 @@
     "passport": ">= 0.0.0",
     "passport-github2": ">= 0.0.0",
     "socket.io": "^1.4.5",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
   }
 }
