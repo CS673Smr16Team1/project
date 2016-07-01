@@ -79,6 +79,24 @@ app.engine('handlebars',
                     return opts.fn(this);
                 else
                     return opts.inverse(this);
+            },
+            dashboardChannel: function(channel, user) {
+                if(channel.substring(0, 3) === 'DM:') {
+                    // returns @ + the other user's username. Example: if the user is chriscarducci, then in the strings
+                    // 'DM: chriscarducci-davidblair' and 'DM: davidblair-chriscarducci', it will return @davidblair in both cases.
+                    var meLoc = channel.indexOf(user);
+                    var rtnStr;
+                    if(meLoc===4) {
+                        rtnStr = channel.substring(5 + 13, channel.length);
+                    }
+                    else {
+                        rtnStr = channel.substring(4, meLoc - 1);
+                    }
+                    return '@' + rtnStr;
+                }
+                else {
+                    return '#' + channel;
+                }
             }
 
         }
