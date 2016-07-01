@@ -262,6 +262,38 @@ var f25 = function(channelName) {
         })
 };
 
+var f26 = function(personId, callback) {
+    /*var qry = "SELECT username, message_date, message_content, channel_name "
+        + " FROM users INNER JOIN ChatNowPublicMessage ON users.idusers=ChatNowPublicMessage.sender_id "
+        +"INNER JOIN ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+        + "WHERE upper(message_content) LIKE '%" + cleanMessage + "%'"
+
+        +" UNION ALL "
+
+        + "SELECT username, message_date, message_content, CONCAT(CONCAT(CONCAT('Direct Message: ',username),'-'),(SELECT username FROM users WHERE idusers=recipient_id)) "
+        + "FROM users INNER JOIN ChatNowPrivateMessage ON users.idusers=ChatNowPrivateMessage.sender_id "
+        + "WHERE UPPER(message_content) LIKE '%" + cleanMessage + "%'"
+        + "AND (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") ORDER BY 2 DESC;";*/
+
+    var qry = "SELECT username, MAX(message_date) as message_date, message_content, channel_name FROM "
+        + " (SELECT username, message_date, message_content, channel_name FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id "
+        + " inner join ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+
+        + " union all "
+
+        + " SELECT username, message_date, message_content, concat(concat(concat('DM: ',username),'-'),(select username from users where idusers=recipient_id)) "
+        + " FROM users INNER JOIN ChatNowPrivateMessage on users.idusers=ChatNowPrivateMessage.sender_id "
+        + " WHERE (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") order by message_date desc) everything "
+        + " GROUP BY channel_name order by message_date desc limit 3;";
+
+    connection.query(qry,
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -287,5 +319,6 @@ module.exports = {
     getArchivableChannelList: f22,
     getUnarchivableChannelList: f23,
     archiveChannel: f24,
-    unarchiveChannel: f25
+    unarchiveChannel: f25,
+    mostRecentMessages: f26
 };
