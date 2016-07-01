@@ -262,7 +262,35 @@ var f25 = function(channelName) {
         })
 };
 
-var f26 = function(personId, callback) {
+var f26 = function(idusers,projectId,username, callback) {
+    var inputFromForm = {
+        idusers         :   idusers,
+        projectId       :   projectId,
+        username        :   username,
+        role            : "developer"
+    };
+    connection.query("INSERT INTO member set ? ",
+        inputFromForm,
+        function(err, rows) {
+            if (err)
+                console.log("Error inserting: %s ", err);
+            else {
+                callback(true,err);
+            }
+        })
+};
+
+var f27 = function(username, callback) {
+    connection.query("SELECT * FROM QueuedProjects JOIN member ON member.projectId = QueuedProjects.projectId WHERE archived = 1 AND username = ?",
+        [username],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f28 = function(personId, callback) {
     /*var qry = "SELECT username, message_date, message_content, channel_name "
         + " FROM users INNER JOIN ChatNowPublicMessage ON users.idusers=ChatNowPublicMessage.sender_id "
         +"INNER JOIN ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
@@ -320,5 +348,7 @@ module.exports = {
     getUnarchivableChannelList: f23,
     archiveChannel: f24,
     unarchiveChannel: f25,
-    mostRecentMessages: f26
+    createProjectMember: f26,
+    getActiveProjectsPerUser: f27,
+    mostRecentMessages: f28
 };

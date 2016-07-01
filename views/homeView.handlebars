@@ -18,9 +18,9 @@
             </div>
           </a>
           <div class="list-group">
-            <a href="/queued" class="list-group-item">UI Dev</a>
-            <a href="/queued" class="list-group-item">Requirements</a>
-            <a href="/queued" class="list-group-item">Documentation</a>
+                {{#each currentUserProjects}}
+                    <a href="/queued/project/{{this.projectId}}" class="list-group-item">{{this.project_name}}</a>
+                {{/each}}
           </div>
           <a href="/queued">
             <div class="panel-footer">
