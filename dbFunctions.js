@@ -2,6 +2,7 @@
  * Created by Chris on 6/5/2016.
  */
 var connection = require('./routes/dbConnection.js').dbConnect();
+var Q = require('Q');
 
 var f1 = function(username, callback) {
     connection.query("SELECT idusers FROM users WHERE username =?",
@@ -290,19 +291,53 @@ var f27 = function(username, callback) {
         });
 };
 
-var f28 = function(personId, callback) {
-    /*var qry = "SELECT username, message_date, message_content, channel_name "
-        + " FROM users INNER JOIN ChatNowPublicMessage ON users.idusers=ChatNowPublicMessage.sender_id "
-        +"INNER JOIN ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
-        + "WHERE upper(message_content) LIKE '%" + cleanMessage + "%'"
+/*var f28 = function(personId, callback) {
+ /!*var qry = "SELECT username, message_date, message_content, channel_name "
+ + " FROM users INNER JOIN ChatNowPublicMessage ON users.idusers=ChatNowPublicMessage.sender_id "
+ +"INNER JOIN ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+ + "WHERE upper(message_content) LIKE '%" + cleanMessage + "%'"
 
-        +" UNION ALL "
+ +" UNION ALL "
 
-        + "SELECT username, message_date, message_content, CONCAT(CONCAT(CONCAT('Direct Message: ',username),'-'),(SELECT username FROM users WHERE idusers=recipient_id)) "
-        + "FROM users INNER JOIN ChatNowPrivateMessage ON users.idusers=ChatNowPrivateMessage.sender_id "
-        + "WHERE UPPER(message_content) LIKE '%" + cleanMessage + "%'"
-        + "AND (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") ORDER BY 2 DESC;";*/
+ + "SELECT username, message_date, message_content, CONCAT(CONCAT(CONCAT('Direct Message: ',username),'-'),(SELECT username FROM users WHERE idusers=recipient_id)) "
+ + "FROM users INNER JOIN ChatNowPrivateMessage ON users.idusers=ChatNowPrivateMessage.sender_id "
+ + "WHERE UPPER(message_content) LIKE '%" + cleanMessage + "%'"
+ + "AND (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") ORDER BY 2 DESC;";*!/
 
+ var qry = "SELECT username, MAX(message_date) as message_date, message_content, channel_name FROM "
+ + " (SELECT username, message_date, message_content, channel_name FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id "
+ + " inner join ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+
+ + " union all "
+
+ + " SELECT username, message_date, message_content, concat(concat(concat('DM: ',username),'-'),(select username from users where idusers=recipient_id)) "
+ + " FROM users INNER JOIN ChatNowPrivateMessage on users.idusers=ChatNowPrivateMessage.sender_id "
+ + " WHERE (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") order by message_date desc) everything "
+ + " GROUP BY channel_name order by message_date desc limit 3;";
+
+ connection.query(qry,
+ function(err, rows) {
+ if (err)
+ console.log("Error selecting: %s ", err);
+ return callback(rows);
+ });
+ };*/
+
+
+// Functions starting with q are intended to be used with the Q module
+
+var q1 = function(username) {
+    var deferred = Q.defer();
+    var qry = 'SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) '
+    + 'AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" '
+    + 'AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
+    + 'ORDER BY LastModifiedDate DESC LIMIT 3';
+    connection.query(qry, deferred.makeNodeResolver());
+    return deferred.promise;
+};
+
+var q2 = function(username) {
+    var deferred = Q.defer();
     var qry = "SELECT username, MAX(message_date) as message_date, message_content, channel_name FROM "
         + " (SELECT username, message_date, message_content, channel_name FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id "
         + " inner join ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
@@ -311,16 +346,14 @@ var f28 = function(personId, callback) {
 
         + " SELECT username, message_date, message_content, concat(concat(concat('DM: ',username),'-'),(select username from users where idusers=recipient_id)) "
         + " FROM users INNER JOIN ChatNowPrivateMessage on users.idusers=ChatNowPrivateMessage.sender_id "
-        + " WHERE (sender_id = " + connection.escape(personId) + " or recipient_id = " + connection.escape(personId) + ") order by message_date desc) everything "
+        + " WHERE (sender_id = (select idusers from users where username = " + connection.escape(username) + ") "
+        + "or recipient_id = (select idusers from users where username = " + connection.escape(username) + ")) order by message_date desc) everything "
         + " GROUP BY channel_name order by message_date desc limit 3;";
 
-    connection.query(qry,
-        function(err, rows) {
-            if (err)
-                console.log("Error selecting: %s ", err);
-            return callback(rows);
-        });
+    connection.query(qry, deferred.makeNodeResolver());
+    return deferred.promise;
 };
+
 
 module.exports = {
   userExists: f1,
@@ -350,5 +383,8 @@ module.exports = {
     unarchiveChannel: f25,
     createProjectMember: f26,
     getActiveProjectsPerUser: f27,
-    mostRecentMessages: f28
+    //mostRecentMessages: f28,
+
+    qBugsDashboardQuery: q1,
+    qMostRecentMessages: q2
 };

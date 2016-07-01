@@ -87,7 +87,7 @@ var loginRoute = require("./login");
 var homeRoute = require("./home");
 var settingsRoute = require("./settings");
 
-router.get('/', ensureAuthenticated, homeRoute);
+router.get('/', homeRoute);
 router.get('/settings', ensureAuthenticated, settingsRoute);
 router.get('/login', loginRoute);
 router.get('/auth/github', passport.authenticate('github', {scope: ['user:email']}));
