@@ -1,5 +1,5 @@
 var dbFunctions = require('../dbFunctions.js');
-var Q = require('Q');
+var Q = require('q');
 
 module.exports =
     function displayHomePage(req, res) {

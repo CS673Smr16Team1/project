@@ -2,7 +2,7 @@
  * Created by Chris on 6/5/2016.
  */
 var connection = require('./routes/dbConnection.js').dbConnect();
-var Q = require('Q');
+var Q = require('q');
 
 var f1 = function(username, callback) {
     connection.query("SELECT idusers FROM users WHERE username =?",

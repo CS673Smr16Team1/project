@@ -15,14 +15,12 @@ var updateEmailNotificationRoute = require('./chat/chat-api/update-email-notific
 var searchMessagesRoute = require('./chat/chat-api/search-messages');
 var archivableChannelsRoute = require('./chat/chat-api/archivable-channels');
 var unarchivableChannelsRoute = require('./chat/chat-api/unarchivable-channels');
-var mostRecentMessagesRoute = require('./chat/chat-api/most-recent-messages');
 
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', ensureAuthenticated, createChannelRoute);
 router.get('/chat-api/search-messages/:message', ensureAuthenticated, searchMessagesRoute);
 router.get('/chat-api/archivable-channels', ensureAuthenticated, archivableChannelsRoute);
 router.get('/chat-api/unarchivable-channels', ensureAuthenticated, unarchivableChannelsRoute);
-router.get('/chat-api/most-recent-messages', ensureAuthenticated, mostRecentMessagesRoute);
 
 router.post('/chat-api/update-email-notification/:setting', ensureAuthenticated, updateEmailNotificationRoute);
 
