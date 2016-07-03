@@ -87,7 +87,7 @@ app.engine('handlebars',
                     var meLoc = channel.indexOf(user);
                     var rtnStr;
                     if(meLoc===4) {
-                        rtnStr = channel.substring(5 + 13, channel.length);
+                        rtnStr = channel.substring(5 + user.length, channel.length);
                     }
                     else {
                         rtnStr = channel.substring(4, meLoc - 1);
