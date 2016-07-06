@@ -50,8 +50,12 @@ module.exports =
                         images: images,
                         users: users,
                         comments: comments,
-                        css: ['issue-detail.css', 'issue-comment.css'],
-                        js: ['issueImages.js'],
+                        css: ['issue-detail.css',
+                              'bootstrap-markdown.css',
+                              'queued-detail.css',
+                              'issue-comment.css'],
+                        js: ['bootstrap-markdown.js',
+                             'issueImages.js'],
                         user: req.user});
                 });
             });
