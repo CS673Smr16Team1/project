@@ -8,3 +8,7 @@ function addProject(){
 function cancelAdd(){
     window.location.href = '/queued';
 }
+
+function cancelEditStory(){
+    window.location.reload(false);
+}

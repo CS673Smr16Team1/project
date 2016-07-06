@@ -92,7 +92,9 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
-          <button type="submit" name="save" class="btn btn-success pull-right">Update Story</button>
+            <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()"> <!-- To be changed to something like below -->
+            <!-- <button class="btn btn-danger settings queued-info hidden pull-right">Cancel</button> -- this redirects to queued/projects/P# instead of queued/projects/P#/S# -->
+            <button type="submit" name="save" class="btn btn-success pull-right">Update Story</button>
         </div>
       </form>
     </div>
