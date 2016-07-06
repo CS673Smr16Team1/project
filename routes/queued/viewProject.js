@@ -16,7 +16,7 @@ module.exports =
         var status_Current = "Current";
         var status_Done = "Done";
         var status_Release = "Release";
-        
+
         projectId = req.params.projectId;
 
         // query all stories that are related to this project
@@ -103,7 +103,7 @@ module.exports =
                 res.render('queuedProjectView',
                     {
                         title: projectInfoCB[0].project_name + ' | μProject',
-                        requirementsSelected: 'pure-menu-selected',
+                        queuedSelected: 'active',
                         projectId: projectId,
                         project_name: projectInfoCB[0].project_name,
                         description: projectInfoCB[0].description,
