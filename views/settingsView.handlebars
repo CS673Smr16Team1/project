@@ -16,7 +16,14 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="queued">
-            Settings for Queued
+              <div class="chatNowSettings">
+                  <label for="emailNotif">Email Notifications</label>
+                  <input id="emailNotif" type="checkbox" name="email-notif-checkbox"
+                      {{#if queuedEmailNotificationState}}
+                         checked
+                      {{/if}}
+                  >
+              </div>
           </div>
           <div class="tab-pane" id="chatnow">
               <div class="chatNowSettings">

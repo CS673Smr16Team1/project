@@ -25,6 +25,9 @@
           <p><strong>Priority</strong></p>
           <span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}
           <hr>
+            <p><strong>Story Type</strong></p>
+            {{filter data.type "uppercase"}}
+            <hr>
           <p><strong>Status</strong></p>
           {{filter data.story_status "uppercase"}}
           <hr>
@@ -56,6 +59,14 @@
               <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
             </select>
             <hr>
+              <label class="control-label">Story Type</label>
+              <select name="type" class="form-control" title="type">
+                  <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
+                  <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                  <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
+                  <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+              </select>
+              <hr>
             <label class="control-label">Status</label>
             <select name="story_status" class="form-control" title="story_status">
               <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
