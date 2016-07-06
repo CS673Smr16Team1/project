@@ -40,6 +40,8 @@ var updateStoryRoute = require("./queued/updateStory");   // Route for Update a 
 var archiveProjectRoute = require("./queued/archiveProject");
 var queuedArchivedRoute = require("./queued/queuedArchive");
 var restoreProjectRoute = require("./queued/restoreProject");
+var projectSaveOrderRoute = require('./queued/queued-api/projectSaveOrder');
+
 
 // router.get for queued
 router.get('/queued', ensureAuthenticated, requirementsRoute);
@@ -51,6 +53,8 @@ router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addSt
 router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
 router.get('/queued/archiveProject/:projectId', ensureAuthenticated, archiveProjectRoute );
 router.get('/queued/restoreProject/:projectId', ensureAuthenticated, restoreProjectRoute );
+router.get('/queued-api/projectSaveOrder/:data/:storyStatus', ensureAuthenticated, projectSaveOrderRoute);
+
 
 // router.post for queuedS
 router.post('/queued/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
