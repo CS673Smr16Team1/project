@@ -1,7 +1,7 @@
 <div class="container">
   <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="/bugs">bugs</a></li>
+    <li><a href="/bugs">Bugs</a></li>
     <li class="active">#{{data.Id}} Detail view</li>
   </ol>
   <div class="row">
@@ -11,7 +11,7 @@
     <div class="bugs-info show">
       <div class="col-xs-12 col-sm-8">
         <h3>{{data.Summary}}</h3>
-        <p class="small text-muted">Updated by {{data.LastModifiedBy}} {{moment data.LastModifiedDate "fromNow"}}, created by {{data.CreatedBy}} {{moment data.CreatedDate "fromNow"}}.</p>
+        <p class="small text-muted">#{{data.Id}} updated by {{data.LastModifiedBy}} {{moment data.LastModifiedDate "fromNow"}}, created by {{data.CreatedBy}} {{moment data.CreatedDate "fromNow"}}.</p>
         <hr>
       </div>
       <div class="clearfix"></div>
