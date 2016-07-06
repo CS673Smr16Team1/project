@@ -65,6 +65,19 @@
                     </div>
                 </div>
 
+                <!-- Story Type Drop Down -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Story Type</label>
+                    <div class="col-md-4">
+                        <select name="type" class="form-control" title="type">
+                            <option value="Bug" {{#if_equals data.priority "Bug" }}selected{{/if_equals}}>Bug</option>
+                            <option value="Escalation" {{#if_equals data.priority "Test" }}selected{{/if_equals}}>Test</option>
+                            <option value="Regression" {{#if_equals data.priority "Regression" }}selected{{/if_equals}}>Regression</option>
+                            <option value="Feature" {{#if_equals data.priority "Feature" }}selected{{/if_equals}}>Feature</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Status Drop Down -->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Status</label>
