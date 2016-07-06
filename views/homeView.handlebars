@@ -11,16 +11,16 @@
                   <i class="fa fa-bolt fa-5x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
-                  <div class="title">9 Active</div>
-                  <div>12 Archived</div>
+                  <div class="title">{{activeProjectCount.0.projectsActive}} Active</div>
+                  <div>{{archivedProjectCount.0.projectsArchived}} Archived</div>
                 </div>
               </div>
             </div>
           </a>
           <div class="list-group">
-            <a href="/queued" class="list-group-item">UI Dev</a>
-            <a href="/queued" class="list-group-item">Requirements</a>
-            <a href="/queued" class="list-group-item">Documentation</a>
+                {{#each currentUserProjects}}
+                    <a href="/queued/project/{{this.projectId}}" class="list-group-item">{{this.project_name}}</a>
+                {{/each}}
           </div>
           <a href="/queued">
             <div class="panel-footer">
@@ -40,49 +40,41 @@
                 </div>
                 <div class="col-xs-9 text-right">
                   <div class="title">18 Unread</div>
-                  <div>3 Online Users</div>
+                    {{#if chatNowOnlineUsers.isSingle}}
+                        <div>1 Online User</div>
+
+                        {{else}}
+                        <div>{{chatNowOnlineUsers.count}} Online Users</div>
+
+                    {{/if}}
+
                 </div>
               </div>
             </div>
           </a>
+
+
           <div class="list-group">
-            <a href="/chat-room" class="list-group-item">
-              <div class="col-xs-12">
-                <p>
-                  <strong class="text-muted">{{truncate '#general' 39}}</strong><br>
-                  <span class="small text-muted">received a few seconds ago</span>
-                </p>
-              </div>
-              <div class="col-xs-12 bugs-black">
-                &lt;davidblair&gt; {{truncate 'Scissors cuts paper, paper covers rock, rock crushes lizard, lizard poisons Spock' 80}}
-              </div>
-              <div class="clearfix"></div>
-            </a>
-            <a href="/chat-room" class="list-group-item">
-              <div class="col-xs-12">
-                <p>
-                  <strong class="text-muted">{{truncate '@sangDev' 39}}</strong><br>
-                  <span class="small text-muted">received 3 hours ago</span>
-                </p>
-              </div>
-              <div class="col-xs-12 bugs-black">
-                &lt;sangDev&gt; {{truncate 'Disabling the email notification does not work' 80}}
-              </div>
-              <div class="clearfix"></div>
-            </a>
-            <a href="/chat-room" class="list-group-item">
-              <div class="col-xs-12">
-                <p>
-                  <strong class="text-muted">{{truncate '@chriscarducci' 39}}</strong><br>
-                  <span class="small text-muted">received 1 day ago</span>
-                </p>
-              </div>
-              <div class="col-xs-12 bugs-black">
-                &lt;davidblair&gt; {{truncate 'We need another hour, maybe two in order to complete our work' 80}}
-              </div>
-              <div class="clearfix"></div>
-            </a>
+            {{#each chatRecentMessages}}
+                <!--<a href="/chat-room" class="list-group-item">-->
+            <div class="list-group-item">
+                    <div class="col-xs-12">
+                        <p>
+                            <strong class="text-muted">{{truncate (dashboardChannel this.channel_name ../user.username) 39 }}</strong><br>
+                            <span class="small text-muted">{{moment this.message_date "fromNow"}}</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-12 bugs-black">
+                        &lt;{{this.username}}&gt; {{truncate this.message_content 80}}
+                    </div>
+                    <div class="clearfix"></div>
+            </div>
+                <!--</a>-->
+            {{/each}}
+
           </div>
+
+
           <a href="/chat-room">
             <div class="panel-footer">
               <span class="pull-left">Join chat room</span>

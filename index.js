@@ -8,6 +8,8 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var dbFunctions = require('./dbFunctions.js');
 var encryption = require('./encryption.js');
 var mailer = require('./mailer.js');
+var queuedEmailScheduler = require('./queuedEmailScheduler.js');
+
 
 var GITHUB_CLIENT_ID = "e42895897d3a576a6940";
 var GITHUB_CLIENT_SECRET = "6e3279e0e6ab7763ce1c0a4c301016346af6de4c";
@@ -79,6 +81,24 @@ app.engine('handlebars',
                     return opts.fn(this);
                 else
                     return opts.inverse(this);
+            },
+            dashboardChannel: function(channel, user) {
+                if(channel.substring(0, 3) === 'DM:') {
+                    // returns @ + the other user's username. Example: if the user is chriscarducci, then in the strings
+                    // 'DM: chriscarducci-davidblair' and 'DM: davidblair-chriscarducci', it will return @davidblair in both cases.
+                    var meLoc = channel.indexOf(user);
+                    var rtnStr;
+                    if(meLoc===4) {
+                        rtnStr = channel.substring(5 + user.length, channel.length);
+                    }
+                    else {
+                        rtnStr = channel.substring(4, meLoc - 1);
+                    }
+                    return '@' + rtnStr;
+                }
+                else {
+                    return '#' + channel;
+                }
             }
 
         }
@@ -140,6 +160,8 @@ dbFunctions.getChannels(function(channels) {
     rooms = (_.pluck(channels, 'channel_name'));
 });
 
+var userCounter = require('./routes/chat/userCounter.js');
+
 var users = []; // for keeping track of who is online, for email notifications
 
 io.on('connection', function(socket) {
@@ -173,6 +195,7 @@ io.on('connection', function(socket) {
         });
 
         users.push(username);
+        userCounter.incrementOnlineUsers();
     });
 
     socket.on('create', function(room) {
@@ -267,11 +290,26 @@ io.on('connection', function(socket) {
 
     });
 
+    socket.on('archiveChannel', function(channel) {
+        dbFunctions.archiveChannel(channel);
+        rooms.splice(_.indexOf(rooms, channel), 1);
+        socket.emit('updaterooms', rooms, socket.room);
+
+    });
+
+    socket.on('unarchiveChannel', function(channel) {
+        dbFunctions.unarchiveChannel(channel);
+        rooms.push(channel);
+        socket.emit('updaterooms', rooms, socket.room);
+
+    });
+
     socket.on('disconnect', function() {
         io.emit('onlinestatus', socket.username, 'offline');
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
         socket.leave(socket.room);
         users.splice(_.indexOf(users,socket.username), 1);
+        userCounter.decrementOnlineUsers();
     });
 });
 

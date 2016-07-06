@@ -15,16 +15,20 @@ module.exports =  function saveImage(req , res){
         IssueId: req.params.id
 };
 
-    console.log("Here is the form");
-    console.log(inputFromForm);
 
-    connection.query('INSERT INTO IssueComments set ?',
-        inputFromForm,
-        function(err){
-            if(err) {
-                console.log("Error Inserting : %s ", err);
-            }
-            res.redirect(req.get('referer'));
-        });
+    if(req.body.Comment != "") {
+        connection.query('INSERT INTO IssueComments set ?',
+            inputFromForm,
+            function(err){
+                if(err) {
+                    console.log("Error Inserting : %s ", err);
+                }
+                res.redirect(req.get('referer'));
+            });
+    }
+    else {
+        res.redirect(req.get('referer'));
+    }
+
 
 };

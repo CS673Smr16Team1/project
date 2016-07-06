@@ -24,10 +24,18 @@
     background: #eee;
 }
 
-.fa-plus-circle {
-    cursor:pointer;
+.fa-plus-circle, .fa-archive, .fa-undo {
+    /*cursor:pointer;*/
     font-size:1.5em;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
+    float:right;
+    color: #0074d9;
+}
+.channelMenu li {
+    cursor: pointer;
+}
+.channelMenu {
+    min-width: 220px;
 }
 .modal-footer p {
     float:left;
@@ -43,4 +51,7 @@
 }
 .bold {
     font-weight: bold;
+}
+#archiveChannelBtn, #unarchiveChannelBtn {
+    margin-left: 25px;
 }

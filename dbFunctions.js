@@ -2,6 +2,7 @@
  * Created by Chris on 6/5/2016.
  */
 var connection = require('./routes/dbConnection.js').dbConnect();
+var Q = require('q');
 
 var f1 = function(username, callback) {
     connection.query("SELECT idusers FROM users WHERE username =?",
@@ -32,7 +33,7 @@ var f3 = function(callback) {
 };
 
 var f4 = function(callback) {
-    connection.query("SELECT channel_name FROM ChatNowChannel",
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0",
         function(err, rows) {
             if (err)
                 console.log("Error selecting: %s ", err);
@@ -206,6 +207,121 @@ var f19 = function(personId, message, callback) {
         });
 };
 
+var f20 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsActive FROM  QueuedProjects WHERE archived = 1",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+
+var f21 = function(callback) {
+    connection.query("SELECT Count(*) AS projectsArchived FROM QueuedProjects WHERE archived = 0",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f22 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 0 AND channel_name <> 'general'",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+
+var f23 = function(callback) {
+    connection.query("SELECT channel_name FROM ChatNowChannel WHERE archived = 1",
+    function(err, rows) {
+        if (err)
+            console.log("Error selecting: %s ", err);
+        return callback(rows);
+    });
+};
+
+var f24 = function(channelName) {
+    connection.query("UPDATE ChatNowChannel SET archived = 1 WHERE channel_name = ?",
+        [channelName],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
+var f25 = function(channelName) {
+    connection.query("UPDATE ChatNowChannel SET archived = 0 WHERE channel_name = ?",
+        [channelName],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
+
+var f26 = function(idusers,projectId,username, callback) {
+    var inputFromForm = {
+        idusers         :   idusers,
+        projectId       :   projectId,
+        username        :   username,
+        role            : "developer"
+    };
+    connection.query("INSERT INTO member set ? ",
+        inputFromForm,
+        function(err, rows) {
+            if (err)
+                console.log("Error inserting: %s ", err);
+            else {
+                callback(true,err);
+            }
+        })
+};
+
+var f27 = function(username, callback) {
+    connection.query("SELECT * FROM QueuedProjects JOIN member ON member.projectId = QueuedProjects.projectId WHERE archived = 1 AND username = ?",
+        [username],
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+// Functions starting with q are intended to be used with the Q module
+
+var q1 = function(username) {
+    var deferred = Q.defer();
+    var qry = 'SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) '
+    + 'AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" '
+    + 'AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
+    + 'ORDER BY LastModifiedDate DESC LIMIT 3';
+    connection.query(qry, deferred.makeNodeResolver());
+    return deferred.promise;
+};
+
+var q2 = function(username) {
+    var deferred = Q.defer();
+    var qry = "SELECT username, MAX(message_date) as message_date, message_content, channel_name FROM "
+        + " (SELECT username, message_date, message_content, channel_name FROM users INNER JOIN ChatNowPublicMessage on users.idusers=ChatNowPublicMessage.sender_id "
+        + " inner join ChatNowChannel ON ChatNowPublicMessage.channel_id=ChatNowChannel.id "
+
+        + " union all "
+
+        + " SELECT username, message_date, message_content, concat(concat(concat('DM: ',username),'-'),(select username from users where idusers=recipient_id)) "
+        + " FROM users INNER JOIN ChatNowPrivateMessage on users.idusers=ChatNowPrivateMessage.sender_id "
+        + " WHERE (sender_id = (select idusers from users where username = " + connection.escape(username) + ") "
+        + "or recipient_id = (select idusers from users where username = " + connection.escape(username) + ")) order by message_date desc) everything "
+        + " GROUP BY channel_name order by message_date desc limit 3;";
+
+    connection.query(qry, deferred.makeNodeResolver());
+    return deferred.promise;
+};
+
+
 module.exports = {
   userExists: f1,
     createUser: f2,
@@ -225,5 +341,16 @@ module.exports = {
     updateEmailNotification: f16,
     getEmailNotificationStatus: f17,
     getEmailNotificationStatusFromUsername: f18,
-    searchMessages: f19
+    searchMessages: f19,
+    getActiveProjectCount: f20,
+    getArchivedProjectCount: f21,
+    getArchivableChannelList: f22,
+    getUnarchivableChannelList: f23,
+    archiveChannel: f24,
+    unarchiveChannel: f25,
+    createProjectMember: f26,
+    getActiveProjectsPerUser: f27,
+
+    qBugsDashboardQuery: q1,
+    qMostRecentMessages: q2
 };
