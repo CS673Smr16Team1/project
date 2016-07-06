@@ -12,12 +12,17 @@ module.exports =
             console.log("Error Selecting : %s ", err);
           }
           res.render('bugsView', {
-            title: 'Bugs - Issue Log | μProject',
+            title: 'Bugs | μProject',
             bugsSelected: 'active',
             data: rows,
             user: req.user,
-            css: ['bugs-log.css'],
-            js: []
+            css: ['bugs-log.css',
+                  'jplist.checkbox-dropdown.css'],
+            js: ['jplist.core.js',
+                 'jplist.bootstrap-filter-dropdown.js',
+                 'jplist.bootstrap-sort-dropdown.js',
+                 'jplist.checkbox-dropdown.js',
+                 'bugs-log.js']
           });
         });
       };

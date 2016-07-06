@@ -2,13 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <div class="panel panel-default">
+        <div id="bugs-list" class="panel panel-default">
           <!-- Default panel contents -->
-          <div class="panel-heading">
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-default">Open</button>
-              <button type="button" class="btn btn-default">Closed</button>
-              <button type="button" class="btn btn-default">Yours</button>
+          <div class="panel-heading bugs-list-panel">
+            <div class="jplist-checkbox-dropdown" data-control-action="filter" data-control-name="category-checkbox-dropdown" data-control-type="checkbox-dropdown" data-many-items-text="{num} priorities" data-no-selected-text="Priority" data-one-item-text="{selected} priority">
+              <ul>
+                <li><input data-path=".issue-priority-low" id="issue-priority-low" type="checkbox"> <label for="issue-priority-low">Low</label></li>
+                <li><input data-path=".issue-priority-medium" id="issue-priority-medium" type="checkbox"> <label for="issue-priority-medium">Medium</label></li>
+                <li><input data-path=".issue-priority-high" id="issue-priority-high" type="checkbox"> <label for="issue-priority-high">High</label></li>
+                <li><input data-path=".issue-priority-urgent" id="issue-priority-urgent" type="checkbox"> <label for="issue-priority-urgent">Urgent</label></li>
+              </ul>
             </div>
             <a class="btn btn-success pull-right" href="/bugs/create"><span class="fa fa-plus"></span> Create Issue</a>
           </div>
@@ -21,25 +24,29 @@
             <div class="col-xs-4 col-sm-1">Comments</div>
           </div>
           <!-- List group -->
-          <div class="list-group">
+          <div class="list-group bugs-items">
             {{#each data}}
-            <a href="/bugs/issue/{{this.Id}}" class="list-group-item">
+            <a href="/bugs/issue/{{this.Id}}" class="list-group-item bugs-list-item">
               <div class="list-group-item-text">
                 <div class="col-xs-12 col-sm-5">
                   <p>
-                    <strong class="bugs-title">{{this.Summary}}</strong><br>
-                    <span class="small text-muted">#{{this.Id}} updated {{moment this.LastModifiedDate "fromNow"}}</span>
+                    <span class="issue-index">{{@index}}</span>
+                    <strong class="bugs-title issue-title">{{this.Summary}}</strong><br>
+                    <span class="small text-muted">#<span class="issue-id">{{this.Id}}</span> updated {{moment this.LastModifiedDate "fromNow"}}</span>
                   </p>
                 </div>
                 <div class="clearfix visible-xs-block"></div>
-                <div class="col-xs-5 col-sm-2 text-muted"><span class="label label-success label-{{this.Priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter this.Priority "uppercase"}}</div>
-                <div class="col-xs-4 col-sm-2 text-muted">{{filter this.IssueStatus "uppercase"}}</div>
-                <div class="hidden-xs col-sm-2 text-muted">{{this.AssignedTo}}</div>
+                <div class="col-xs-5 col-sm-2 text-muted"><span class="label label-success label-{{this.Priority}}">&nbsp;</span>&nbsp;&nbsp;<span class="issue-priority issue-priority-{{filter this.Priority "lowercase"}}">{{filter this.Priority "uppercase"}}</span></div>
+                <div class="col-xs-4 col-sm-2 text-muted"><span class="issue-status issue-status-{{filter this.IssueStatus "lowercase"}}">{{filter this.IssueStatus "uppercase"}}</span></div>
+                <div class="hidden-xs col-sm-2 text-muted"><span class="issue-assignee">{{this.AssignedTo}}</span></div>
                 <div class="col-xs-3 col-sm-1 text-muted">{{#if this.numComments}}<span class="fa fa-comment-o">&nbsp;</span>{{this.numComments}}{{/if}}</div>
               </div>
               <div class="clearfix"></div>
             </a>
             {{/each}}
+          </div>
+          <div class="bugs-no-results hidden">
+              <p>No results found</p>
           </div>
           <div class="panel-footer">
             <div
