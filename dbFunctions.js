@@ -173,7 +173,7 @@ var f17 = function(id, callback) {
 };
 
 var f18 = function(username, callback) {
-    connection.query("SELECT email_notification FROM users WHERE username = ?",
+    connection.query("SELECT email_notification, queued_email_notification FROM users WHERE username = ?",
         [username],
         function(err, rows) {
             if (err)
