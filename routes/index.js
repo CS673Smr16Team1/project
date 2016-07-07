@@ -41,6 +41,8 @@ var archiveProjectRoute = require("./queued/archiveProject");
 var queuedArchivedRoute = require("./queued/queuedArchive");
 var restoreProjectRoute = require("./queued/restoreProject");
 var projectSaveOrderRoute = require('./queued/queued-api/projectSaveOrder');
+var updateQueuedEmailNotificationRoute = require('./queued/queued-api/update-email-notification');
+
 
 
 // router.get for queued
@@ -62,6 +64,8 @@ router.post('/queued/project/:projectId/:storyId/story-delete', ensureAuthentica
 router.post('/queued/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
 router.post('/queued/:add', ensureAuthenticated, saveProjectRoute);
 router.post('/queued/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
+router.post('/queued-api/update-email-notification/:setting', ensureAuthenticated, updateQueuedEmailNotificationRoute);
+
 
 
 // issue modules
