@@ -7,12 +7,13 @@
 .bugs-comment .panel>.panel-heading:after,
 .bugs-comment .panel>.panel-heading:before{
     position:absolute;
-    top:11px;left:-16px;
+    top:11px;
+    left:-16px;
     right:100%;
     width:0;
     height:0;
     display:block;
-    content:" ";
+    
     border-color:transparent;
     border-style:solid solid outset;
     pointer-events:none;
