@@ -55,6 +55,10 @@ module.exports =
                         queuedSelected: 'active',
                         projectId: projectId,
                         project_name: results[0],           // project name
+                        css: ['bootstrap-markdown.css',
+                              'santiago.datepicker.css',
+                              'jquery-ui.css',
+                              'queued-detail.css'],
                         js: ['clickActions.js', 'bootstrap-markdown.js'],
                         user: req.user,
                         members: results[1]                 // all users information
@@ -63,5 +67,3 @@ module.exports =
 
 
     };
-
-
