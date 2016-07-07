@@ -55,6 +55,7 @@ module.exports =
                               'queued-detail.css',
                               'issue-comment.css'],
                         js: ['bootstrap-markdown.js',
+                             'fileinput.js',
                              'issueImages.js'],
                         user: req.user});
                 });
