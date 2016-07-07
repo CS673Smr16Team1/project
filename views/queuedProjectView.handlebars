@@ -11,7 +11,6 @@
           <h3>{{this.project_name}}</h3>
           <span class="queued-editable-description">{{this.description}}</span>
         </a>
-          <a href="/queued/myproject/{{this.projectId}}" class="btn btn-primary pull-right" name="mystoryview" role="button">View My Story</a>
       </div>
         <br>
     </div>
@@ -26,6 +25,7 @@
           <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
             <p>
               <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
               {{this.title}}
             </p>
             <div class="clearfix"></div>
@@ -49,6 +49,7 @@
           <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
             <p>
               <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
               {{this.title}}
             </p>
             <div class="clearfix"></div>
@@ -76,6 +77,7 @@
           <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
             <p>
               <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
               {{this.title}}
             </p>
             <div class="clearfix"></div>
@@ -99,6 +101,7 @@
           <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
             <p>
               <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
               {{this.title}}
             </p>
             <div class="clearfix"></div>
