@@ -14,6 +14,7 @@
         <p class="small text-muted">#{{data.Id}} updated by {{data.LastModifiedBy}} {{moment data.LastModifiedDate "fromNow"}}, created by {{data.CreatedBy}} {{moment data.CreatedDate "fromNow"}}.</p>
         <hr>
       </div>
+
       <div class="col-xs-12 col-sm-9 markdown">
         {{#markdown data.Description}}
         {{/markdown}}
@@ -45,7 +46,9 @@
           </a>
         </div>
       </div>
+
     </div>
+
     <div class="bugs-info hidden">
       <form id="storyForm" method="post" action="/bugs/issue/{{data.Id}}">
         <div class="col-xs-12 col-sm-8">
@@ -116,12 +119,14 @@
     <div class="col-xs-6 col-md-2">
       <div class="panel panel-default" style="height: 160px;">
         <div class="panel-heading">
-          <h3 class="panel-title">Upload Image</h3>
+          <h3 class="panel-title">Add Image</h3>
         </div>
         <div class="panel-body">
           <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
-            <input type="file" name="image"><br>
-            <input type="submit" value="Upload Image" disabled>
+            <label class="btn btn-default btn-file">
+              Choose image<input type="file" name="image" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+            </label><br><br><span class='label label-info' id="upload-file-info" style="width:90%;"></span>
+            <input type="submit" value="Upload" class="btn btn-primary" disabled>
             <input type="hidden" name="id" value="{{data.Id}}">
           </form>
         </div>
@@ -130,55 +135,42 @@
     <div class="clearfix"></div>
   </div>
 </div>
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12">
-              <h3>Comments</h3>
-          </div>
+
+  <div class="row">
+      <div class="col-sm-12">
+          <h3>Comments</h3>
       </div>
-      {{#each comments}}
-          <div class="row bugs-comment">
-              <div class="col-sm-1">
-                  <div class="thumbnail">
-                      <img class="img-responsive user-photo"
-                           src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                  </div>
-              </div>
-
-              <div class="col-sm-5">
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                          <strong>{{this.CreatedBy}}</strong> <span class="text-muted">updated {{moment this.CreatedDate "fromNow"}}</span>
-                      </div>
-                      <div class="panel-body">
-                          {{this.Comment}}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      {{/each}}
-
-      <div class="row">
-          <form id="comment" class="form-horizontal" method="post"
-                action="/bugs/issue/{{data.Id}}/comment">
-              <fieldset>
-                  <!-- Comment Textarea -->
-                  <div class="form-group">
-                      <div class="col-md-5 col-md-offset-1">
-                          <textarea class="form-control" id="Comment" name="Comment"></textarea>
-                      </div>
-                  </div>
-
-                  <!-- Save Button -->
-                  <div class="form-group">
-                      <label class="control-label" for="comment"></label>
-                      <div class="col-md-5 col-md-offset-1">
-                          <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
-                      </div>
-                  </div>
-              </fieldset>
-          </form>
+  </div>
+  {{#each comments}}
+  <div class="row bugs-comment">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>{{this.CreatedBy}}</strong> <span class="text-muted">updated {{moment this.CreatedDate "fromNow"}}</span>
+        </div>
+        <div class="panel-body">
+          {{this.Comment}}
+        </div>
       </div>
+    </div>
+  </div>
+  {{/each}}
+
+  <div class="row">
+    <form id="comment" class="form-horizontal" method="post" action="/bugs/issue/{{data.Id}}/comment">
+      <fieldset class="col-xs-12 col-sm-8 well">
+        <!-- Comment Textarea -->
+        <div class="col-xs-12">
+          <textarea class="form-control" id="Comment" name="Comment"></textarea>
+        </div>
+        <div class="clearfix"></div><br>
+        <!-- Save Button -->
+        <label class="control-label" for="comment"></label>
+        <div class="col-xs-3 col-sm-3">
+          <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </div>
 
@@ -186,11 +178,8 @@
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      </div>
       <div class="modal-body">
-        <img src="" id="imagepreview" style="width: 400px; height: 264px;">
+        <img src="" id="imagepreview">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
