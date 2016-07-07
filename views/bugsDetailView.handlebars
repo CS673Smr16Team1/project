@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="bugs-info hidden">
-      <form id="storyForm" class="form-horizontal" method="post" action="/bugs/issue/{{data.Id}}">
+      <form id="storyForm" method="post" action="/bugs/issue/{{data.Id}}">
         <div class="col-xs-12 col-sm-8">
           <input class="form-control bugs-title" name="summary" type="text" placeholder="Title" value="{{data.Summary}}" autofocus />
         </div>

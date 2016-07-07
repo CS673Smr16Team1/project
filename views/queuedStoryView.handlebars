@@ -21,26 +21,24 @@
         <br>
       </div>
       <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <p><strong>Priority</strong></p>
-          <span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}
+        <p><strong>Priority</strong></p>
+        <span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}
+        <hr>
+          <p><strong>Story Type</strong></p>
+          {{filter data.type "uppercase"}}
           <hr>
-            <p><strong>Story Type</strong></p>
-            {{filter data.type "uppercase"}}
-            <hr>
-          <p><strong>Status</strong></p>
-          {{filter data.story_status "uppercase"}}
-          <hr>
-          <p><strong>Assigned to</strong></p>
-          {{data.assignee}}
-            <hr>
-            <p><strong>Due Date</strong></p>
-            {{data.due_date}}
-        </div>
+        <p><strong>Status</strong></p>
+        {{filter data.story_status "uppercase"}}
+        <hr>
+        <p><strong>Assigned to</strong></p>
+        {{data.assignee}}
+        <hr>
+        <p><strong>Due Date</strong></p>
+        {{data.due_date}}
       </div>
     </div>
     <div class="queued-info hidden">
-      <form id="storyForm" class="form-horizontal" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
+      <form id="storyForm" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
         <div class="col-xs-12 col-sm-8">
           <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
         </div>
