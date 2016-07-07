@@ -9,6 +9,11 @@ module.exports =
 
         var projectId = req.params.projectId;
         var storyId = req.params.storyId;
+        var date = new Date(req.body.duedate);
+        var properlyFormatted = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2);
+        console.log ("testing update story...%s ", date);
+        console.log ("testing update story...%s ", date.getUTCDate());
+        console.log ("testing update story...%s ", properlyFormatted);
 
         // get input data from form
         var inputFromForm = {
@@ -18,7 +23,9 @@ module.exports =
             story_status: req.body.story_status,
             assignee: req.body.assignedTo,   // need to update to user name of member projects
             type: req.body.type,
-            priority: req.body.priority
+            priority: req.body.priority,
+            due_date: properlyFormatted
+
         };
 
         // # debug print outs

@@ -29,7 +29,7 @@
             <p class="list-group-item-text">{{filter data.type "uppercase"}}</p>
           </a>
           <a class="list-group-item">
-            <h4 class="list-group-item-heading">Statu</h4>
+            <h4 class="list-group-item-heading">Status</h4>
             <p class="list-group-item-text">{{filter data.story_status "uppercase"}}</p>
           </a>
           <a class="list-group-item">
@@ -84,7 +84,7 @@
             </select>
 
             <label class="control-label">Due Date</label>
-            <input class="form-control" type="text" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
+            <input class="form-control" type="date" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
@@ -112,9 +112,4 @@ $(function () {
   });
 });
 
-</script>
-<script>
-    $(function() {
-        $( "#datepicker" ).datepicker();
-    });
 </script>
