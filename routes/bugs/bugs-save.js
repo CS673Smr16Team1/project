@@ -13,7 +13,7 @@ module.exports =
             Priority: req.body.priority,
             Severity: req.body.severity,
             IssueStatus: req.body.status,
-            Description: req.body.description,
+            Description: req.body.content,
             LastModifiedBy: req.user.username,
             AssignedTo: req.body.assignedTo,
             LastModifiedDate: new Date()

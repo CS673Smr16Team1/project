@@ -10,7 +10,8 @@ module.exports =
                 css: ['bootstrap-switch.min.css', 'settings.css'],
                 js: ['tab.js', 'bootstrap-switch.min.js', 'settings.js'],
                 user: req.user,
-                emailNotificationState: result[0].email_notification
+                emailNotificationState: result[0].email_notification,
+                queuedEmailNotificationState: result[0].queued_email_notification
             });
         });
 

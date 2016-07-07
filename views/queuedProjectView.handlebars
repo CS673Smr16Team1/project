@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li><a href="/queued">Queued</a></li>
-    <li class="active">{{this.project_name}}</li>
+    <li class="active">{{truncate this.project_name 39}}</li>
   </ol>
   <div class="row">
     <div class="col-xs-12">
@@ -114,7 +114,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
 $(function(){
     $('#project').editable({
         mode: 'inline',
@@ -201,4 +201,4 @@ $(function(){
     $.fn.editabletypes.Project = Project;
 
 }(window.jQuery));
-</script>
+</script> -->

@@ -1,120 +1,83 @@
-<!---
-    Create Story View
-
-    Requirement:
-        - shall be able to add a new story
-            - following parameters:
-                - storyID
-                - projectID
-                - description
-                - title
-                - story_status
-                - assignee
-                - type
-                - priority
-
-        - DB Design:
-        https://my.vertabelo.com/model/T7GMpn8wYb4zZbMYvIlF1Xinn4L9GrYk
-!-->
-
-
 <div class="container">
-    <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/queued">Queued</a></li>
-        <li><a href="/queued/project/{{this.projectId}}">{{this.project_name}}</a></li>
-        <li class="active">Create Story View</li>
-    </ol>
-    <div class="row">
-
-        <form id="storyForm" class="form-horizontal" method="post" action="/queued/project/{{this.projectId}}/story-create">
-
-            <fieldset>
-                <!-- Title Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="title">Title</label>
-                    <div class="col-md-4">
-                        <input type="text" id="title" name="title" placeholder="add a story here" class="form-control input-md"  required/>
-                    </div>
-                </div>
-
-                <!-- Priority Drop Down -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Priority</label>
-                    <div class="col-md-4">
-                        <select name="priority" class="form-control" title="priority">
-                            <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
-                            <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
-                            <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
-                            <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Story Type Drop Down -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Story Type</label>
-                    <div class="col-md-4">
-                        <select name="type" class="form-control" title="type">
-                            <option value="Bug" {{#if_equals data.priority "Bug" }}selected{{/if_equals}}>Bug</option>
-                            <option value="Escalation" {{#if_equals data.priority "Test" }}selected{{/if_equals}}>Test</option>
-                            <option value="Regression" {{#if_equals data.priority "Regression" }}selected{{/if_equals}}>Regression</option>
-                            <option value="Feature" {{#if_equals data.priority "Feature" }}selected{{/if_equals}}>Feature</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Status Drop Down -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Status</label>
-                    <div class="col-md-4">
-                        <select name="story_status" class="form-control" title="story_status">
-                            <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
-                            <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
-                            <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
-                            <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Assigned To -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Assigned To</label>
-                    <div class="col-md-4">
-                        <select name="assignedTo" class="form-control" title="assignedTo">
-                            {{#each members}}
-                                <option value="{{this.username}}">{{this.username}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Due Date -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Due Date</label>
-                    <div class="col-md-4">
-                        <input type="date" id="datepicker" placeholder="click to pick a due date" name="datepicker"/>
-                    </div>
-                </div>
-
-                <!-- Description Text Area -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="description">Description</label>
-                    <div class="col-md-4">
-                        <textarea class="form-control" id="description" placeholder="describe the story" name="description"></textarea>
-                    </div>
-                </div>
-
-                <!-- Save Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="save"></label>
-                    <div class="col-md-4">
-                        <button id="save" name="save" class="btn btn-success">Save</button>
-                        <input type="button" value="Cancel"
-                               class="btn btn-danger" onclick="cancelAdd()">
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/queued">Queued</a></li>
+    <li><a href="/queued/project/{{this.projectId}}">{{truncate this.project_name 39}}</a></li>
+    <li class="active">Add a story</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Add a story</h3>
     </div>
+    <div class="queued-info">
+      <form id="storyForm" method="post" action="/queued/project/{{this.projectId}}/story-create">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+          <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="11">{{data.description}}</textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Priority</label>
+            <select name="priority" class="form-control" title="priority">
+              <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+              <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+              <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+              <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+            </select>
+
+              <label class="control-label">Story Type</label>
+              <select name="type" class="form-control" title="type">
+                  <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
+                  <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                  <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
+                  <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+              </select>
+
+            <label class="control-label">Status</label>
+            <select name="story_status" class="form-control" title="story_status">
+              <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
+              <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
+              <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
+              <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+            </select>
+            <label class="control-label">Assigned to</label>
+            <select name="assignedTo" class="form-control" title="assignedTo">
+              <option value="">Unassigned</option>
+              <option value="" disabled>----------</option>
+              {{#each members}}
+              <option value="{{this.username}}" {{#if_equals this.username ../user.username}}selected{{/if_equals}}>{{this.username}}</option>
+              {{/each}}
+            </select>
+            <label class="control-label">Due Date</label><br>
+              <input class="form-control" type="date" id="datepicker" placeholder="Due Date" name="duedate"/>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" name="save" class="btn btn-success pull-right">Create Story</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+<script>
+$("#queuedDetail").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
+});
+</script>
+
+<script>
+$(function () {
+  $('.settings').click(function (event) {
+    $('.queued-info').toggleClass('hidden show');
+  });
+});
+</script>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker();
+    });
+</script>

@@ -173,7 +173,7 @@ var f17 = function(id, callback) {
 };
 
 var f18 = function(username, callback) {
-    connection.query("SELECT email_notification FROM users WHERE username = ?",
+    connection.query("SELECT email_notification, queued_email_notification FROM users WHERE username = ?",
         [username],
         function(err, rows) {
             if (err)
@@ -291,6 +291,14 @@ var f27 = function(username, callback) {
         });
 };
 
+var f28 = function(setting, id) {
+    connection.query("UPDATE users SET queued_email_notification = ? WHERE idusers = ?",
+        [setting, id],
+        function(err, rows) {
+            if (err)
+                console.log("Error updating: %s ", err);
+        })
+};
 // Functions starting with q are intended to be used with the Q module
 
 var q1 = function(username) {
@@ -350,6 +358,7 @@ module.exports = {
     unarchiveChannel: f25,
     createProjectMember: f26,
     getActiveProjectsPerUser: f27,
+    updateQueuedEmailNotification: f28,
 
     qBugsDashboardQuery: q1,
     qMostRecentMessages: q2

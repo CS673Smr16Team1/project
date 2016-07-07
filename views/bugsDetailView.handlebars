@@ -1,249 +1,217 @@
-<div class="container" id="issueTabContainer">
-    <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/bugs">Bugs</a></li>
-        <li class="active">#{{data.Id}} {{data.Summary}}</li>
-    </ol>
-    <ul class="nav nav-pills" id="tabs">
-        <li class="active">
-            <a href="#1a" data-toggle="tab">Issue Detail</a>
-        </li>
-        <li>
-            <a href="#1b" data-toggle="tab">Screenshots</a>
-        </li>
-        <li>
-            <a href="#1c" data-toggle="tab">Comments</a>
-        </li>
-    </ul>
-    <div class="tab-content clearfix">
-        <div class="tab-pane active" id="1a">
-
-            <h3>Issue # {{ data.Id}}</h3>
-            <form id="issueForm" class="form-horizontal" method="post" action="/bugs/issue/{{data.Id}}">
-
-                <fieldset>
-                    <!-- Summary Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="summary">Summary</label>
-                        <div class="col-md-4">
-                            <input type="text" value="{{ data.Summary }}" id="summary" name="summary"
-                                   class="form-control input-md" required/>
-                        </div>
-                    </div>
-
-                    <!-- Assigned To -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Assigned To</label>
-                        <div class="col-md-4">
-                            <select name="assignedTo" class="form-control" title="assignedTo">
-
-                            {{#each users}}
-                                <option value="{{this.username}}" {{#if_equals ../data.AssignedTo this.username}}selected{{/if_equals}}>{{this.username}}</option>
-                            {{/each}}
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Status Drop Down -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Status</label>
-                        <div class="col-md-4">
-                            <select name="status" class="form-control" title="status">
-                                <option value="New" {{#if_equals data.IssueStatus "New" }}selected{{/if_equals}}>New</option>
-                                <option value="Assigned" {{#if_equals data.IssueStatus "Assigned" }}selected{{/if_equals}}>Assigned</option>
-                                <option value="In Progress"{{#if_equals data.IssueStatus "In Progress" }}selected{{/if_equals}}>In Progress</option>
-                                <option value="Deployment" {{#if_equals data.IssueStatus "Deployment" }}selected{{/if_equals}}>Deployment</option>
-                                <option value="Testing" {{#if_equals data.IssueStatus "Testing" }}selected{{/if_equals}}>Testing</option>
-                                <option value="Resolved" {{#if_equals data.IssueStatus "Resolved" }}selected{{/if_equals}}>Resolved</option>
-                                <option value="Closed" {{#if_equals data.IssueStatus "Closed" }}selected{{/if_equals}}> Closed</option>
-                                <option value="Reopened" {{#if_equals data.IssueStatus "Reopened" }}selected{{/if_equals}}>Reopened </option>
-                                <option value="Rejected" {{#if_equals data.IssueStatus "Rejected" }}selected{{/if_equals}}>Rejected</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Priority Drop Down -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Priority</label>
-                        <div class="col-md-4">
-                            <select name="priority" class="form-control" title="Priority">
-                                <option value="Low" {{#if_equals data.Priority "Low" }}selected{{/if_equals}}>Low</option>
-                                <option value="Medium" {{#if_equals data.Priority "Medium" }}selected{{/if_equals}}>Medium</option>
-                                <option value="High" {{#if_equals data.Priority "High" }}selected{{/if_equals}}>High</option>
-                                <option value="Urgent" {{#if_equals data.Priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Severity Drop Down -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Severity</label>
-                        <div class="col-md-4">
-                            <select name="severity" class="form-control" title="Severity">
-                                <option value="Low" {{#if_equals data.Severity "Low" }}selected{{/if_equals}}>Low</option>
-                                <option value="Moderate" {{#if_equals data.Severity "Moderate" }}selected{{/if_equals}}>Moderate</option>
-                                <option value="Major" {{#if_equals data.Severity "Major" }}selected{{/if_equals}}>Major</option>
-                                <option value="Critical" {{#if_equals data.Severity "Critical" }}selected{{/if_equals}}>Critical</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Description Textarea -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="description">Description</label>
-                        <div class="col-md-4">
-                            <textarea class="form-control" id="description" name="description">{{ data.Description }}</textarea>
-                        </div>
-                    </div>
-
-                    <!-- Created By -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="createdBy">Created By</label>
-                        <div class="col-md-4">
-                            <input type="text" value="{{ data.CreatedBy }}" id="createdBy" name="createdBy" class="form-control input-md" readonly/>
-                        </div>
-                    </div>
-
-                    <!-- Created Date -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="createdDate">Created Date</label>
-                        <div class="col-md-4">
-                            <input type="text" value="{{ data.CreatedDate }}" id="createdDate" name="createdDate" class="form-control input-md" readonly/>
-                        </div>
-                    </div>
-
-                    <!-- Last Modified By -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="lastModifiedBy">Last Modified By</label>
-                        <div class="col-md-4">
-                            <input type="text" value="{{ data.LastModifiedBy }}" id="lastModifiedBy" name="lastModifiedBy" class="form-control input-md" readonly/>
-                        </div>
-                    </div>
-
-                    <!-- Last Modified Date -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="lastModifiedDate">Last Modified Date</label>
-                        <div class="col-md-4">
-                            <input type="text" value="{{ data.LastModifiedDate }}" id="lastModifiedDate" name="lastModifiedDate" class="form-control input-md" readonly/>
-                        </div>
-                    </div>
-
-                    <!-- Save Button -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="save"></label>
-                        <div class="col-md-4">
-                            <button id="save" name="save" class="btn btn-primary pull-left">Save</button>
-                        </div>
-                    </div>
-
-
-                </fieldset>
-            </form>
-
-            <form id="issueFormDelete" class="form-horizontal" method="post"
-                  action="/bugs/issue/{{data.Id}}/archive">
-                <!-- Delete Button-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="delete"></label>
-                    <div class="col-md-4">
-                        <button id="archive" name="archive" class="btn btn-danger">Archive Issue</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-
-        <div class="tab-pane" id="1b">
-            <h3>Attached Screenshots</h3>
-            <table class="table table-condensed">
-                <tbody>
-                {{#each images}}
-                    <tr>
-                        <td><a href="#" class="pop"><img src="{{this.ImageFilePath}}" height="90" width="120" id="imageresource"></a></td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-
-            <!-- Displays the screenshot in a modal -->
-            <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="" id="imagepreview" style="width: 400px; height: 264px;">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h3>Upload an Image</h3>
-            <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
-                Select an image to upload:
-                <input type="file" name="image">
-                <input type="submit" value="Upload Image" disabled>
-                <input type="hidden" name="id" value="{{ data.Id}} ">
-            </form>
-        </div>
-
-
-        <div class="tab-pane" id="1c">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>Comments</h3>
-                    </div>
-                </div>
-                {{#each comments}}
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <div class="thumbnail">
-                                <img class="img-responsive user-photo"
-                                     src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-5">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>{{this.CreatedBy}}</strong> <span class="text-muted">updated {{moment this.CreatedDate "fromNow"}}</span>
-                                </div>
-                                <div class="panel-body">
-                                    {{this.Comment}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
-
-                <div class="row">
-                    <form id="comment" class="form-horizontal" method="post"
-                          action="/bugs/issue/{{data.Id}}/comment">
-                        <fieldset>
-                            <!-- Comment Textarea -->
-                            <div class="form-group">
-                                <div class="col-md-5 col-md-offset-1">
-                                    <textarea class="form-control" id="Comment" name="Comment"></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Save Button -->
-                            <div class="form-group">
-                                <label class="control-label" for="comment"></label>
-                                <div class="col-md-5 col-md-offset-1">
-                                    <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/bugs">Bugs</a></li>
+    <li class="active">#{{data.Id}} Detail view</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12 ">
+        <button class="btn btn-default settings bugs-info show"><span class="fa fa-pencil"></span> Edit</button>&nbsp;
     </div>
+    <div class="bugs-info show">
+      <div class="col-xs-12">
+        <h3>{{data.Summary}}</h3>
+        <p class="small text-muted">#{{data.Id}} updated by {{data.LastModifiedBy}} {{moment data.LastModifiedDate "fromNow"}}, created by {{data.CreatedBy}} {{moment data.CreatedDate "fromNow"}}.</p>
+        <hr>
+      </div>
+      <div class="col-xs-12 col-sm-9 markdown">
+        {{#markdown data.Description}}
+        {{/markdown}}
+        <br>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="list-group">
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Priority</h4>
+            <p class="list-group-item-text"><span class="label label-success label-{{data.Priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.Priority "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Statu</h4>
+            <p class="list-group-item-text">{{filter data.IssueStatus "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Severity</h4>
+            <p class="list-group-item-text">{{filter data.Severity "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Assigned To</h4>
+            <p class="list-group-item-text">
+              {{#if data.assignee}}
+              {{data.assignee}}
+              {{else}}
+              <span class="text-muted">----</span>
+              {{/if}}
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="bugs-info hidden">
+      <form id="storyForm" method="post" action="/bugs/issue/{{data.Id}}">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control bugs-title" name="summary" type="text" placeholder="Title" value="{{data.Summary}}" autofocus />
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-8">
+          <textarea id="bugsDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the issue" rows="10">{{data.Description}}</textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Priority</label>
+            <select name="priority" class="form-control" title="Priority">
+              <option value="LOW" {{#if_equals data.Priority "LOW" }}selected{{/if_equals}}>Low</option>
+              <option value="MEDIUM" {{#if_equals data.Priority "MEDIUM" }}selected{{/if_equals}}>Medium</option>
+              <option value="HIGH" {{#if_equals data.Priority "HIGH" }}selected{{/if_equals}}>High</option>
+              <option value="URGENT" {{#if_equals data.Priority "URGENT" }}selected{{/if_equals}}>Urgent</option>
+            </select>
+
+            <label class="control-label">Status</label>
+            <select name="status" class="form-control" title="Status">
+              <option value="NEW" {{#if_equals data.IssueStatus "NEW" }}selected{{/if_equals}}>New</option>
+              <option value="ASSIGN" {{#if_equals data.IssueStatus "ASSIGN" }}selected{{/if_equals}}>Assign</option>
+              <option value="OPEN" {{#if_equals data.IssueStatus "OPEN" }}selected{{/if_equals}}>Open</option>
+              <option value="TEST" {{#if_equals data.IssueStatus "TEST" }}selected{{/if_equals}}>Test</option>
+              <option value="VERIFIED" {{#if_equals data.IssueStatus "VERIFIED" }}selected{{/if_equals}}>Verified</option>
+              <option value="CLOSED" {{#if_equals data.IssueStatus "CLOSED" }}selected{{/if_equals}}>Closed</option>
+              <option value="REOPENED" {{#if_equals data.IssueStatus "REOPENED" }}selected{{/if_equals}}>Reopened</option>
+              <option value="REJECTED" {{#if_equals data.IssueStatus "REJECTED" }}selected{{/if_equals}}>Rejected</option>
+              <option value="DEFERRED" {{#if_equals data.IssueStatus "DEFERRED" }}selected{{/if_equals}}>Deferred</option>
+            </select>
+
+            <label class="control-label">Severity</label>
+            <select name="severity" class="form-control" title="story_status">
+              <option value="LOW" {{#if_equals data.Severity "LOW" }}selected{{/if_equals}}>Low</option>
+              <option value="MODERATE" {{#if_equals data.Severity "MODERATE" }}selected{{/if_equals}}>Moderate</option>
+              <option value="MAJOR" {{#if_equals data.Severity "MAJOR" }}selected{{/if_equals}}>Major</option>
+              <option value="CRITICAL" {{#if_equals data.Severity "CRITICAL" }}selected{{/if_equals}}>Critical</option>
+            </select>
+
+            <label class="control-label">Assigned to</label>
+            <select name="assignedTo" class="form-control" title="assignedTo">
+              <option value="">Unassigned</option>
+              {{#each users}}
+              <option value="{{this.username}}" {{#if_equals ../data.AssignedTo this.username}}selected{{/if_equals}}>{{this.username}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+          <button type="submit" name="save" class="btn btn-success pull-right">Update Issue</button>
+
+      </form>
+      <form id="issueArchive" class="form-horizontal" method="post" action="/bugs/issue/{{data.Id}}/archive">
+        <button id="archive" name="archive" class="btn btn-danger">Archive Issue</button>
+      </form>
+      </div>
+    </div>
+  <div class="col-xs-12">
+    {{#each images}}
+    <div class="col-xs-6 col-md-2">
+      <a href="#" class="pop">
+        <img src="{{this.ImageFilePath}}" class="img-thumbnail" height="180" width="171">
+      </a>
+    </div>
+    {{/each}}
+    <div class="col-xs-6 col-md-2">
+      <div class="panel panel-default" style="height: 160px;">
+        <div class="panel-heading">
+          <h3 class="panel-title">Upload Image</h3>
+        </div>
+        <div class="panel-body">
+          <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+            <input type="file" name="image"><br>
+            <input type="submit" value="Upload Image" disabled>
+            <input type="hidden" name="id" value="{{data.Id}}">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
 </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <h3>Comments</h3>
+          </div>
+      </div>
+      {{#each comments}}
+          <div class="row bugs-comment">
+              <div class="col-sm-1">
+                  <div class="thumbnail">
+                      <img class="img-responsive user-photo"
+                           src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                  </div>
+              </div>
+
+              <div class="col-sm-5">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          <strong>{{this.CreatedBy}}</strong> <span class="text-muted">updated {{moment this.CreatedDate "fromNow"}}</span>
+                      </div>
+                      <div class="panel-body">
+                          {{this.Comment}}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {{/each}}
+
+      <div class="row">
+          <form id="comment" class="form-horizontal" method="post"
+                action="/bugs/issue/{{data.Id}}/comment">
+              <fieldset>
+                  <!-- Comment Textarea -->
+                  <div class="form-group">
+                      <div class="col-md-5 col-md-offset-1">
+                          <textarea class="form-control" id="Comment" name="Comment"></textarea>
+                      </div>
+                  </div>
+
+                  <!-- Save Button -->
+                  <div class="form-group">
+                      <label class="control-label" for="comment"></label>
+                      <div class="col-md-5 col-md-offset-1">
+                          <button id="comment" name="comment" class="btn btn-primary">Add Comment</button>
+                      </div>
+                  </div>
+              </fieldset>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- Displays the screenshot in a modal -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="imagepreview" style="width: 400px; height: 264px;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#bugsDetail").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
+});
+</script>
+
+<script>
+$(function () {
+  $('.settings').click(function (event) {
+    $('.bugs-info').toggleClass('hidden show');
+  });
+});
+
+</script>

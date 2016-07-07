@@ -39,15 +39,15 @@
                   <i class="fa fa-comments fa-5x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
-                  <div class="title">18 Unread</div>
+                  <div class="title">
                     {{#if chatNowOnlineUsers.isSingle}}
-                        <div>1 Online User</div>
-
-                        {{else}}
-                        <div>{{chatNowOnlineUsers.count}} Online Users</div>
-
+                    1 Online User
+                    {{else if_equals chatNowOnlineUsers.count 0}}
+                    No Online Users
+                    {{else}}
+                    {{chatNowOnlineUsers.count}} Online Users
                     {{/if}}
-
+                  </div>
                 </div>
               </div>
             </div>

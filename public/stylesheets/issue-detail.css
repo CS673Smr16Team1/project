@@ -1,13 +1,6 @@
-#tabs {
-    margin-top: 50px;
-}
-
-#issueTabContainer .tab-content{
-    background-color: #ddd;
-    padding : 5px 15px;
-    color: #1a1a1a;
-}
-
-#issueId {
-    padding-top: 10px;
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  margin-top: 0;
 }

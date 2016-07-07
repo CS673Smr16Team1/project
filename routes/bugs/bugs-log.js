@@ -19,9 +19,9 @@ module.exports =
             css: ['bugs-log.css',
                   'jplist.checkbox-dropdown.css'],
             js: ['jplist.core.js',
-                 'jplist.bootstrap-filter-dropdown.js',
-                 'jplist.bootstrap-sort-dropdown.js',
                  'jplist.checkbox-dropdown.js',
+                 'jplist.textbox-filter.js',
+                 'jplist.bootstrap-pagination-bundle.js',
                  'bugs-log.js']
           });
         });

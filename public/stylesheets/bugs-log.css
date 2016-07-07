@@ -31,3 +31,30 @@ a.list-group-item:focus {
 .bugs-black {
   color: #000000;
 }
+
+.bugs-panel-header {
+  min-height: 52px;
+}
+
+.jplist-hidden {
+  display: none;
+}
+
+.bugs-title-input {
+  border: none;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+.bugs-title-input::-webkit-input-placeholder {
+  color: #0381bb;
+}
+
+,
+.bugs-title-input::-moz-placeholder  {
+  color: #0381bb;
+}
+.bugs-title-input:-ms-input-placeholder  {
+  color: #0381bb;
+}

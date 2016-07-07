@@ -14,8 +14,8 @@ module.exports =
                 queuedSelected: 'active',
                 members: member_list,
                 user: req.user,
-                css: ['bootstrap-markdown.css', 'bugs-create.css'],
-                js: ['jquery-3.0.0.min.js', 'bootstrap-markdown.js']
+                css: ['bootstrap-markdown.css','bugs-create.css'],
+                js: ['jquery-3.0.0.min.js', 'bootstrap-markdown.js', 'clickActions.js']
             });
             //console.log(member_list);
             //console.log(members);
