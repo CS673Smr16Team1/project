@@ -45,7 +45,7 @@ $(document).ready(function () {
             var dt = new Date(msgDate);
 
             //check if today's date has already been displayed - if not, display it
-            var monthDayYear = dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear();
+            var monthDayYear = dt.getMonth() + 1 + '-' + dt.getDate() + '-' + dt.getFullYear();
             var exists = $("#messages li.textCenter:contains(" + monthDayYear + ")");
             if(!exists.html()) {
                 messages.append($('<li class="textCenter bold">').html(monthDayYear));
@@ -124,7 +124,7 @@ $(document).ready(function () {
             var dt = new Date(value.message_date);
             if(day!==dt.getDate()) {
                 day = dt.getDate();
-                messages.append($('<li class="textCenter bold">').html(dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear()));
+                messages.append($('<li class="textCenter bold">').html(dt.getMonth() + 1 + '-' + dt.getDate() + '-' + dt.getFullYear()));
             }
             msgTime = padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
             msg = value.message_content;
@@ -173,7 +173,7 @@ $(document).ready(function () {
 
                     $.each(data, function (key, value) {
                         var dt = new Date(value.message_date);
-                        var formattedDate=dt.getMonth() + '-' + dt.getDate() + '-' + dt.getFullYear() + ', ' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
+                        var formattedDate=dt.getMonth() + 1 + '-' + dt.getDate() + '-' + dt.getFullYear() + ', ' + padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
 
                         h += '<tr>'
                             + '<td>' + value.username + '</td>'
