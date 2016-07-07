@@ -8,8 +8,8 @@ module.exports =
     function saveStory(req , res , next){
 
         var projectId = req.params.projectId;
-        var date = new Date(req.body.datepicker);
-        var properlyFormatted = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2);
+        var date = new Date(req.body.duedate);
+        //var properlyFormatted = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2);
         var maxPriority = 0;
 
         console.log("ProjectID: %s",projectId);
@@ -22,8 +22,8 @@ module.exports =
             {
                 if (err)
                     console.log("Error inserting Story: %s ",err );
-                console.log("priorityID: %s",returnedProrityId[0].priorityId);
 
+                console.log("priorityID: %s",returnedProrityId[0].priorityId);
                 maxPriority = returnedProrityId;
             });
 
@@ -39,12 +39,10 @@ module.exports =
             assignee: req.body.assignedTo,   // need to update to user name of member projects
             type: req.body.type,
             priority: req.body.priority,
-            priorityId: maxPriority + 1,
-            due_date: properlyFormatted
+            priorityId: maxPriority + 1
         };
 
         console.log ("testing...%s", req.body.priority);
-        console.log ("testing...%s", properlyFormatted);
 
 
         // #debug: printing projectId of the currently requested view
