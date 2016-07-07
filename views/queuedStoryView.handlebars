@@ -35,7 +35,7 @@
           {{data.assignee}}
             <hr>
             <p><strong>Due Date</strong></p>
-            {{data.assignee}}
+            {{this.due_date_view}}
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@
               <!-- Due Date -->
               <div class="form-group">
                   <div class="col-md-4">
-                      <input type="text" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
+                      <input type="date" id="datepicker" value="{{this.due_date_edit}}" name="datepicker"/>
                   </div>
               </div>
           </div>
