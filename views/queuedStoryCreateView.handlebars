@@ -46,7 +46,7 @@
               <option value="">Unassigned</option>
               <option value="" disabled>----------</option>
               {{#each members}}
-              <option value="{{this.username}}" {{#if_equals this.username ../user.username}}selected{{/if_equals}}>{{this.username}}</option>
+              <option value="{{this}}" {{#if_equals this ../user.username}}selected{{/if_equals}}>{{this}}</option>
               {{/each}}
             </select>
             <label class="control-label">Due Date</label><br>

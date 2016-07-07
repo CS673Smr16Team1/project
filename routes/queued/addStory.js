@@ -12,8 +12,11 @@ module.exports =
         var projectId;
         var project_name;
         var users;
+        var selected_status;
 
         projectId = req.params.projectId;
+        selected_status = req.body;
+
 
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
@@ -29,8 +32,22 @@ module.exports =
                             }
 
                             project_name = projectName[0].project_name;
-                            // #Debug: console.log("Project Name from DB : %s ", project_name);
                             callback(null, project_name);
+                        });
+                },
+                function(callback){
+                    // Get members from DB
+                    // Example - SELECT username FROM 673projectdev.member WHERE projectId = 59;
+                    // SELECT members FROM 673projectdev.QueuedProjects WHERE projectId = 59;
+                    connection.query('SELECT members FROM QueuedProjects WHERE projectId = ?',
+                        projectId,
+                        function (err, membersList) {
+                            if (err) {
+                                console.log("Error Selecting : %s ", err);
+                            }
+                            callback(null, membersList[0].members);
+                            console.log("members: %s ", membersList[0].members);
+
                         });
                 },
                 function(callback){
@@ -41,7 +58,6 @@ module.exports =
                                 console.log("Error Selecting : %s ", err);
                             }
                             users = usersList;
-                            // #debug: console.log("Users from DB : %s ", users);
                             callback(null, users);
                         });
                 }
@@ -49,6 +65,10 @@ module.exports =
 
             // callback to call StoryCreateView
             function(err, results){
+
+                var memberListStr = JSON.parse(results[1]);
+                console.log(memberListStr);
+
                 res.render('queuedStoryCreateView',
                     {
                         title: "Queued | Add Story | μProject",
@@ -60,7 +80,7 @@ module.exports =
                               'queued-detail.css'],
                         js: ['clickActions.js', 'bootstrap-markdown.js'],
                         user: req.user,
-                        members: results[1]                 // all users information
+                        members: memberListStr                // all members of the project
                     });
             });
 

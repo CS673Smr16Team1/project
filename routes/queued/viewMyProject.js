@@ -5,7 +5,7 @@ var connection = require('../dbConnection.js').dbConnect();
 var async = require("async");
 
 module.exports =
-    function viewProject(req, res, next){
+    function viewMyProject(req, res, next){
 
         var projectId;
         var project_name;
@@ -16,8 +16,10 @@ module.exports =
         var status_Current = "Current";
         var status_Done = "Done";
         var status_Release = "Release";
+        var myusername;
 
         projectId = req.params.projectId;
+        myusername = req.user.username;
 
         // query all stories that are related to this project
 
@@ -52,8 +54,8 @@ module.exports =
                 },
                 function(callback){
                     // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId ',
-                        [projectId, status_Backlog],
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 AND assignee=? ORDER BY priorityId ',
+                        [projectId, status_Backlog, myusername],
                         function(err,Backlog) {
                             if (err) {
                                 console.log("Error Selecting : %s ", err);
@@ -62,9 +64,9 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId ',
-                        [projectId, status_Current],
+                    // Get rows where projectID and story_status is current
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 AND assignee=? ORDER BY priorityId ',
+                        [projectId, status_Current, myusername],
                         function(err,Current) {
                             if (err) {
                                 console.log("Error Selecting : %s ", err);
@@ -73,9 +75,9 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
-                        [projectId, status_Done],
+                    // Get rows where projectID and story_status is done
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 AND assignee=? ORDER BY priorityId',
+                        [projectId, status_Done, myusername],
                         function(err,Done) {
                             if (err) {
                                 console.log("Error Selecting : %s ", err);
@@ -84,9 +86,9 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
-                        [projectId, status_Release],
+                    // Get rows where projectID and story_status is release
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 AND assignee=? ORDER BY priorityId',
+                        [projectId, status_Release, myusername],
                         function(err,Release) {
                             if (err) {
                                 console.log("Error Selecting : %s ", err);
@@ -100,9 +102,9 @@ module.exports =
             function(err, results){
                 projectInfoCB = results[1];
 
-                res.render('queuedProjectView',
+                res.render('queuedMyProjectView',
                     {
-                        title: projectInfoCB[0].project_name + ' | μProject',
+                        title: projectInfoCB[0].project_name + ' | ' + myusername + 's Story | μProject',
                         queuedSelected: 'active',
                         projectId: projectId,
                         project_name: projectInfoCB[0].project_name,

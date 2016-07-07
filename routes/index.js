@@ -42,8 +42,8 @@ var queuedArchivedRoute = require("./queued/queuedArchive");
 var restoreProjectRoute = require("./queued/restoreProject");
 var projectSaveOrderRoute = require('./queued/queued-api/projectSaveOrder');
 var updateQueuedEmailNotificationRoute = require('./queued/queued-api/update-email-notification');
-
-
+var queuedStoryArchivedRoute = require("./queued/queuedStoryArchive");
+var viewMyProjectRoute = require("./queued/viewMyProject");
 
 // router.get for queued
 router.get('/queued', ensureAuthenticated, requirementsRoute);
@@ -58,15 +58,15 @@ router.get('/queued/restoreProject/:projectId', ensureAuthenticated, restoreProj
 router.get('/queued-api/projectSaveOrder/:data/:storyStatus', ensureAuthenticated, projectSaveOrderRoute);
 
 
-// router.post for queuedS
+// router.post for queued
 router.post('/queued/project/:projectId/story-create', ensureAuthenticated, saveStoryRoute);
 router.post('/queued/project/:projectId/:storyId/story-delete', ensureAuthenticated, deleteStoryRoute);
 router.post('/queued/project/:projectId/:storyId/story-update', ensureAuthenticated, updateStoryRoute);
 router.post('/queued/:add', ensureAuthenticated, saveProjectRoute);
 router.post('/queued/editProject/:projectId', ensureAuthenticated, saveProjectAfterEdit);
 router.post('/queued-api/update-email-notification/:setting', ensureAuthenticated, updateQueuedEmailNotificationRoute);
-
-
+router.post('/queued/story/:storyId/:projectId/archive', ensureAuthenticated, queuedStoryArchivedRoute); // route for archiving a story
+router.get('/queued/myproject/:projectId', ensureAuthenticated, viewMyProjectRoute);
 
 // issue modules
 var bugsRoute = require("./bugs/bugs-log");
