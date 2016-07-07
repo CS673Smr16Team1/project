@@ -106,50 +106,28 @@
       </div>
     </div>
   <div class="col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Screenshots
-      </div>
-      <div class="panel-body">
-        {{#if images}}
-        {{#each images}}
-        <div class="col-xs-6 col-md-3">
-          <a href="#" class="pop">
-            <img src="{{this.ImageFilePath}}" class="img-thumbnail" height="180" width="171">
-          </a>
+    {{#each images}}
+    <div class="col-xs-6 col-md-2">
+      <a href="#" class="pop">
+        <img src="{{this.ImageFilePath}}" class="img-thumbnail" height="180" width="171">
+      </a>
+    </div>
+    {{/each}}
+    <div class="col-xs-6 col-md-2">
+      <div class="panel panel-default" style="height: 160px;">
+        <div class="panel-heading">
+          <h3 class="panel-title">Upload Image</h3>
         </div>
-        {{/each}}
-        {{else}}
-        No images
-        {{/if}}
+        <div class="panel-body">
+          <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
+            <input type="file" name="image"><br>
+            <input type="submit" value="Upload Image" disabled>
+            <input type="hidden" name="id" value="{{data.Id}}">
+          </form>
+        </div>
       </div>
     </div>
-
-    <!-- Displays the screenshot in a modal -->
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                </div>
-                <div class="modal-body">
-                    <img src="" id="imagepreview" style="width: 400px; height: 264px;">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h3>Upload an Image</h3>
-    <form action="/bugs/upload" method="POST" enctype="multipart/form-data" onsubmit="return Validate(this);">
-        Select an image to upload:
-        <input type="file" name="image">
-        <input type="submit" value="Upload Image" disabled>
-        <input type="hidden" name="id" value="{{ data.Id}} ">
-    </form>
+    <div class="clearfix"></div>
   </div>
 </div>
   <div class="container">
@@ -203,6 +181,24 @@
       </div>
   </div>
 </div>
+
+<!-- Displays the screenshot in a modal -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="imagepreview" style="width: 400px; height: 264px;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 $("#bugsDetail").markdown({
   autofocus:false,
