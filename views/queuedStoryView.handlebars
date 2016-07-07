@@ -79,7 +79,7 @@
             <label class="control-label">Assigned to</label>
             <select name="assignedTo" class="form-control" title="assignedTo">
               {{#each members}}
-              <option value="{{this.username}}" {{#if_equals ../data.assignee this.username}}selected{{/if_equals}}>{{this.username}}</option>
+              <option value="{{this}}" {{#if_equals ../data.assignee this}}selected{{/if_equals}}>{{this}}</option>
               {{/each}}
             </select>
 

@@ -35,6 +35,21 @@ module.exports =
                         });
                 },
                 function(callback){
+                    // Get members from DB
+                    // Example - SELECT username FROM 673projectdev.member WHERE projectId = 59;
+                    // SELECT members FROM 673projectdev.QueuedProjects WHERE projectId = 59;
+                    connection.query('SELECT members FROM QueuedProjects WHERE projectId = ?',
+                        projectId,
+                        function (err, membersList) {
+                            if (err) {
+                                console.log("Error Selecting : %s ", err);
+                            }
+                            callback(null, membersList[0].members);
+                            console.log("members: %s ", membersList[0].members);
+
+                        });
+                },
+                function(callback){
                     // Get rows where projectID and story_status is backlog
                     connection.query('SELECT * FROM users',
                         function (err,users) {
@@ -57,9 +72,12 @@ module.exports =
                 var project_name = results[1][0].project_name;
                 var storyDetail = results[0];
                 var data = results[0][0];
-                var members = results[2];
                 console.log("storyDetail : %s ", storyDetail);
-                console.log("storyDetail : %s ", members);
+
+                var memberListStr = JSON.parse(results[2]);
+                console.log(memberListStr);
+
+                console.log("storyDetail : %s ", memberListStr);
 
 
                 date = new Date(storyDetail[0].due_date);
@@ -78,7 +96,7 @@ module.exports =
                         due_date_view: formatDateMMDDYYYY,
                         due_date_edit: formatDateYYYYMMDD,
                         user: req.user,
-                        members: members
+                        members: memberListStr
                     });
 
 
