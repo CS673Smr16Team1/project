@@ -52,7 +52,7 @@ module.exports =
                 },
                 function(callback){
                     // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? ORDER BY priorityId ',
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId ',
                         [projectId, status_Backlog],
                         function(err,Backlog) {
                             if (err) {
@@ -63,7 +63,7 @@ module.exports =
                 },
                 function(callback){
                     // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? ORDER BY priorityId ',
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId ',
                         [projectId, status_Current],
                         function(err,Current) {
                             if (err) {
@@ -74,7 +74,7 @@ module.exports =
                 },
                 function(callback){
                     // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? ORDER BY priorityId',
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
                         [projectId, status_Done],
                         function(err,Done) {
                             if (err) {
@@ -85,7 +85,7 @@ module.exports =
                 },
                 function(callback){
                     // Get rows where projectID and story_status is backlog
-                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? ORDER BY priorityId',
+                    connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
                         [projectId, status_Release],
                         function(err,Release) {
                             if (err) {
