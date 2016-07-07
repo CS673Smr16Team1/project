@@ -88,14 +88,16 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
-            <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()"> <!-- To be changed to something like below -->
-            <!-- <button class="btn btn-danger settings queued-info hidden pull-right">Cancel</button> -- this redirects to queued/projects/P# instead of queued/projects/P#/S# -->
-            <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Update Story</button>
-        </div>
-      </form>
-        <form id="storyArchive" class="form-horizontal" method="post" action="/queued/story/{{data.storyId}}/{{data.projectId}}/archive">
-            <button id="archive" name="archive" class="btn btn-danger">Archive Story</button>
         </form>
+          <div class="pull-left">
+            <form id="storyArchive" class="form-horizontal" method="post" action="/queued/story/{{data.storyId}}/{{data.projectId}}/archive">
+              <button id="archive" name="archive" class="btn btn-danger">Archive Story</button>
+            </form>
+          </div>
+          <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()"> <!-- To be changed to something like below -->
+          <!-- <button class="btn btn-danger settings queued-info hidden pull-right">Cancel</button> -- this redirects to queued/projects/P# instead of queued/projects/P#/S# -->
+          <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Update Story</button>
+        </div>
 
     </div>
   </div>
