@@ -1,0 +1,121 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/queued">Queued</a></li>
+    <li><a href="/queued/project/{{data.projectId}}">{{this.project_name}}</a></li>
+    <li class="active">Detail view</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12 ">
+        <button class="btn btn-default settings queued-info show"><span class="fa fa-pencil"></span> Edit</button>&nbsp;
+    </div>
+    <div class="queued-info show">
+      <div class="col-xs-12 col-sm-9">
+        <h3>{{data.title}}</h3>
+        <hr>
+        {{#markdown data.description}}
+        {{/markdown}}
+        <br>
+      </div>
+
+      <div class="col-xs-12 col-sm-3">
+        <div class="list-group">
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Priority</h4>
+            <p class="list-group-item-text"><span class="label label-success label-{{data.priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter data.priority "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Story Type</h4>
+            <p class="list-group-item-text">{{filter data.type "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Status</h4>
+            <p class="list-group-item-text">{{filter data.story_status "uppercase"}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Assigned To</h4>
+            <p class="list-group-item-text">{{data.assignee}}</p>
+          </a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading">Due Date</h4>
+            <p class="list-group-item-text">{{moment data.due_date format="dddd, DD MMMM YYYY"}}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="queued-info hidden">
+      <form id="storyForm" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+          <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="10">{{data.description}}</textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Priority</label>
+            <select name="priority" class="form-control" title="priority">
+              <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+              <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+              <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+              <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+            </select>
+
+            <label class="control-label">Story Type</label>
+            <select name="type" class="form-control" title="type">
+                <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
+                <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
+                <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+            </select>
+
+            <label class="control-label">Status</label>
+            <select name="story_status" class="form-control" title="story_status">
+              <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
+              <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
+              <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
+              <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+            </select>
+
+            <label class="control-label">Assigned to</label>
+            <select name="assignedTo" class="form-control" title="assignedTo">
+              {{#each members}}
+              <option value="{{this}}" {{#if_equals ../data.assignee this}}selected{{/if_equals}}>{{this}}</option>
+              {{/each}}
+            </select>
+
+            <label class="control-label">Due Date</label>
+            <input class="form-control" type="date" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+        </form>
+          <div class="pull-left">
+            <form id="storyArchive" class="form-horizontal" method="post" action="/queued/story/{{data.storyId}}/{{data.projectId}}/archive">
+              <button id="archive" name="archive" class="btn btn-danger">Archive Story</button>
+            </form>
+          </div>
+          <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()"> <!-- To be changed to something like below -->
+          <!-- <button class="btn btn-danger settings queued-info hidden pull-right">Cancel</button> -- this redirects to queued/projects/P# instead of queued/projects/P#/S# -->
+          <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Update Story</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+$("#queuedDetail").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
+});
+</script>
+
+<script>
+$(function () {
+  $('.settings').click(function (event) {
+    $('.queued-info').toggleClass('hidden show');
+  });
+});
+
+</script>

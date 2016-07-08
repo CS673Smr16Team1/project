@@ -1,81 +1,181 @@
-<html>
-<head>
-    <title>μProject</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
-          type="text/css">
-</head>
-<body>
+{{#if user}}
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-queued">
+          <a href="/queued">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-3">
+                  <i class="fa fa-bolt fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                  <div class="title">{{activeProjectCount.0.projectsActive}} Active</div>
+                  <div>{{archivedProjectCount.0.projectsArchived}} Archived</div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <div class="list-group">
+                {{#each currentUserProjects}}
+                    <a href="/queued/project/{{this.projectId}}" class="list-group-item">{{this.project_name}}</a>
+                {{/each}}
+          </div>
+          <a href="/queued">
+            <div class="panel-footer">
+              <span class="pull-left">See all active projects</span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-chatnow">
+          <a href="/chat-room">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-3">
+                  <i class="fa fa-comments fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                  <div class="title">
+                    {{#if chatNowOnlineUsers.isSingle}}
+                    1 Online User
+                    {{else if_equals chatNowOnlineUsers.count 0}}
+                    No Online Users
+                    {{else}}
+                    {{chatNowOnlineUsers.count}} Online Users
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
 
+
+          <div class="list-group">
+            {{#each chatRecentMessages}}
+                <!--<a href="/chat-room" class="list-group-item">-->
+            <div class="list-group-item">
+                    <div class="col-xs-12">
+                        <p>
+                            <strong class="text-muted">{{truncate (dashboardChannel this.channel_name ../user.username) 39 }}</strong><br>
+                            <span class="small text-muted">{{moment this.message_date "fromNow"}}</span>
+                        </p>
+                    </div>
+                    <div class="col-xs-12 bugs-black">
+                        &lt;{{this.username}}&gt; {{truncate this.message_content 80}}
+                    </div>
+                    <div class="clearfix"></div>
+            </div>
+                <!--</a>-->
+            {{/each}}
+
+          </div>
+
+
+          <a href="/chat-room">
+            <div class="panel-footer">
+              <span class="pull-left">Join chat room</span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!-- Add the extra clearfix for only the required viewport -->
+      <div class="clearfix visible-xs-block"></div>
+
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-bugs">
+          <a href="/bugs">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-3">
+                  <i class="fa fa-bug fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                  <div class="title">7 Open Issues</div>
+                  <div>134 Closed Issues</div>
+                </div>
+              </div>
+            </div>
+        </a>
+          <div class="list-group">
+            {{#each bugs}}
+            <a href="/bugs/issue/{{this.Id}}" class="list-group-item">
+              <div class="col-xs-12">
+              <p>
+                <strong class="bugs-title">{{truncate this.Summary 39}}</strong><br>
+                <span class="small text-muted">#{{this.Id}} updated {{moment this.LastModifiedDate "fromNow"}}</span>
+              </p>
+              </div>
+              <div class="col-xs-5 text-muted"><span class="label label-success label-{{this.Priority}}">&nbsp;</span>&nbsp;&nbsp;{{filter this.Priority "uppercase"}}</div>
+              <div class="col-xs-4 text-muted">{{filter this.IssueStatus "uppercase"}}</div>
+              <div class="col-xs-3 text-muted">{{#if this.numComments}}<span class="fa fa-comment-o">&nbsp;</span>{{this.numComments}}{{/if}}</div>
+              <div class="clearfix"></div>
+            </a>
+            {{else}}
+            <a href="/bugs" class="list-group-item">
+              <i class="fa fa-hand-spock-o fa-3x bugs-black pull-left"></i>
+              <strong class="bugs-title">Live long and prosper.</strong><br>
+              <span class="text-muted">No assigned issues, time to help someone.</span>
+            <div class="clearfix"></div>
+            </a>
+            {{/each}}
+          </div>
+          <a href="/bugs">
+            <div class="panel-footer">
+              <span class="pull-left">Display all open issues</span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
 <div class="cover">
     <div class="cover-image cover" style="background-image: url('/images/chalk.jpg')"></div>
-    <!-- PHOTO Credit: lorelinde http://lorelinde.deviantart.com/art/Chalkboard-534238727 -->
+    <!-- Photo reused with permission, Credit: lorelinde http://lorelinde.deviantart.com/art/Chalkboard-534238727 -->
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-inverse">
                 <h1 class="">μProject</h1>
                 <h3 class="hidden-xs">A tiny project management service.<br><br>
-                    <div class="text-left">
-                        <span class="fa fa-bolt">&nbsp;Agile Project Management</span><br>
-                        <span class="fa fa-comments">&nbsp;Chat Rooms</span><br>
-                        <span class="fa fa-bug">&nbsp;Issue Tracking</span>
-                    </div>
+                <div class="media">
+                  <div class="media-left">
+                    <span class="fa fa-bolt"></span>
+                  </div>
+                  <div class="media-body">
+                    Agile Project Management
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left">
+                    <span class="fa fa-comments"></span>
+                  </div>
+                  <div class="media-body">
+                    Chat Rooms
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left">
+                    <span class="fa fa-bug"></span>
+                  </div>
+                  <div class="media-body">
+                    Issue Tracking
+                  </div>
+                  </div>
                 </h3>
-                <br>
-                <br>
+            </div>
+            <br><br>
                 <div class="btn-toolbar">
-                    {{#if user}}
-                        <a href=> <a class="btn btn-lg btn-primary" href="/logout">Logout</a></a>
-                    {{else}}
-                        <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#activity">Log In</a>
-                    {{/if}}
+                  <a class="btn btn-lg btn-success" href="/auth/github"><span class="fa fa-github">&nbsp;Login with <strong>Github</strong></span></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<footer class="section section-black ">
-    <div class="container ">
-        <div class="row ">
-            <div class="col-sm-12 ">
-                <p class="text-info">This application is a project of One Team, CS 673.</p>
-                <img src ='images/bulogo.jpg'>
-            </div>
-
-        </div>
-    </div>
-</footer>
-<!-- Modal -->
-<div class="modal fade" id="activity" tabindex="-1" role="dialog" aria-labelledby="activity">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h3 class="modal-title form-signin-heading">Welcome! Please Sign In Using Github</h3>
-                <hr class="colorgraph">
-            </div>
-            <div class="modal-body">
-                <form action="/login" method="post" name="Login_Form" class="form-signin">
-                    <div id="login">
-                        {{#if user}}
-                            <span>{{user.username}}</span><a href="/logout"> Log Out</a>
-                        {{else}}
-                            <a href="/auth/github">Log In</a>
-                        {{/if}}
-                    </div>
-                    </br>
-                    </br>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-</body>
-</html>
+{{/if}}

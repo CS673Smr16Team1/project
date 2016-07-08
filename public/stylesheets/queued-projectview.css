@@ -1,0 +1,56 @@
+.queued-editable h3 {
+  margin: 0;
+}
+
+.queued-editable-description {
+  text-decoration: none;
+  color: #000000;
+}
+
+
+
+.editable-click,
+a.editable-click,
+a.editable-click:hover {
+    border-bottom: none!important;
+}
+
+.queued-title {
+  font-size: 1.15em;
+  color: #000000;
+}
+
+.queued-black {
+  color: #000000;
+}
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
+.label-medium {
+    background-color: #5cb85c;
+}
+
+.label-high {
+    background-color: #FFD034;
+}
+
+.label-urgent {
+    background-color: #E7420C;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #dededc;
+}
+
+#backlog_sortlist,
+#current_sortlist,
+#done_sortlist,
+#release_sortlist
+{
+  min-height: 50px;
+}

@@ -1,0 +1,45 @@
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1><span class="fa fa-cogs"></span> Settings</h1>
+        <ul class="nav nav-tabs" id="settingsTabs">
+          <li class="active" role="presentation">
+            <a data-target="#queued" data-toggle="tab">Queued</a>
+          </li>
+          <li role="presentation">
+            <a data-target="#chatnow" data-toggle="tab">ChatNow</a>
+          </li>
+          <li role="presentation">
+            <a data-target="#bugs" data-toggle="tab">Bugs</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="queued">
+              <div class="chatNowSettings">
+                  <label for="emailNotif">Email Notifications</label>
+                  <input id="emailNotif" type="checkbox" name="queued-email-notif-checkbox"
+                      {{#if queuedEmailNotificationState}}
+                         checked
+                      {{/if}}
+                  >
+              </div>
+          </div>
+          <div class="tab-pane" id="chatnow">
+              <div class="chatNowSettings">
+                  <label for="emailNotif">Email Notifications</label>
+              <input id="emailNotif" type="checkbox" name="email-notif-checkbox"
+                     {{#if emailNotificationState}}
+                     checked
+                     {{/if}}
+              >
+              </div>
+          </div>
+          <div class="tab-pane" id="bugs">
+            Settings for Bugs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

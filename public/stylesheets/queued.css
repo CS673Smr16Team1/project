@@ -1,0 +1,26 @@
+.queued-buttons {
+  padding: 15px;
+}
+.queued-panel {
+  background: #F2F2F2;
+}
+
+.queued-footer {
+  background: #ffffff;
+}
+
+.queued-panel a:hover {
+  text-decoration: none;
+}
+
+.panel-body, .panel-footer {
+  padding: 10px;
+}
+
+.panel-body p {
+  color: #000000;
+}
+
+h3 {
+  margin: 0 0 5px;
+}

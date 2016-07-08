@@ -1,62 +1,172 @@
-<div class="pure-g">
-    <div class="pure-u-1-8">
-        <div id="leftSection">
-            <div>
-                <span id="channelCount">Channels</span>
-                <i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
-            </div>
-
-            <!-- Modal for creating a new channel-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Create New Channel</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <form class="form-inline roomCreation">
-                                <div class="form-group">
-                                    <label for="newChannelName">Channel Name</label>
-                                    <input  id="newChannelName"
-                                           type="text" placeholder="Channel Name">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" id="createChannelBtn">Create</button>
-                            </form>
-                        </div>
-
-                        <div class="modal-footer">
-                            <p></p>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <ul id="channelList">
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 has-inner-drawer">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span id="channelCount">Channels</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu channelMenu">
+              <!-- Channels dynamically added to list -->
+              <span id="channelList"></span>
+              <li role="separator" class="divider"></li>
+              <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#createChannel">Create a Channel... <i class="fa fa-plus-circle"></i></a></li>
+                <li role="separator" class="divider"></li>
+                <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#archiveChannel">Archive a Channel... <i class="fa fa-archive"></i></a></li>
+                <li role="separator" class="divider"></li>
+                <li role="presentation"><a aria-hidden="true" data-toggle="modal" data-target="#unarchiveChannel">Unarchive a Channel... <i class="fa fa-undo"></i></a></li>
             </ul>
-
-            <div id="userCount">Private Messages</div>
-            <ul id="userList">
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span id="userCount">Direct Message</span>
+              <span class="caret"></span>
+            </button>
+            <ul id="userList" class="dropdown-menu">
+              <span id="username" class="hide">{{user.username}}</span>
+              <!-- List of users you can message -->
             </ul>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" href="#searchDrawer" data-toggle="drawer"><span class="fa fa-search">&nbsp;</span>Search</button>
+          </div>
         </div>
 
-    </div>
-
-    <div class="pure-u-5-8">
+        <div id="currentChannel">Channel Name</div>
         <div id="chatSection">
             <ul id="messages"></ul>
-            <form id="msgForm" action="">
-                <input id="chatInput" autocomplete="off"/>
-            </form>
+        </div>
+        <form id="msgForm" action="">
+          <div class="form-group">
+            <textarea id="chatInput" class="form-control" placeholder="Message..." autocomplete="off"></textarea>
+          </div>
+        </form>
+        <div class="drawerController">
+          <!-- Drawer -->
+          <div id="searchDrawer" class="drawer drawer-inside dw-xs-12 fold" aria-labelledby="searchDrawer">
+              <div class="drawer-contents">
+                <div class="col-md-12">
+                  <div class="drawer-heading">
+                    <!--<h2 class="drawer-title">-->
+                        <form class="drawer-title" id="searchForm" action="">
+                            <input type="text" id="searchInput" placeholder="Search" autocomplete="off" maxlength="200"/>
+                            <button type="button" class="btn btn-default pull-right" href="#searchDrawer" data-toggle="drawer">Close <span class="fa fa-times"></span></button>
+                        </form>
+                    <!--</h2>-->
+                  </div>
+                  <br>
+
+                    <div class="table-responsive">
+                        <table class="table" id="searchResultsTable">
+                            <!--<thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                                <th>Channel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>-->
+                        </table>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for creating a new channel-->
+<div class="modal fade" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="createChannelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="createChannelLabel">Create New Channel</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-inline roomCreation">
+                    <div class="form-group">
+                        <label for="newChannelName">Channel Name</label>
+                        <input  id="newChannelName"
+                               type="text" placeholder="Channel Name">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="createChannelBtn">Create</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+              <p></p>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="pure-u-1-4">
-        Search
+<!-- Modal for archiving a channel-->
+<div class="modal fade" id="archiveChannel" tabindex="-1" role="dialog" aria-labelledby="archiveChannelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="archiveChannelLabel">Archive a Channel</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-inline archiveForm">
+                    <select id="archiveChannelDropdown">
+                    </select>
+
+                    <button type="submit" class="btn btn-primary" id="archiveChannelBtn">Archive</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for unarchiving a channel-->
+<div class="modal fade" id="unarchiveChannel" tabindex="-1" role="dialog" aria-labelledby="unarchiveChannelLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="unarchiveChannelLabel">Unarchive a Channel</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-inline unarchiveForm">
+                    <select id="unarchiveChannelDropdown">
+                    </select>
+
+                    <button type="submit" class="btn btn-primary" id="unarchiveChannelBtn">Unarchive</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

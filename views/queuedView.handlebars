@@ -1,0 +1,35 @@
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 ">
+        <div class="queued-buttons pull-right">
+          <a class="btn btn-success" href="/queued/add"><span class="fa fa-plus"></span> Create Project</a>&nbsp;&nbsp;
+          <button class="btn btn-default settings"><span class="fa fa-cog"></span>&nbsp;</button>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        {{#each data}}
+
+        <div class="col-sm-6 col-md-4">
+          <div class="panel panel-default queued-panel">
+            <a href="/queued/project/{{this.projectId}}">
+            <div class="panel-body">
+              <h3>{{truncate this.project_name 27}}</h3>
+              <p>{{truncate this.Description 55}}</p>
+            </div>
+            </a>
+            <div class="panel-footer queued-footer hidden">
+              <a class="btn btn-default" href="/queued/editProject/{{this.projectId}}"><span class="fa fa-pencil"></span> Edit</a>
+              <a class="btn btn-default" href="/queued/archiveProject/{{this.projectId}}"><span class="fa fa-archive"></span> Archive</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="col-xs-12 ">
+        <br><br>
+        <a href="/queuedArchive">View Archived Projets</a>
+      </div>
+    </div>
+  </div>
+</div>

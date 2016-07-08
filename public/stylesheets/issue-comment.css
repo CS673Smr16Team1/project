@@ -1,0 +1,30 @@
+.thumbnail {
+    padding:0px;
+}
+.bugs-comment .panel {
+    position:relative;
+}
+.bugs-comment .panel>.panel-heading:after,
+.bugs-comment .panel>.panel-heading:before{
+    position:absolute;
+    top:11px;
+    left:-16px;
+    right:100%;
+    width:0;
+    height:0;
+    display:block;
+    
+    border-color:transparent;
+    border-style:solid solid outset;
+    pointer-events:none;
+}
+.bugs-comment .panel>.panel-heading:after{
+    border-width:7px;
+    border-right-color:#f7f7f7;
+    margin-top:1px;
+    margin-left:2px;
+}
+.bugs-comment .panel>.panel-heading:before{
+    border-right-color:#ddd;
+    border-width:8px;
+}

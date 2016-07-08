@@ -1,0 +1,52 @@
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Create Project</h2>
+            </div>
+            <form method="post" action="/queued/add">
+                <div class="col-xs-12 col-sm-8">
+                    <input class="form-control bugs-title" name="project_name" type="text" required
+                           placeholder="Project Name" autofocus/>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12 col-sm-8">
+                    <textarea id="createProject" name="project_description" required data-provide="markdown"
+                              data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]'
+                              placeholder="Describe the Project" rows="6"></textarea>
+                    <br>
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+                    <label class="control-label">Members</label>
+                        </br>
+                        {{#each members}}
+                                <input type="checkbox" name="members" value="{{this}}">{{this}}<br>
+                        {{/each}}
+                    <br>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="control-label">Owner</label>
+                    <input class="form-control" id="owner" name="project_description" type="text"
+                           placeholder="{{user.username}}" disabled>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <table>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="submit" value="Save"
+                                           class="btn btn-success">
+                                    <input type="button" value="Cancel"
+                                           class="btn btn-danger" onclick="cancelAdd()">
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

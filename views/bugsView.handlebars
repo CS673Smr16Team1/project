@@ -1,0 +1,76 @@
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="bugs-list" class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading bugs-panel-header">
+            <a class="btn btn-success pull-right" href="/bugs/create"><span class="fa fa-plus"></span> Create Issue</a>
+          </div>
+          <div class="panel-body bugs-list-panel">
+            <div class="col-sm-5 hidden-xs">
+              <input class="col-sm-12 bugs-title-input" data-path=".issue-title" type="text" value="" placeholder="Title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter" />
+            </div>
+            <div class="clearfix visible-xs-block"></div>
+            <div class="col-xs-5 col-sm-2">
+              <div class="jplist-checkbox-dropdown" data-control-action="filter" data-control-name="priority-checkbox-dropdown" data-control-type="checkbox-dropdown" data-many-items-text="{num} priorities" data-no-selected-text="Priority" data-one-item-text="{selected} priority">
+                <ul>
+                  <li><input data-path=".issue-priority-low" id="issue-priority-low" type="checkbox"> <label for="issue-priority-low">Low</label></li>
+                  <li><input data-path=".issue-priority-medium" id="issue-priority-medium" type="checkbox"> <label for="issue-priority-medium">Medium</label></li>
+                  <li><input data-path=".issue-priority-high" id="issue-priority-high" type="checkbox"> <label for="issue-priority-high">High</label></li>
+                  <li><input data-path=".issue-priority-urgent" id="issue-priority-urgent" type="checkbox"> <label for="issue-priority-urgent">Urgent</label></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-2">
+              <div class="jplist-checkbox-dropdown" data-control-action="filter" data-control-name="status-checkbox-dropdown" data-control-type="checkbox-dropdown" data-many-items-text="{num} status" data-no-selected-text="Status" data-one-item-text="{selected} status">
+                <ul>
+                  <li><input data-path=".issue-status-new" id="issue-status-new" type="checkbox"> <label for="issue-status-new">New</label></li>
+                  <li><input data-path=".issue-status-assign" id="issue-status-assign" type="checkbox"> <label for="issue-status-assign">Assign</label></li>
+                  <li><input data-path=".issue-status-open" id="issue-status-open" type="checkbox"> <label for="issue-status-open">Open</label></li>
+                  <li><input data-path=".issue-status-test" id="issue-status-test" type="checkbox"> <label for="issue-status-test">Test</label></li>
+                  <li><input data-path=".issue-status-verified" id="issue-status-verified" type="checkbox"> <label for="issue-status-verified">Verified</label></li>
+                  <li><input data-path=".issue-status-closed" id="issue-status-closed" type="checkbox"> <label for="issue-status-closed">Closed</label></li>
+                  <li><input data-path=".issue-status-reopened" id="issue-status-reopened" type="checkbox"> <label for="issue-status-reopened">Reopened</label></li>
+                  <li><input data-path=".issue-status-rejected" id="issue-status-rejected" type="checkbox"> <label for="issue-status-rejected">Rejected</label></li>
+                  <li><input data-path=".issue-status-deferred" id="issue-status-deferred" type="checkbox"> <label for="issue-status-deferred">Deferred</label></li>
+                </ul>
+              </div>
+            </div>
+            <div class="hidden-xs col-sm-2">
+              <input class="col-sm-12 bugs-title-input" data-path=".issue-assignee" type="text" value="" placeholder="Assigned To" data-control-type="textbox" data-control-name="assignee-filter" data-control-action="filter" />
+            </div>
+            <div class="col-xs-3 col-sm-1">Comments</div>
+          </div>
+          <!-- List group -->
+          <div class="list-group bugs-items">
+            {{#each data}}
+            <a href="/bugs/issue/{{this.Id}}" class="list-group-item bugs-list-item">
+              <div class="list-group-item-text issue-index-{{@index}}">
+                <div class="col-xs-12 col-sm-5">
+                  <p>
+                    <strong class="bugs-title issue-title">{{truncate this.Summary 60}}</strong><br>
+                    <span class="small text-muted">#<span class="issue-id">{{this.Id}}</span> updated {{moment this.LastModifiedDate "fromNow"}}</span>
+                  </p>
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+                <div class="col-xs-5 col-sm-2 text-muted"><span class="label label-success label-{{this.Priority}}">&nbsp;</span>&nbsp;&nbsp;<span class="issue-priority issue-priority-{{filter this.Priority "lowercase"}}">{{filter this.Priority "uppercase"}}</span></div>
+                <div class="col-xs-4 col-sm-2 text-muted"><span class="issue-status issue-status-{{filter this.IssueStatus "lowercase"}}">{{filter this.IssueStatus "uppercase"}}</span></div>
+                <div class="hidden-xs col-sm-2 text-muted"><span class="issue-assignee">{{this.AssignedTo}}</span></div>
+                <div class="col-xs-3 col-sm-1 text-muted">{{#if this.numComments}}<span class="fa fa-comment-o">&nbsp;</span>{{this.numComments}}{{/if}}</div>
+              </div>
+              <div class="clearfix"></div>
+            </a>
+            {{/each}}
+          </div>
+          <div class="list-group-item bugs-list-item jplist-no-results">
+              <p class="text-center">No issues found.</p>
+          </div>
+          <div class="panel-footer bugs-list-panel">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

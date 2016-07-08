@@ -1,0 +1,62 @@
+.lato {
+  font-family: 'Lato',sans-serif;
+}
+
+.jplist-checkbox-dropdown {
+  height: 20px;
+
+}
+
+.jplist-checkbox-dropdown .jplist-dd-panel {
+  color: #0381bb;
+}
+
+.jplist-checkbox-dropdown input[type='checkbox'] {
+  background: transparent;
+}
+
+.jplist-checkbox-dropdown .jplist-dd-panel:after {
+
+}
+
+.jplist-checkbox-dropdown ul {
+
+  position: relative;
+  top: 0;
+  z-index: 1000;
+  width: 148px;
+  display: none;
+  overflow: hidden;
+  background: #fff;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.jplist-checkbox-dropdown ul li {
+  width: 100%;
+  padding: 0 5%;
+
+  height: 30px;
+  line-height: 30px;
+  text-indent: 10px;
+  cursor: pointer;
+}
+
+.jplist-checkbox-dropdown ul li:hover {
+  background-color: #ececec;
+}
+
+.jplist-checkbox-dropdown:hover .jplist-dd-panel {
+  color: #0381bb;
+}
+
+.jplist-checkbox-dropdown:hover .jplist-dd-panel:after {
+  color: #0381bb;
+}

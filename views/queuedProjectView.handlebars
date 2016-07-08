@@ -1,0 +1,208 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/queued">Queued</a></li>
+    <li class="active">{{truncate this.project_name 39}}</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="queued-editable">
+        <a id="project" data-type="Project">
+          <h3>{{this.project_name}}</h3>
+          <span class="queued-editable-description">{{this.description}}</span>
+        </a>
+      </div>
+        <br>
+    </div>
+    <div class="clearfix"><br></div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Backlog</h3>
+        </div>
+        <div id="backlog_sortlist" class="list-group connectedSortable">
+          {{#each backlog}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
+        </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Current</h3>
+        </div>
+        <div id="current_sortlist" class="list-group connectedSortable">
+          {{#each current}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
+        </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Add the extra clearfix for only the required viewport -->
+    <div class="clearfix visible-xs-block"></div>
+
+    <div class="col-xs-6 col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Done</h3>
+        </div>
+        <div id="done_sortlist" class="list-group connectedSortable">
+          {{#each done}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
+        </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Release</h3>
+        </div>
+        <div id="release_sortlist" class="list-group connectedSortable">
+          {{#each release}}
+          <a href="/queued/project/{{this.projectId}}/{{this.storyId}}" id="{{this.storyId}}" class="list-group-item">
+            <p>
+              <span class="label label-success label-{{this.priority}} pull-right">&nbsp;</span>
+              {{#if_equals this.assignee ../user.username}}<span class="fa fa-user pull-right">&nbsp;</span>{{/if_equals}}
+              {{this.title}}
+            </p>
+            <div class="clearfix"></div>
+          </a>
+          {{/each}}
+        </div>
+        <a class="text-muted" href="/queued/project/{{this.projectId}}/story-create">
+          <div class="panel-footer">
+            Add a Story
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+$(function(){
+    $('#project').editable({
+        mode: 'inline',
+        url: '/queued/editProject/{{this.projectId}}',
+        send: 'always',
+        title: 'Update Project Information',
+        value: {
+            project_name: "{{this.project_name}}",
+            project_description: "{{this.description}}"
+        }
+    });
+});
+</script>
+<script>
+(function ($) {
+    "use strict";
+
+    var Project = function (options) {
+        this.init('Project', options, Project.defaults);
+    };
+
+    //inherit from Abstract input
+    $.fn.editableutils.inherit(Project, $.fn.editabletypes.abstractinput);
+
+    $.extend(Project.prototype, {
+        render: function() {
+           this.$input = this.$tpl.find('input');
+        },
+        value2html: function(value, element) {
+            if(!value) {
+                $(element).empty();
+                return;
+            }
+            var html = '<h3>' + $('<h3>').text(value.project_name).html() + '</h3><span class="queued-editable-description">' + $('<p>').text(value.project_description).html() + '</span>';
+            $(element).html(html);
+        },
+        html2value: function(html) {
+          return null;
+        },
+       value2str: function(value) {
+           var str = '';
+           if(value) {
+               for(var k in value) {
+                   str = str + k + ':' + value[k] + ';';
+               }
+           }
+           return str;
+       },
+       str2value: function(str) {
+           return str;
+       },
+       value2input: function(value) {
+           if(!value) {
+             return;
+           }
+           this.$input.filter('[name="project_name"]').val(value.project_name);
+           this.$input.filter('[name="project_description"]').val(value.project_description);
+       },
+       input2value: function() {
+           return {
+              project_name: this.$input.filter('[name="project_name"]').val(),
+              project_description: this.$input.filter('[name="project_description"]').val()
+           };
+       },
+       activate: function() {
+            this.$input.filter('[name="project_name"]').focus();
+       },
+       autosubmit: function() {
+           this.$input.keydown(function (e) {
+                if (e.which === 13) {
+                    $(this).closest('form').submit();
+                }
+           });
+       }
+    });
+
+    Project.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
+        tpl: '<div class="editable-project"><h3><input type="text" name="project_name" class="input-small"></h3></div>'+
+             '<div class="editable-project"><input type="text" name="project_description" class="input-mini"></div>',
+
+        inputclass: ''
+    });
+
+    $.fn.editabletypes.Project = Project;
+
+}(window.jQuery));
+</script> -->

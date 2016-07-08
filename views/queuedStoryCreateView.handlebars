@@ -1,0 +1,83 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/queued">Queued</a></li>
+    <li><a href="/queued/project/{{this.projectId}}">{{truncate this.project_name 39}}</a></li>
+    <li class="active">Add a story</li>
+  </ol>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Add a story</h3>
+    </div>
+    <div class="queued-info">
+      <form id="storyForm" method="post" action="/queued/project/{{this.projectId}}/story-create">
+        <div class="col-xs-12 col-sm-8">
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+          <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="11">{{data.description}}</textarea>
+          <br>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Priority</label>
+            <select name="priority" class="form-control" title="priority">
+              <option value="Low" {{#if_equals data.priority "Low" }}selected{{/if_equals}}>Low</option>
+              <option value="Medium" {{#if_equals data.priority "Medium" }}selected{{/if_equals}}>Medium</option>
+              <option value="High" {{#if_equals data.priority "High" }}selected{{/if_equals}}>High</option>
+              <option value="Urgent" {{#if_equals data.priority "Urgent" }}selected{{/if_equals}}>Urgent</option>
+            </select>
+
+              <label class="control-label">Story Type</label>
+              <select name="type" class="form-control" title="type">
+                  <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
+                  <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                  <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
+                  <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+              </select>
+
+            <label class="control-label">Status</label>
+            <select name="story_status" class="form-control" title="story_status">
+              <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
+              <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
+              <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
+              <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+            </select>
+            <label class="control-label">Assigned to</label>
+            <select name="assignedTo" class="form-control" title="assignedTo">
+              <option value="">Unassigned</option>
+              <option value="" disabled>----------</option>
+              {{#each members}}
+              <option value="{{this}}" {{#if_equals this ../user.username}}selected{{/if_equals}}>{{this}}</option>
+              {{/each}}
+            </select>
+            <label class="control-label">Due Date</label><br>
+              <input class="form-control" type="date" id="datepicker" placeholder="Due Date" name="duedate"/>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" name="save" class="btn btn-success pull-right">Create Story</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#queuedDetail").markdown({
+  autofocus:false,
+  savable:false,
+  fullscreen:false
+});
+</script>
+
+<script>
+$(function () {
+  $('.settings').click(function (event) {
+    $('.queued-info').toggleClass('hidden show');
+  });
+});
+</script>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker();
+    });
+</script>

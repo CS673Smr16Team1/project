@@ -1,0 +1,60 @@
+/* BUGS styles */
+
+.label-low {
+    background-color: #C6C8Ca;
+}
+
+.label-medium {
+    background-color: #5cb85c;
+}
+
+.label-high {
+    background-color: #FFD034;
+}
+
+.label-urgent {
+    background-color: #E7420C;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  text-decoration: none;
+  color: #555555;
+  background-color: #dededc;
+}
+
+.bugs-title {
+  font-size: 1.15em;
+  color: #000000;
+}
+
+.bugs-black {
+  color: #000000;
+}
+
+.bugs-panel-header {
+  min-height: 52px;
+}
+
+.jplist-hidden {
+  display: none;
+}
+
+.bugs-title-input {
+  border: none;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+.bugs-title-input::-webkit-input-placeholder {
+  color: #0381bb;
+}
+
+,
+.bugs-title-input::-moz-placeholder  {
+  color: #0381bb;
+}
+.bugs-title-input:-ms-input-placeholder  {
+  color: #0381bb;
+}
