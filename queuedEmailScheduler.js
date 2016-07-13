@@ -18,14 +18,14 @@ var encryption = require('./encryption.js');
 /* This runs at 3:30PM Daily. */
 var rule = new cron.RecurrenceRule();
 rule.dayOfWeek = [1,2,3,4,5,6,0];
-rule.hour = 15;
-rule.minute = 30;
+rule.hour = 19;
+rule.minute = 54;
 cron.scheduleJob(rule, sendQueuedEmail);
 
-var tomorrowsDate = new Date();
-tomorrowsDate.setDate(tomorrowsDate.getDate() + 1);
-
 function sendQueuedEmail() {
+    var tomorrowsDate = new Date();
+    tomorrowsDate.setDate(tomorrowsDate.getDate() + 1);
+
     connection.query("SELECT storyId, title, story_status, email FROM QueuedStory " +
         "JOIN users on users.username = QueuedStory.assignee " +
         "WHERE due_date = DATE(?) AND queued_email_notification = 1",
