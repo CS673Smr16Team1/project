@@ -8,7 +8,7 @@ var connection =
     require('./../dbConnection.js').dbConnect();
 
 module.exports =
-    function deleteIssue(req , res){
+    function archiveIssue(req , res){
         var id = req.params.id;
 
         connection.query("UPDATE Issues SET Archived = 1 WHERE Id=?",
