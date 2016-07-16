@@ -26,4 +26,9 @@ $(document).ready(function () {
         $('#ChatNowOnlineUserCount').html(count);
     });
 
+    socket.on('newDirectMessage', function(sender, recipient) {
+        if(recipient === username) {
+            $('#newMessageAlert').html('**' + sender + ' sent you a direct message in ChatNow**');
+        }
+    });
 });

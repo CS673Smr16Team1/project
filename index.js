@@ -238,7 +238,7 @@ io.on('connection', function(socket) {
         });
 
         // if the recipient is offline and has the email notification setting turned on, send an email notification
-        if(_.indexOf(chatUsers, recipientUsername)===-1) {
+        if(_.indexOf(uProjectUsers, recipientUsername)===-1) {
             dbFunctions.getEmailNotificationStatusFromUsername(recipientUsername, function(result1) {
                 if(result1[0].email_notification) {
                     dbFunctions.getUserEmailFromUsername(recipientUsername, function(result2) {
@@ -255,6 +255,9 @@ io.on('connection', function(socket) {
 
             });
 
+        }
+        else {
+            io.emit('newDirectMessage', socket.username, recipientUsername);
         }
     });
 

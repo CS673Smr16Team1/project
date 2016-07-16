@@ -9,12 +9,14 @@ function switchRoom(room) {
     window.curRoom = room;
     window.privateMessageRecipient = false;
     socket.emit('switchRoom', room);
+    $('#newMessageAlert').html('');
 }
 
 function switchRoomPrivate(recipientUsername) {
     //window.curRoom = room;
     window.privateMessageRecipient = recipientUsername;
     socket.emit('switchRoomPrivate', recipientUsername);
+    $('#newMessageAlert').html('');
 }
 
 function padTimeWithZero(num) {

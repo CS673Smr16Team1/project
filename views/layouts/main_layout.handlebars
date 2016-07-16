@@ -8,7 +8,9 @@
     <script src="/javascripts/socket.io-1.2.0.js" type="text/javascript"></script>
     <script src="/javascripts/globalSocketio.js" type="text/javascript"></script>
         <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/main-layout.css">
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
       {{#each css}}
         <link rel="stylesheet" href="/stylesheets/{{this}}">
       {{/each}}
@@ -28,7 +30,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand navbar-brand-active" href="/"><span class="fa fa-send">&nbsp;μProject</span></a>
-                    <span>Online Users: <span id="uProjectOnlineUserCount"></span></span>
+                    <span class="globalOnlineUsers">Online Users: <span id="uProjectOnlineUserCount"></span></span>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-nav-active">
@@ -80,6 +82,7 @@
 
                 </div>
             </div>
+          <div id="newMessageAlert"></div>
         </div>
       {{{body}}}
       <br><br>
