@@ -33,9 +33,11 @@ $(document).ready(function () {
     //use GitHub username, or 'testing' if authentication is skipped during testing
     var username = $("#username").html() || 'testing';
 
-    socket.on('connect', function () {
-        socket.emit('adduser', username);
-    });
+    /*socket.on('connect', function () {
+        if(window.location.href.slice(-9)==='chat-room') {
+            socket.emit('adduser', username);
+        }
+    });*/
 
     socket.on('updatechat', function (username, data, msgDate) {
 

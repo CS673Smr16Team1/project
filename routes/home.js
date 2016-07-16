@@ -58,11 +58,7 @@ module.exports =
                 user: req.user,
                 activeProjectCount: JSON.parse(activeProjectCount),
                 archivedProjectCount: JSON.parse(archivedProjectCount),
-                currentUserProjects: currentUserProjects,
-                chatNowOnlineUsers: {
-                    count: userCounter.getOnlineUserCount(),
-                    isSingle: userCounter.getOnlineUserCount() === 1
-                }
+                currentUserProjects: currentUserProjects
             });
         });
     };
