@@ -142,14 +142,18 @@ $(document).ready(function () {
     });
 
     $('#msgForm').submit(function () {
+        var chatInput = $('#chatInput');
+        //check for empty message
+        if(chatInput.val().length===0) return false;
+
         if(privateMessageRecipient) {
-            socket.emit('sendChatPrivate', $('#chatInput').val(), privateMessageRecipient);
+            socket.emit('sendChatPrivate', chatInput.val(), privateMessageRecipient);
         }
         else {
-            socket.emit('sendChatPublic', $('#chatInput').val());
+            socket.emit('sendChatPublic', chatInput.val());
         }
 
-        $('#chatInput').val('');
+        chatInput.val('');
         return false;
     });
 

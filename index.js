@@ -167,6 +167,8 @@ var users = []; // for keeping track of who is online, for email notifications
 io.on('connection', function(socket) {
 
     socket.on('adduser', function(username) {
+        userCounter.incrementOnlineUsers();
+
         socket.username = username;
         socket.room = 'general';
         dbFunctions.getUsernames(function(usernames) {
@@ -195,7 +197,6 @@ io.on('connection', function(socket) {
         });
 
         users.push(username);
-        userCounter.incrementOnlineUsers();
     });
 
     socket.on('create', function(room) {
@@ -305,11 +306,11 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
+        userCounter.decrementOnlineUsers();
         io.emit('onlinestatus', socket.username, 'offline');
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
         socket.leave(socket.room);
         users.splice(_.indexOf(users,socket.username), 1);
-        userCounter.decrementOnlineUsers();
     });
 });
 
