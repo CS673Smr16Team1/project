@@ -30,18 +30,33 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand navbar-brand-active" href="/"><span class="fa fa-send">&nbsp;μProject</span></a>
-                    <span class="globalOnlineUsers">Online Users: <span id="uProjectOnlineUserCount"></span></span>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-nav-active">
                         <li class="{{queuedSelected}}">
-                            <a href="/queued"><span class="fa fa-bolt">&nbsp;</span>Queued</a>
+                            <a href="/queued">
+                              <span class="fa-stack fa-1x">
+                                <i class="fa fa-bolt fa-stack-2x"></i>
+                              </span>
+                              Queued
+                            </a>
                         </li>
                         <li class="{{chatnowSelected}}">
-                            <a href="/chat-room"><span class="fa fa-comments">&nbsp;</span>ChatNow</a>
+                            <a href="/chat-room">
+                              <span class="fa-stack fa-1x">
+                                <i class="fa fa-comment fa-stack-2x"></i>
+                                 <strong class="fa-stack-1x text-inverse usercount"><span id="uProjectOnlineUserCount"></span></strong>
+                              </span>
+                              ChatNow
+                            </a>
                         </li>
                         <li class="{{bugsSelected}}">
-                            <a href="/bugs"><span class="fa fa-bug">&nbsp;</span>Bugs</a>
+                            <a href="/bugs">
+                              <span class="fa-stack fa-1x">
+                                <i class="fa fa-bug fa-stack-2x"></i>
+                              </span>
+                              Bugs
+                            </a>
                         </li>
                         <li class="dropdown">
                             <span id="username" class="hide">{{user.username}}</span>

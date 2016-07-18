@@ -6831,3 +6831,8 @@ body {
 .panel-bugs a:hover {
     color: #b52b27;
 }
+
+.usercount {
+  font-size: .8 em;
+  color: #3C8DC5;
+}
