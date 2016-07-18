@@ -47,7 +47,7 @@ var viewMyProjectRoute = require("./queued/viewMyProject");
 
 // router.get for queued
 router.get('/queued', ensureAuthenticated, requirementsRoute);
-router.get('/queuedArchive', ensureAuthenticated, queuedArchivedRoute);
+router.get('/queued/archive', ensureAuthenticated, queuedArchivedRoute);
 router.get('/queued/editProject/:projectId', ensureAuthenticated, editProject);
 router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
 router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
