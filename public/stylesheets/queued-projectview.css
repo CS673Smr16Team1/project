@@ -7,7 +7,10 @@
   color: #000000;
 }
 
-
+div.list-group {
+    max-height: 500px;
+    overflow: auto;
+}
 
 .editable-click,
 a.editable-click,
