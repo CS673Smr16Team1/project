@@ -70,6 +70,7 @@ router.get('/queued/myproject/:projectId', ensureAuthenticated, viewMyProjectRou
 
 // issue modules
 var bugsRoute = require("./bugs/bugs-log");
+var bugsClosed = require("./bugs/bugs-closed");
 var bugsJSONRoute = require("./bugs/bugs-json");
 var bugsCreateRoute = require("./bugs/bugs-create");
 var bugsPreviewRoute = require("./bugs/bugs-preview");
@@ -80,6 +81,7 @@ var bugsUploadImageRoute = require("./bugs/bugs-upload-image");
 var bugsAddCommentRoute = require("./bugs/bugs-add-comment");
 
 router.get('/bugs', ensureAuthenticated, bugsRoute); // route for returning issue log view
+router.get('/bugs/closed', ensureAuthenticated, bugsClosed); // route for returning closed issue log view
 router.get('/bugs/create', ensureAuthenticated, bugsCreateRoute.displayCreateIssue); // route for returning an empty create issue page
 router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute); // route for returning issue data for log view
 router.get('/bugs/issue/:id', ensureAuthenticated, bugsDetailRoute); // route for returning an issue detail view
