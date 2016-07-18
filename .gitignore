@@ -1,4 +1,7 @@
-.idea/
-node_modules/
+node_modules
+uploads
 credentials.js
-uploads/
+
+.DS_Store
+npm-debug.log
+.idea
