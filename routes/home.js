@@ -25,8 +25,28 @@ module.exports =
             var archivedCount = JSON.stringify(result);
             archivedProjectCount = archivedCount;
 
-            //console.log("archived projects: ");
-            //console.log(archivedProjectCount);
+            // console.log("archived projects: ");
+            // console.log(archivedProjectCount);
+
+        });
+
+        //get open issue count
+        dbFunctions.qOpenIssues(function (result) {
+            var openIssues = JSON.stringify(result);
+            openIssuesCount = openIssues;
+
+            // console.log("open issues: ");
+            // console.log(openIssuesCount);
+
+        });
+
+        //get closed issue count
+        dbFunctions.qClosedIssues(function (result) {
+            var closedIssues = JSON.stringify(result);
+            closedIssuesCount = closedIssues;
+
+            // console.log("closedissues: ");
+            // console.log(closedIssuesCount);
 
         });
 
@@ -56,6 +76,8 @@ module.exports =
                 bugs: bugsData,
                 chatRecentMessages: chatData,
                 user: req.user,
+                bugsOpenCount: JSON.parse(openIssuesCount),
+                bugsClosedCount: JSON.parse(closedIssuesCount),
                 activeProjectCount: JSON.parse(activeProjectCount),
                 archivedProjectCount: JSON.parse(archivedProjectCount),
                 currentUserProjects: currentUserProjects

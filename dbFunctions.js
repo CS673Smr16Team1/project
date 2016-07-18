@@ -305,7 +305,7 @@ var q1 = function(username) {
     var deferred = Q.defer();
     var qry = 'SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) '
     + 'AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" '
-    + 'AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
+    + 'AND IssueStatus != "Closed" AND IssueStatus != "REJECTED" AND IssueStatus != "DEFERRED" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
     + 'ORDER BY LastModifiedDate DESC LIMIT 3';
     connection.query(qry, deferred.makeNodeResolver());
     return deferred.promise;
@@ -329,6 +329,23 @@ var q2 = function(username) {
     return deferred.promise;
 };
 
+var q3= function(callback) {
+    connection.query("SELECT count(id) as openIssues FROM Issues WHERE IssueStatus IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED')",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var q4= function(callback) {
+    connection.query("SELECT count(id) as closedIssues FROM Issues WHERE IssueStatus NOT IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED')",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
 
 module.exports = {
   userExists: f1,
@@ -361,5 +378,7 @@ module.exports = {
     updateQueuedEmailNotification: f28,
 
     qBugsDashboardQuery: q1,
-    qMostRecentMessages: q2
+    qMostRecentMessages: q2,
+    qOpenIssues: q3,
+    qClosedIssues: q4
 };
