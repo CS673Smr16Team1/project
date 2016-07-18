@@ -5,21 +5,20 @@
 var connection = require('./../dbConnection.js').dbConnect();
 var async = require("async");
 
-
 module.exports =
     function addStory(req , res , next){
 
         var projectId;
         var project_name;
         var users;
-        var selected_status;
 
         projectId = req.params.projectId;
-        selected_status = req.body;
-
+        var selected_status = req.params.statusVal;
 
         // #debug: printing projectId of the currently requested view
         console.log("projectId: %s",projectId);
+        console.log("Selected Status: %s",selected_status);
+
 
         async.series([
                 function(callback) {
@@ -79,6 +78,7 @@ module.exports =
                               'jquery-ui.css',
                               'queued-detail.css'],
                         js: ['clickActions.js', 'bootstrap-markdown.js'],
+                        story_status: selected_status,
                         user: req.user,
                         members: memberListStr                // all members of the project
                     });

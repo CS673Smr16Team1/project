@@ -51,7 +51,7 @@ router.get('/queuedArchive', ensureAuthenticated, queuedArchivedRoute);
 router.get('/queued/editProject/:projectId', ensureAuthenticated, editProject);
 router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
 router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
-router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
+router.get('/queued/project/:projectId/story-create/:statusVal', ensureAuthenticated, addStoryRoute);
 router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
 router.get('/queued/archiveProject/:projectId', ensureAuthenticated, archiveProjectRoute );
 router.get('/queued/restoreProject/:projectId', ensureAuthenticated, restoreProjectRoute );
