@@ -68,6 +68,11 @@ module.exports =
                 var memberListStr = JSON.parse(results[1]);
                 console.log(memberListStr);
 
+                var date = new Date();
+
+                var formatDateYYYYMMDD = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+
+
                 res.render('queuedStoryCreateView',
                     {
                         title: "Queued | Add Story | μProject",
@@ -79,6 +84,7 @@ module.exports =
                               'queued-detail.css'],
                         js: ['clickActions.js', 'bootstrap-markdown.js'],
                         story_status: selected_status,
+                        due_date_edit: formatDateYYYYMMDD,
                         user: req.user,
                         members: memberListStr                // all members of the project
                     });
