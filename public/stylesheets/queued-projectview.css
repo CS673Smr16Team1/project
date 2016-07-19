@@ -8,8 +8,97 @@
 }
 
 div.list-group {
-    max-height: 500px;
+    max-height: 101%;
+    overflow-y: auto;
+}
+
+html {
     overflow: auto;
+}
+
+/* Scroll bar for Current List */
+/* webkit scroll bar width */
+#backlog_sortlist::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+#backlog_sortlist::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+#backlog_sortlist::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(122, 122, 122, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Scroll bar for Current List */
+/* webkit scroll bar width */
+#current_sortlist::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+#current_sortlist::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+#current_sortlist::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(122, 122, 122, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* Scroll bar for Done List */
+/* webkit scroll bar width */
+#done_sortlist::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+#done_sortlist::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+#done_sortlist::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(122, 122, 122, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
+/* Scroll bar for Release List */
+/* webkit scroll bar width */
+#release_sortlist::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+#release_sortlist::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+#release_sortlist::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(122, 122, 122, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .editable-click,
