@@ -6,7 +6,7 @@ var connection = require('./../dbConnection.js').dbConnect();
 
 module.exports =
     function displayBugsClosed(req, res){
-      connection.query('SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus NOT IN ("NEW","ASSIGN","OPEN","TEST","VERIFIED","REOPENED") OR Archived = 1  GROUP BY Issues.Id ORDER BY LastModifiedDate DESC',
+      connection.query('SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, Archived, COUNT(IssueComments.IssueId) AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus NOT IN ("NEW","ASSIGN","OPEN","TEST","VERIFIED","REOPENED") OR Archived = 1  GROUP BY Issues.Id ORDER BY LastModifiedDate DESC',
         function(err,rows){
           if(err) {
             console.log("Error Selecting : %s ", err);

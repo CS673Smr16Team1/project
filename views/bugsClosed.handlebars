@@ -50,7 +50,7 @@
               <div class="list-group-item-text issue-index-{{@index}}">
                 <div class="col-xs-12 col-sm-5">
                   <p>
-                    <strong class="bugs-title issue-title">{{truncate this.Summary 60}}</strong><br>
+                    <strong class="bugs-title issue-title">{{truncate this.Summary 60}}</strong>&nbsp;{{#if_equals this.Archived "1"}}<span class="label label-info">Archived</span>{{/if_equals}}<br>
                     <span class="small text-muted">#<span class="issue-id">{{this.Id}}</span> updated {{moment this.LastModifiedDate "fromNow"}}</span>
                   </p>
                 </div>
