@@ -4,10 +4,34 @@
     $(function() {
         var availableTags = {{{all_users}}};
         $( "#project_owner" ).autocomplete({
-            source: availableTags
+            source: availableTags,
+            change: function(event,ui) {
+                if (ui.item == null) {
+                    $("#project_owner").val('');
+                    $("#project_owner").focus();
+                }
+            }
         });
     });
+    $(function() {
+        var possibleMembers = {{{possible_members}}};
+        $( "#newMembers" ).autocomplete({
+            source: possibleMembers,
+            change: function(event,ui)
+            {
+                if (ui.item==null)
+                {
+                    $("#newMembers").val('');
+                    $("#newMembers").focus();
+                }
+            }
+        });
+    });
+
 </script>
+<div id="warning">
+
+</div>
 <div class="table-responsive">
     <form method="post" action='/queued/editProject/{{data.projectId}}'>
         <table class="table table-condensed">
@@ -30,13 +54,20 @@
 
                 </td>
             </tr>
-            <tr>
+            <tr id="project_members">
                 <th>Project Members:</th>
                 {{#each members}}
                     <td>
-                        <input type="checkbox" name="members" value="{{this}}" checked>{{this}}<br>
+                        <input type="checkbox" name="members" id="{{this}}"value="{{this}}" checked>{{this}}
                     </td>
                 {{/each}}
+            </tr>
+            <tr>
+                <th>Add Members </td>
+                <td>
+                <td><input type="text" id ="newMembers" name="newMembers"></td>
+                <td><input type="button" value="Add Member" class="btn btn-danger" onclick="AddMember()"><td>
+                </td>
             </tr>
             </tbody>
             <tfooter>

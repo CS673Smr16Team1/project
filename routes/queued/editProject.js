@@ -7,6 +7,7 @@ var dbFunctions = require('../../dbFunctions.js');
 var _ = require('underscore');
 
 
+
 module.exports =
     function editProject(req , res , next){
         // variable to hold all users
@@ -21,6 +22,9 @@ module.exports =
             console.log(all_users);
         });
 
+
+
+
         var id = req.params.projectId;
 
         console.log("projectId: %s",id);
@@ -32,6 +36,15 @@ module.exports =
                     console.log("Error Selecting : %s ", err);
                 var test = JSON.parse(rows[0].members);
                 console.log(test);
+
+                var all_users_arr = JSON.parse(all_users );
+
+                var members_diff = _.difference(all_users_arr, test);
+                members_diff = JSON.stringify(members_diff);
+                console.log("members_diff: ");
+
+                console.log(members_diff);
+
                 res.render('queuedEditProjectView',
                     {
                         title: 'Queued | Project Detail View - projectId:' + id + ' | μProject',
@@ -39,6 +52,7 @@ module.exports =
                         js: ['clickActions.js','jquery-ui.min.js','jquery-3.0.0.min.js'],
                         data:   rows[0],
                         members: test,
+                        possible_members: members_diff,
                         all_users: all_users,
                         user: req.user});
             });
