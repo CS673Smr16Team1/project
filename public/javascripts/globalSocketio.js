@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
 
     socket.on('ChatNowOnlineUserCount', function(count) {
-        $('#ChatNowOnlineUserCount').html(count);
+        $('.ChatNowOnlineUserCount').html(count);
     });
 
     socket.on('newDirectMessage', function(sender, recipient) {
