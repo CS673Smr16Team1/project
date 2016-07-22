@@ -324,7 +324,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
-        if(socket.room !== 'temp-room') {
+        if(socket.room !== 'temp-room' && typeof(socket.username) != 'undefined') {
             io.emit('onlinestatus', socket.username, 'offline');
             socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
             var index = _.indexOf(chatUsers,socket.username);
