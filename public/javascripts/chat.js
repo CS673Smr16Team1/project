@@ -4,10 +4,13 @@
 var socket = io();
 var curRoom = "general";
 var privateMessageRecipient = false;
+var lowestId = -1;
+var tempDay, tempMonth, tempYear;
 
 function switchRoom(room) {
     window.curRoom = room;
     window.privateMessageRecipient = false;
+    window.lowestId = -1;
     socket.emit('switchRoom', room);
     $('#newMessageAlert').html('');
 }
@@ -123,7 +126,10 @@ $(document).ready(function () {
         var messages = $('#messages');
         messages.empty();
         var sender, msgTime, msg, day=-1;
-        $.each(data, function (key, value) {
+        $.each(data.reverse(), function (key, value) {
+            if(key === 0 ) {
+                window.lowestId = value.id;
+            }
             sender = value.username;
             var dt = new Date(value.message_date);
             if(day!==dt.getDate()) {
@@ -309,6 +315,78 @@ $(document).ready(function () {
                 console.log('ajax error:' + xhr.status + ' ' + thrownError);
             }
         });
+    });
+
+
+    //infinite scroll (30 messages at once)
+
+    $('#messages').scroll(function () {
+
+        if ($(this).scrollTop() == 0) {
+
+            var firstRow = $('#messages li').first();
+            if ($(firstRow).hasClass("textCenter")) {
+                //first row was a date row
+                var tempDate = new Date($(firstRow).text());
+                window.tempDay = tempDate.getDate();
+                window.tempMonth = tempDate.getMonth() + 1;
+                window.tempYear = tempDate.getFullYear();
+            }
+            var oldScrollHeight = $(this)[0].scrollHeight;
+
+            var curChan = $('#currentChannel').text();
+            if (curChan.substring(0, 1) === '#') { //public channel
+                ajaxUrl = '/chat-api/more-public-messages/' + window.curRoom + '/' + window.lowestId;
+            }
+            else { //direct message
+                ajaxUrl = '/chat-api/more-private-messages/' + username + '/' + curChan.substring(1, curChan.length) + '/' + window.lowestId;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: ajaxUrl,
+                success: function (data) {
+                    var messages = $('#messages');
+                    var sender, msgTime, msg, day = tempDay;
+                    var dt;
+                    $.each(data, function (key, value) {
+                        sender = value.username;
+                        dt = new Date(value.message_date);
+
+                        if (dt.getDate() == tempDay) {
+                            $(firstRow).remove();
+                        }
+
+                        if (day !== dt.getDate()) {
+                            messages.prepend($('<li class="textCenter bold">').html(window.tempMonth + '-' + window.tempDay + '-' + window.tempYear));
+                            day = dt.getDate();
+                            window.tempDay = day;
+                            window.tempMonth = dt.getMonth() + 1;
+                            window.tempYear = dt.getFullYear();
+                        }
+                        msgTime = padTimeWithZero(dt.getHours()) + ':' + padTimeWithZero(dt.getMinutes());
+                        msg = value.message_content;
+
+                        messages.prepend($('<li>').html('[' + msgTime + ' (EST)] &lt;' + sender + '> ' + multiLine(msg)));
+
+                        window.lowestId = value.id;
+
+                        var newScrollHeight = $('#messages')[0].scrollHeight;
+
+                        $('#messages').scrollTop(newScrollHeight - oldScrollHeight);
+                    });
+
+                    if (data.length) {
+                        messages.prepend($('<li class="textCenter bold">').html(dt.getMonth() + 1 + '-' + dt.getDate() + '-' + dt.getFullYear()));
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log('ajax error:' + xhr.status + ' ' + thrownError);
+                }
+            });
+
+        }
+
     });
 
 });
