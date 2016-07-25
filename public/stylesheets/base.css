@@ -6836,3 +6836,7 @@ body {
   font-size: .8 em;
   color: #3C8DC5;
 }
+
+.nav-padding {
+  padding-top: 18px!important;
+}
