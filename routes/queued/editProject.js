@@ -49,7 +49,8 @@ module.exports =
                     {
                         title: 'Queued | Project Detail View - projectId:' + id + ' | μProject',
                         queuedSelected: 'active',
-                        js: ['clickActions.js','jquery-ui.min.js','jquery-3.0.0.min.js'],
+                        css: ['bootstrap-markdown.css','bugs-create.css'],
+                        js: ['jquery-3.0.0.min.js', 'bootstrap-markdown.js', 'clickActions.js'],
                         data:   rows[0],
                         members: test,
                         possible_members: members_diff,
