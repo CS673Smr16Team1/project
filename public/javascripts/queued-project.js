@@ -1,4 +1,10 @@
 /**
+ *
+ * File Name: queued-project.js
+ *
+ * This script is called during drag-and-drop of the project story view lists from user interface. It grabs order of list
+ * from each of the 4 list and creates routes for each list. It then calls projectSaveOrder.js with passed parameter.
+ *
  * Created by sangjoonlee on 2016-06-24.
  */
 

@@ -1,4 +1,11 @@
 /**
+ *
+ * File Name: addStory.js
+ *
+ * This script in invoked when a new Story link is clicked by user from the project view page. This script
+ * queries the database to retrieve all members who are assigned to this project and then calls to render
+ * queuedStoryCreateView.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 
@@ -15,9 +22,9 @@ module.exports =
         projectId = req.params.projectId;
         var selected_status = req.params.statusVal;
 
-        // #debug: printing projectId of the currently requested view
-        console.log("projectId: %s",projectId);
-        console.log("Selected Status: %s",selected_status);
+        // #DEBUG: printing projectId of the currently requested view
+        //console.log("projectId: %s",projectId);
+        //console.log("Selected Status: %s",selected_status);
 
 
         async.series([
@@ -66,10 +73,11 @@ module.exports =
             function(err, results){
 
                 var memberListStr = JSON.parse(results[1]);
-                console.log(memberListStr);
+                // #DEBUG
+                //console.log(memberListStr);
 
+                // Create new date variable and format it
                 var date = new Date();
-
                 var formatDateYYYYMMDD = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
 
 

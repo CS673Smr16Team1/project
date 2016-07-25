@@ -1,4 +1,10 @@
 /**
+ *
+ * File Name: queuedStoryArchive.js
+ *
+ * This script is invoked when archive button is clicked by user. The story is then archive by setting the archived
+ * flag to 1, where 0 is not archived and 1 is archived.
+ *
  * Created by Sang-Joon Lee on 7/7/16.
  */
 
@@ -18,8 +24,10 @@ module.exports =
         // Example:
         //UPDATE 673projectdev.QueuedStory set archived=1 WHERE storyId=5
 
-        console.log("Archive Story: %s ", storyId);
+        // #DEBUG PRINT
+        //console.log("Archive Story: %s ", storyId);
 
+        // Update DB with this StoryID
         connection.query("UPDATE QueuedStory set ? WHERE storyId=?",
             [inputFromForm, storyId],
             function(err, rows)

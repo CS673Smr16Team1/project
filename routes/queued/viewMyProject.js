@@ -1,4 +1,9 @@
 /**
+ *
+ * File Name: viewMyPRoject.js
+ *
+ * This script queries all stories that are assigned to be for a specific project.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 var connection = require('../dbConnection.js').dbConnect();
