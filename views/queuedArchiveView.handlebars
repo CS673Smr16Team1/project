@@ -11,6 +11,7 @@
         </div>
       </div>
       <div class="col-xs-12">
+        {{#if data}}
         {{#each data}}
 
         <div class="col-sm-6 col-md-4">
@@ -27,6 +28,11 @@
           </div>
         </div>
         {{/each}}
+        {{else}}
+        <div class="col-sm-6 col-md-4">
+          <h2>No Archived Projects.</h2>
+        </div>
+        {{/if}}
         <div class="col-xs-12">
           <a class="btn btn-primary" href="/queued/">View Active Projects</a>
         </div>

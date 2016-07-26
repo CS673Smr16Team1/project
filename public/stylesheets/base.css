@@ -6838,5 +6838,6 @@ body {
 }
 
 .nav-padding {
-  padding-top: 18px!important;
+  padding: 18px!important 0;
+  margin-bottom: -3px;
 }
