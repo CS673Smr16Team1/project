@@ -53,10 +53,12 @@ module.exports =
                         css: ['issue-detail.css',
                               'bootstrap-markdown.css',
                               'queued-detail.css',
-                              'issue-comment.css'],
+                              'issue-comment.css',
+                              'magnific-popup.css'],
                         js: ['bootstrap-markdown.js',
                              'fileinput.js',
-                             'issueImages.js'],
+                             'issueImages.js',
+                             'magnific-popup.js'],
                         user: req.user});
                 });
             });
