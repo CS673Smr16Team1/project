@@ -50,7 +50,7 @@
                     <label class="control-label">Members</label>
                         </br>
                         {{#each members}}
-                                <input type="checkbox" name="members" value="{{this}}" checked>{{this}}<br>
+                                <input type="checkbox" name="members" value="{{this}}" checked {{#if_equals this ../data.owner}}disabled readonly{{/if_equals}}>{{this}}<br>
                         {{/each}}
                     <br>
                 </div>
