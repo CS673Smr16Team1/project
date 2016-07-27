@@ -11,7 +11,20 @@ module.exports =
         console.log(req.body.members);
         console.log("from req body: " + req.body.members);
 
-        var project_members = JSON.stringify(req.body.members);
+        var memberList;
+
+        // Bug#75: checking if req.body.member is array or not.
+        // Non-array is passed if there are one or less members assigned to the project.
+        if (Array.isArray(req.body.members) == false) {
+            // convert it into array
+            memberList = req.body.members.split(',');
+        } else{
+            // if an array assigned it to memberList for processing
+            memberList = req.body.members;
+        }
+        // Bug#75: fix completed
+
+        var project_members= JSON.stringify(memberList);
         console.log(project_members);
         console.log("from project_member value: " + project_members);
 
@@ -31,6 +44,7 @@ module.exports =
                 if (err)
                     console.log("Error inserting : %s ",err );
                 var projectId = result.insertId;
+                console.log("membersToCreate:",membersToCreate);
                 for (i = 0; i < membersToCreate.length; i++) {
                     console.log(membersToCreate[i]);
                     var currUserId;
@@ -51,7 +65,7 @@ module.exports =
                         }
                     });
                 }
-                console.log(projectId);
+                console.log("test:", projectId);
                 res.redirect('/queued');
             });
     };
