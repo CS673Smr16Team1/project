@@ -13,16 +13,21 @@ module.exports =
 
         var memberList;
 
-        // Bug#75: checking if req.body.member is array or not.
-        // Non-array is passed if there are one or less members assigned to the project.
-        if (Array.isArray(req.body.members) == false) {
-            // convert it into array
-            memberList = req.body.members.split(',');
-        } else{
-            // if an array assigned it to memberList for processing
-            memberList = req.body.members;
+        if (req.body.members !=  undefined){
+            // Bug#75: checking if req.body.member is array or not.
+            // Non-array is passed if there are one or less members assigned to the project.
+            if (Array.isArray(req.body.members) == false) {
+                // convert it into array
+                memberList = req.body.members.split(',');
+            } else{
+                // if an array assigned it to memberList for processing
+                memberList = req.body.members;
+            }
+            // Bug#75: fix completed
+        } else {
+            memberList = "";
         }
-        // Bug#75: fix completed
+
 
         var project_members= JSON.stringify(memberList);
         console.log(project_members);
