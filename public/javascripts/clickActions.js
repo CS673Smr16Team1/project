@@ -15,7 +15,7 @@ function cancelCreateStory(){
 }
 
 function cancelEditStory(){
-    window.location.reload(false);
+    form.target = '_self';
 }
 
 function AddMember(){
