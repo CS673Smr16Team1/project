@@ -15,12 +15,16 @@ var updateEmailNotificationRoute = require('./chat/chat-api/update-email-notific
 var searchMessagesRoute = require('./chat/chat-api/search-messages');
 var archivableChannelsRoute = require('./chat/chat-api/archivable-channels');
 var unarchivableChannelsRoute = require('./chat/chat-api/unarchivable-channels');
+var morePublicMessages = require('./chat/chat-api/more-public-messages');
+var morePrivateMessages = require('./chat/chat-api/more-private-messages');
 
 router.get('/chat-room', ensureAuthenticated, chatRoomRoute);
 router.get('/chat-api/create-channel/:channelName', ensureAuthenticated, createChannelRoute);
 router.get('/chat-api/search-messages/:message', ensureAuthenticated, searchMessagesRoute);
 router.get('/chat-api/archivable-channels', ensureAuthenticated, archivableChannelsRoute);
 router.get('/chat-api/unarchivable-channels', ensureAuthenticated, unarchivableChannelsRoute);
+router.get('/chat-api/more-public-messages/:channelId/:messageId', ensureAuthenticated, morePublicMessages);
+router.get('/chat-api/more-private-messages/:person1Id/:person2Id/:messageId', ensureAuthenticated, morePrivateMessages);
 
 router.post('/chat-api/update-email-notification/:setting', ensureAuthenticated, updateEmailNotificationRoute);
 
@@ -47,11 +51,11 @@ var viewMyProjectRoute = require("./queued/viewMyProject");
 
 // router.get for queued
 router.get('/queued', ensureAuthenticated, requirementsRoute);
-router.get('/queuedArchive', ensureAuthenticated, queuedArchivedRoute);
+router.get('/queued/archive', ensureAuthenticated, queuedArchivedRoute);
 router.get('/queued/editProject/:projectId', ensureAuthenticated, editProject);
 router.get('/queued/:add', ensureAuthenticated, addProjectRoute);
 router.get('/queued/project/:projectId', ensureAuthenticated, viewProjectRoute);
-router.get('/queued/project/:projectId/story-create', ensureAuthenticated, addStoryRoute);
+router.get('/queued/project/:projectId/story-create/:statusVal', ensureAuthenticated, addStoryRoute);
 router.get('/queued/project/:projectId/:storyId', ensureAuthenticated, viewStoryDetailRoute);
 router.get('/queued/archiveProject/:projectId', ensureAuthenticated, archiveProjectRoute );
 router.get('/queued/restoreProject/:projectId', ensureAuthenticated, restoreProjectRoute );
@@ -70,6 +74,7 @@ router.get('/queued/myproject/:projectId', ensureAuthenticated, viewMyProjectRou
 
 // issue modules
 var bugsRoute = require("./bugs/bugs-log");
+var bugsClosed = require("./bugs/bugs-closed");
 var bugsJSONRoute = require("./bugs/bugs-json");
 var bugsCreateRoute = require("./bugs/bugs-create");
 var bugsPreviewRoute = require("./bugs/bugs-preview");
@@ -80,6 +85,7 @@ var bugsUploadImageRoute = require("./bugs/bugs-upload-image");
 var bugsAddCommentRoute = require("./bugs/bugs-add-comment");
 
 router.get('/bugs', ensureAuthenticated, bugsRoute); // route for returning issue log view
+router.get('/bugs/closed', ensureAuthenticated, bugsClosed); // route for returning closed issue log view
 router.get('/bugs/create', ensureAuthenticated, bugsCreateRoute.displayCreateIssue); // route for returning an empty create issue page
 router.get('/bugs/data.json', ensureAuthenticated, bugsJSONRoute); // route for returning issue data for log view
 router.get('/bugs/issue/:id', ensureAuthenticated, bugsDetailRoute); // route for returning an issue detail view

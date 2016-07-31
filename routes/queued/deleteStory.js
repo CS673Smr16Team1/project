@@ -1,4 +1,9 @@
 /**
+ *
+ * File Name: deleteStory.js
+ *
+ * This script deletes a story.
+ *
  * Created by sangjoonlee on 2016-06-11.
  */
 
@@ -13,7 +18,7 @@ module.exports =
 
 
         // #debug: printing projectId of the currently requested view
-        console.log("storyId: %s",storyId);
+        //console.log("storyId: %s",storyId);
 
 
         connection.query("DELETE FROM QueuedStory WHERE storyId=?",

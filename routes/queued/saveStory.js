@@ -1,4 +1,10 @@
 /**
+ *
+ * File Name: saveStory.js
+ *
+ * This script is invoked when a user clicks new story, updates necessary information required for a story and submits
+ * story to be save to a project.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 var connection = require('../dbConnection.js').dbConnect();
@@ -10,8 +16,9 @@ module.exports =
         var projectId = req.params.projectId;
         var maxPriority = 0;
 
-        console.log("ProjectID: %s",projectId);
-        console.log("story_status: %s",req.body.story_status);
+        // #DEBUG PRINT
+        //console.log("ProjectID: %s",projectId);
+        //console.log("story_status: %s",req.body.story_status);
 
         async.series([
                 function(callback) {
@@ -45,10 +52,9 @@ module.exports =
                     priorityId: results[0] + 1
                 };
 
-                console.log("Current Max Priority: %s", results[0]);
-
                 // #debug: printing projectId of the currently requested view
-                console.log("projectId: %s", projectId);
+                //console.log("Current Max Priority: %s", results[0]);
+                //console.log("projectId: %s", projectId);
 
                 connection.query("INSERT INTO QueuedStory set ?",
                     [inputFromForm],

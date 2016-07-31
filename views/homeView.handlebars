@@ -19,7 +19,7 @@
           </a>
           <div class="list-group">
                 {{#each currentUserProjects}}
-                    <a href="/queued/project/{{this.projectId}}" class="list-group-item">{{this.project_name}}</a>
+                    <a href="/queued/project/{{this.projectId}}" class="list-group-item"><h4>{{this.project_name}}</h4></a>
                 {{/each}}
           </div>
           <a href="/queued">
@@ -40,13 +40,7 @@
                 </div>
                 <div class="col-xs-9 text-right">
                   <div class="title">
-                    {{#if chatNowOnlineUsers.isSingle}}
-                    1 Online User
-                    {{else if_equals chatNowOnlineUsers.count 0}}
-                    No Online Users
-                    {{else}}
-                    {{chatNowOnlineUsers.count}} Online Users
-                    {{/if}}
+                      <span class="ChatNowOnlineUserCount"></span> Online User(s)
                   </div>
                 </div>
               </div>
@@ -95,8 +89,8 @@
                   <i class="fa fa-bug fa-5x"></i>
                 </div>
                 <div class="col-xs-9 text-right">
-                  <div class="title">7 Open Issues</div>
-                  <div>134 Closed Issues</div>
+                  <div class="title">{{bugsOpenCount.0.openIssues}} Open Issues</div>
+                  <div>{{bugsClosedCount.0.closedIssues}} Closed Issues</div>
                 </div>
               </div>
             </div>

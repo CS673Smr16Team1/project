@@ -6,12 +6,12 @@
     </ol>
     <div class="row">
       <div class="col-xs-12 ">
-        <div class="queued-buttons pull-right">
-          <a class="btn btn-success" href="/queued/add"><span class="fa fa-plus"></span> Create Project</a>&nbsp;&nbsp;
-          <button class="btn btn-default settings"><span class="fa fa-cog"></span>&nbsp;</button>
+        <div class="queued-buttons">
+          <a class="btn btn-primary" href="/queued/">View Active Projects</a>
         </div>
       </div>
       <div class="col-xs-12">
+        {{#if data}}
         {{#each data}}
 
         <div class="col-sm-6 col-md-4">
@@ -22,12 +22,20 @@
               <p>{{truncate this.Description 55}}</p>
             </div>
             </a>
-            <div class="panel-footer queued-footer hidden">
+            <div class="panel-footer queued-footer">
               <a class="btn btn-default" href="/queued/restoreProject/{{this.projectId}}"><span class="fa fa-archive"></span> Restore Project</a>
             </div>
           </div>
         </div>
         {{/each}}
+        {{else}}
+        <div class="col-sm-6 col-md-4">
+          <h2>No Archived Projects.</h2>
+        </div>
+        {{/if}}
+        <div class="col-xs-12">
+          <a class="btn btn-primary" href="/queued/">View Active Projects</a>
+        </div>
       </div>
     </div>
   </div>

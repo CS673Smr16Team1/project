@@ -62,10 +62,10 @@
 
             <label class="control-label">Story Type</label>
             <select name="type" class="form-control" title="type">
-                <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
-                <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
-                <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
-                <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+                <option value="Bug" {{#if_equals data.type "Bug" }}selected{{/if_equals}}>Bug</option>
+                <option value="Escalation" {{#if_equals data.type "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                <option value="Regression" {{#if_equals data.type "Regression" }}selected{{/if_equals}}>Regression</option>
+                <option value="Feature" {{#if_equals data.type "Feature" }}selected{{/if_equals}}>Feature</option>
             </select>
 
             <label class="control-label">Status</label>
@@ -78,26 +78,26 @@
 
             <label class="control-label">Assigned to</label>
             <select name="assignedTo" class="form-control" title="assignedTo">
+              <option value="">Unassigned</option>
               {{#each members}}
               <option value="{{this}}" {{#if_equals ../data.assignee this}}selected{{/if_equals}}>{{this}}</option>
               {{/each}}
             </select>
 
             <label class="control-label">Due Date</label>
-            <input class="form-control" type="date" id="datepicker" placeholder="click to pick a due date" name="duedate"/>
+            <input class="form-control" type="date" id="datepicker" value="{{due_date_edit}}" name="duedate"/>
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
-        </form>
           <div class="pull-left">
             <form id="storyArchive" class="form-horizontal" method="post" action="/queued/story/{{data.storyId}}/{{data.projectId}}/archive">
               <button id="archive" name="archive" class="btn btn-danger">Archive Story</button>
             </form>
           </div>
-          <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()"> <!-- To be changed to something like below -->
-          <!-- <button class="btn btn-danger settings queued-info hidden pull-right">Cancel</button> -- this redirects to queued/projects/P# instead of queued/projects/P#/S# -->
+          <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()">
           <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Update Story</button>
         </div>
+      </form>
 
     </div>
   </div>

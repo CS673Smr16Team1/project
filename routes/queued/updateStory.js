@@ -1,4 +1,9 @@
 /**
+ *
+ * File Name: updateStory.js
+ *
+ * This script is invoked when a user modifies a Story and submits save button. The updated story is then saved to DB.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 var connection =
@@ -11,9 +16,11 @@ module.exports =
         var storyId = req.params.storyId;
         var date = new Date(req.body.duedate);
         var properlyFormatted = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2);
-        console.log ("testing update story...%s ", date);
-        console.log ("testing update story...%s ", date.getUTCDate());
-        console.log ("testing update story...%s ", properlyFormatted);
+
+        // #DEBUG PRINT
+        //console.log ("testing update story...%s ", date);
+        //console.log ("testing update story...%s ", date.getUTCDate());
+        //console.log ("testing update story...%s ", properlyFormatted);
 
         // get input data from form
         var inputFromForm = {
@@ -28,11 +35,11 @@ module.exports =
 
         };
 
-        // # debug print outs
-        console.log ("testing update story...");
+        // #debug print outs
+        //console.log ("testing update story...");
 
         // #debug: printing projectId of the currently requested view
-        console.log("projectId: %s",projectId);
+        //console.log("projectId: %s",projectId);
 
         connection.query("UPDATE QueuedStory set ? WHERE storyId=?",
             [inputFromForm, storyId],       // passing inputForm and storyId

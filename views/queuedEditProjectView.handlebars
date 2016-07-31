@@ -1,54 +1,91 @@
-<script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js" ></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="   crossorigin="anonymous"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script>
     $(function() {
         var availableTags = {{{all_users}}};
         $( "#project_owner" ).autocomplete({
-            source: availableTags
+            source: availableTags,
+            change: function(event,ui) {
+                if (ui.item == null) {
+                    $("#project_owner").val('');
+                    $("#project_owner").focus();
+                }
+            }
+        });
+    });
+    $(function() {
+        var possibleMembers = {{{possible_members}}};
+        $( "#newMembers" ).autocomplete({
+            source: possibleMembers,
+            change: function(event,ui)
+            {
+                if (ui.item==null)
+                {
+                    $("#newMembers").val('');
+                    $("#newMembers").focus();
+                }
+            }
         });
     });
 </script>
-<div class="table-responsive">
-    <form method="post" action='/queued/editProject/{{data.projectId}}'>
-        <table class="table table-condensed">
-            <tbody>
-            <tr>
-                <th>Project Name: </td>
-                <td><input type="text" name="project_name" required
-                           value="{{data.project_name}}"></td>
-            </tr>
-            <tr>
-                <th>Project Description: </td>
-                <td><input type="text" name="project_description" required
-                           value="{{data.Description}}"></td>
-            </tr>
-            <tr>
-                <th>Project Owner: </td>
-                <td>
-                <td><input type="text" id ="project_owner" name="project_owner" required
-                           value="{{data.owner}}"></td>
+<div id="warning"></div>
 
-                </td>
-            </tr>
-            <tr>
-                <th>Project Members:</th>
-                {{#each members}}
-                    <td>
-                        <input type="checkbox" name="members" value="{{this}}" checked>{{this}}<br>
-                    </td>
-                {{/each}}
-            </tr>
-            </tbody>
-            <tfooter>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Save" class="btn btn-success">
-                        <input type="button" value="Cancel" class="btn btn-danger"
-                               class="cancel" onclick="cancelAdd()">
-                    </td>
-                </tr>
-            </tfooter>
-        </table>
-    </form>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Edit Project Details</h2>
+            </div>
+            <form method="post" action="/queued/editProject/{{data.projectId}}">
+                <div class="col-xs-12 col-sm-8">
+                    <input class="form-control bugs-title" name="project_name" type="text" required
+                           placeholder="Project Name" value="{{data.project_name}}" autofocus/>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12 col-sm-8">
+                    <textarea id="createProject" name="project_description" required data-provide="markdown"
+                              data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]'
+                              placeholder="Describe the Project" rows="6">{{data.Description}}</textarea>
+                    <br>
+                </div>
+
+                <div class="col-xs-12 col-sm-8" id="project_members">
+                    <label class="control-label">Members</label>
+                        <br>
+                        {{#each members}}
+                                <input type="checkbox" name="members" value="{{this}}" checked >{{this}}<br>
+                        {{/each}}
+
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+                    <br>
+
+                  <label class="control-label">Add Member</label><br>
+                  <input type="text" id ="newMembers" name="newMembers">
+                  <input type="button" value="Add Member" class="btn btn-danger" onclick="AddMember()">
+                  <br><br>
+                </div>
+                <div class="col-md-5">
+                    <label class="control-label">Owner</label>
+                    <input class="form-control" id="project_owner" name="project_owner" type="text"
+                           placeholder="{{data.owner}}"  disabled>
+                    <br>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <table>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="submit" value="Save"
+                                           class="btn btn-success">
+                                    <input type="button" value="Cancel"
+                                           class="btn btn-danger" onclick="cancelAdd()">
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

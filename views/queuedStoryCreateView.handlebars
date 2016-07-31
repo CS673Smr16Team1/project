@@ -12,7 +12,7 @@
     <div class="queued-info">
       <form id="storyForm" method="post" action="/queued/project/{{this.projectId}}/story-create">
         <div class="col-xs-12 col-sm-8">
-          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus  required />
           <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="11">{{data.description}}</textarea>
           <br>
         </div>
@@ -28,18 +28,18 @@
 
               <label class="control-label">Story Type</label>
               <select name="type" class="form-control" title="type">
-                  <option value="Bug" {{#if_equals data.story_status "Bug" }}selected{{/if_equals}}>Bug</option>
-                  <option value="Escalation" {{#if_equals data.story_status "Escalation" }}selected{{/if_equals}}>Escalation</option>
-                  <option value="Regression" {{#if_equals data.story_status "Regression" }}selected{{/if_equals}}>Regression</option>
-                  <option value="Feature" {{#if_equals data.story_status "Feature" }}selected{{/if_equals}}>Feature</option>
+                  <option value="Feature" {{#if_equals data.story_type "Feature" }}selected{{/if_equals}}>Feature</option>
+                  <option value="Bug" {{#if_equals data.story_type "Bug" }}selected{{/if_equals}}>Bug</option>
+                  <option value="Escalation" {{#if_equals data.story_type "Escalation" }}selected{{/if_equals}}>Escalation</option>
+                  <option value="Regression" {{#if_equals data.story_type "Regression" }}selected{{/if_equals}}>Regression</option>
               </select>
 
             <label class="control-label">Status</label>
             <select name="story_status" class="form-control" title="story_status">
-              <option value="Backlog" {{#if_equals data.story_status "New" }}selected{{/if_equals}}>Backlog</option>
-              <option value="Current" {{#if_equals data.story_status "Current" }}selected{{/if_equals}}>Current</option>
-              <option value="Done" {{#if_equals data.story_status "Done" }}selected{{/if_equals}}>Done</option>
-              <option value="Release" {{#if_equals data.story_status "Release" }}selected{{/if_equals}}>Release</option>
+              <option value="Backlog" {{#if_equals story_status "Backlog" }}selected{{/if_equals}}>Backlog</option>
+              <option value="Current" {{#if_equals story_status "Current" }}selected{{/if_equals}}>Current</option>
+              <option value="Done" {{#if_equals story_status "Done" }}selected{{/if_equals}}>Done</option>
+              <option value="Release" {{#if_equals story_status "Release" }}selected{{/if_equals}}>Release</option>
             </select>
             <label class="control-label">Assigned to</label>
             <select name="assignedTo" class="form-control" title="assignedTo">
@@ -50,11 +50,12 @@
               {{/each}}
             </select>
             <label class="control-label">Due Date</label><br>
-              <input class="form-control" type="date" id="datepicker" placeholder="Due Date" name="duedate"/>
+              <input class="form-control" type="date" id="datepicker" value={{due_date_edit}} name="duedate"/>
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
-            <button type="submit" name="save" class="btn btn-success pull-right">Create Story</button>
+            <input type="button" value="Cancel" class="btn btn-danger pull-right" onclick="cancelCreateStory()">
+            <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Create Story</button>
         </div>
       </form>
     </div>

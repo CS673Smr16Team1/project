@@ -16,6 +16,9 @@
     height:calc(65vh - 40px);
     overflow-y: scroll;
 }
+#messages li {
+    font-family: Comfortaa, Arial, sans-serif;
+}
 #messages li, #userList li, #channelList li {
     padding: 5px 10px;
     word-wrap: break-word;

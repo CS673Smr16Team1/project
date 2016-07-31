@@ -1,10 +1,16 @@
 /**
+ *
+ * File Name: addStory.js
+ *
+ * This script in invoked when a new Story link is clicked by user from the project view page. This script
+ * queries the database to retrieve all members who are assigned to this project and then calls to render
+ * queuedStoryCreateView.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 
 var connection = require('./../dbConnection.js').dbConnect();
 var async = require("async");
-
 
 module.exports =
     function addStory(req , res , next){
@@ -12,14 +18,14 @@ module.exports =
         var projectId;
         var project_name;
         var users;
-        var selected_status;
 
         projectId = req.params.projectId;
-        selected_status = req.body;
+        var selected_status = req.params.statusVal;
 
+        // #DEBUG: printing projectId of the currently requested view
+        //console.log("projectId: %s",projectId);
+        //console.log("Selected Status: %s",selected_status);
 
-        // #debug: printing projectId of the currently requested view
-        console.log("projectId: %s",projectId);
 
         async.series([
                 function(callback) {
@@ -67,7 +73,13 @@ module.exports =
             function(err, results){
 
                 var memberListStr = JSON.parse(results[1]);
-                console.log(memberListStr);
+                // #DEBUG
+                //console.log(memberListStr);
+
+                // Create new date variable and format it
+                var date = new Date();
+                var formatDateYYYYMMDD = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+
 
                 res.render('queuedStoryCreateView',
                     {
@@ -79,6 +91,8 @@ module.exports =
                               'jquery-ui.css',
                               'queued-detail.css'],
                         js: ['clickActions.js', 'bootstrap-markdown.js'],
+                        story_status: selected_status,
+                        due_date_edit: formatDateYYYYMMDD,
                         user: req.user,
                         members: memberListStr                // all members of the project
                     });

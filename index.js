@@ -160,17 +160,32 @@ dbFunctions.getChannels(function(channels) {
     rooms = (_.pluck(channels, 'channel_name'));
 });
 
-var userCounter = require('./routes/chat/userCounter.js');
-
-var users = []; // for keeping track of who is online, for email notifications
+var uProjectUsers = []; // for keeping track of who is online in any of the uProject sites
+var chatUsers = []; // for keeping track of who is online in ChatNow, for email notifications
 
 io.on('connection', function(socket) {
+
+
+    socket.on('temp', function(username) {
+        socket.username = username;
+        socket.room = 'temp-room';
+
+        uProjectUsers.push(username);
+
+        io.emit('uProjectOnlineUserCount', _.uniq(uProjectUsers).length);
+        io.emit('ChatNowOnlineUserCount', _.uniq(chatUsers).length);
+    });
 
     socket.on('adduser', function(username) {
         socket.username = username;
         socket.room = 'general';
+
+        uProjectUsers.push(username);
+
+        io.emit('uProjectOnlineUserCount', _.uniq(uProjectUsers).length);
+
         dbFunctions.getUsernames(function(usernames) {
-            io.emit('updateUsernames', usernames, users);
+            io.emit('updateUsernames', usernames, chatUsers);
             io.emit('onlinestatus', username, 'online');
         });
 
@@ -194,8 +209,9 @@ io.on('connection', function(socket) {
             socket.userId = result[0].idusers;
         });
 
-        users.push(username);
-        userCounter.incrementOnlineUsers();
+        chatUsers.push(username);
+
+        io.emit('ChatNowOnlineUserCount', _.uniq(chatUsers).length);
     });
 
     socket.on('create', function(room) {
@@ -222,7 +238,7 @@ io.on('connection', function(socket) {
         });
 
         // if the recipient is offline and has the email notification setting turned on, send an email notification
-        if(_.indexOf(users, recipientUsername)===-1) {
+        if(_.indexOf(uProjectUsers, recipientUsername)===-1) {
             dbFunctions.getEmailNotificationStatusFromUsername(recipientUsername, function(result1) {
                 if(result1[0].email_notification) {
                     dbFunctions.getUserEmailFromUsername(recipientUsername, function(result2) {
@@ -239,6 +255,9 @@ io.on('connection', function(socket) {
 
             });
 
+        }
+        else {
+            io.emit('newDirectMessage', socket.username, recipientUsername);
         }
     });
 
@@ -305,11 +324,22 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
-        io.emit('onlinestatus', socket.username, 'offline');
-        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+        if(socket.room !== 'temp-room' && typeof(socket.username) != 'undefined') {
+            io.emit('onlinestatus', socket.username, 'offline');
+            socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+            var index = _.indexOf(chatUsers,socket.username);
+            if (index > -1) {
+                chatUsers.splice(index, 1);
+            }
+        }
         socket.leave(socket.room);
-        users.splice(_.indexOf(users,socket.username), 1);
-        userCounter.decrementOnlineUsers();
+        var index2 = _.indexOf(uProjectUsers,socket.username);
+        if (index2> -1) {
+            uProjectUsers.splice(index2, 1);
+        }
+
+        io.emit('uProjectOnlineUserCount', _.uniq(uProjectUsers).length);
+        io.emit('ChatNowOnlineUserCount', _.uniq(chatUsers).length);
     });
 });
 

@@ -6831,3 +6831,13 @@ body {
 .panel-bugs a:hover {
     color: #b52b27;
 }
+
+.usercount {
+  font-size: .8 em;
+  color: #3C8DC5;
+}
+
+.nav-padding {
+  padding: 18px!important 0;
+  margin-bottom: -3px;
+}

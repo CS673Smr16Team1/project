@@ -1,5 +1,12 @@
 /**
+ *
+ * File Name: viewStory.js
+ *
+ * This script invoked when user clicked on a story from project detail view to get details of the project or
+ * to modify the story.
+ *
  * Created by sangjoonlee on 2016-06-11.
+ *
  */
 
 // connect to DB
@@ -12,8 +19,10 @@ module.exports =
 
         var storyId = req.params.storyId;
         var projectId = req.params.projectId;
-        console.log("projectId in Story : %s ", projectId);
-        console.log("storyID in Story : %s ", storyId);
+
+        // #DEBUG PRINT:
+        //console.log("projectId in Story : %s ", projectId);
+        //console.log("storyID in Story : %s ", storyId);
 
         async.series([
                 function(callback) {
@@ -62,21 +71,24 @@ module.exports =
             // callback to call StoryCreateView
             function(err, results){
 
+                // #DEBUG PRINT
                 //results[0] - story
                 //results[1] - projectname
                 //results[2] - users
-                console.log("result[0] : %s ", results[0]);
+                //console.log("result[0] : %s ", results[0]);
 
                 var formatDateYYYYMMDD;
                 var formatDateMMDDYYYY;
                 var project_name = results[1][0].project_name;
                 var storyDetail = results[0];
                 var data = results[0][0];
-                console.log("storyDetail : %s ", storyDetail);
+
+                // #DEBUG PRINT
+                //console.log("storyDetail : %s ", storyDetail);
 
                 var memberListStr = JSON.parse(results[2]);
+                // #DEBUG PRINT
                 console.log(memberListStr);
-
                 console.log("storyDetail : %s ", memberListStr);
 
 
@@ -98,53 +110,6 @@ module.exports =
                         user: req.user,
                         members: memberListStr
                     });
-
-
-
             });
-/*
-
-        connection.query('SELECT * FROM QueuedStory WHERE storyId = ?',
-            storyId,
-            function(err,rows) {
-                connection.query('SELECT project_name FROM QueuedProjects WHERE projectId = ?',
-                    projectId,
-                    function (err, projectName) {
-                        connection.query('SELECT * FROM users',
-                            function (err, users) {
-
-                                if (err) {
-                                    console.log("Error Selecting : %s ", err);
-                                }
-                                console.log(rows);
-
-                                project_name = projectName[0].project_name;
-                                dateString = rows[0].due_date;
-                                console.log("dateString : %s ", dateString);
-
-                                date = new Date(dateString.due_date);
-                                properlyFormatted = ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2) + "-" + date.getFullYear();
-                                //06/30/2016
-
-                                res.render('queuedStoryView', {
-                                    title: 'Queued | Project ' + project_name + ' Story Id: ' + storyId + ' | μProject',
-                                    queuedSelected: 'active',
-                                    project_name: project_name,
-                                    css: ['bootstrap-markdown.css',
-                                          'jquery-ui.css',
-                                          'queued-detail.css'],
-                                    js: ['clickActions.js', 'bootstrap-markdown.js'],
-                                    data: rows[0],
-                                    due_date: properlyFormatted,
-                                    user: req.user,
-                                    members: users
-                                });
-                            });
-
-                    });
-            });
-
-
-*/
 
     };

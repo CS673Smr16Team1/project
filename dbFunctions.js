@@ -80,8 +80,8 @@ var f8 = function(inputs) {
 };
 
 var f9 = function(channelId, callback) {
-    var qry = "SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPublicMessage ";
-    qry += "on users.idusers=ChatNowPublicMessage.sender_id WHERE channel_id =? order by 2";
+    var qry = "SELECT username, message_date, message_content, id FROM users INNER JOIN ChatNowPublicMessage ";
+    qry += "on users.idusers=ChatNowPublicMessage.sender_id WHERE channel_id =? order by id desc limit 30";
     connection.query(qry,
         [channelId],
         function(err, rows) {
@@ -112,10 +112,10 @@ var f11 = function(inputs) {
 };
 
 var f12 = function(person1Id, person2Id, callback) {
-    var qry = "SELECT username, message_date, message_content FROM users INNER JOIN ChatNowPrivateMessage  ";
+    var qry = "SELECT username, message_date, message_content, id FROM users INNER JOIN ChatNowPrivateMessage  ";
     qry += "on users.idusers=ChatNowPrivateMessage.sender_id WHERE (sender_id = " + connection.escape(person1Id);
     qry += " and recipient_id = " + connection.escape(person2Id) +") or (recipient_id = " + connection.escape(person1Id);
-    qry += " and sender_id = " + connection.escape(person2Id) +") order by 2;";
+    qry += " and sender_id = " + connection.escape(person2Id) +") order by id desc limit 30;";
     connection.query(qry,
         function(err, rows) {
             if (err)
@@ -299,13 +299,41 @@ var f28 = function(setting, id) {
                 console.log("Error updating: %s ", err);
         })
 };
+
+var f29 = function(channelName, messageId, callback) {
+    var qry = "SELECT username, message_date, message_content, ChatNowPublicMessage.id FROM users INNER JOIN ChatNowPublicMessage ";
+    qry += "on users.idusers=ChatNowPublicMessage.sender_id ";
+    qry +="INNER JOIN ChatNowChannel on ChatNowChannel.id = ChatNowPublicMessage.channel_id ";
+    qry +="WHERE channel_name =" + connection.escape(channelName);
+    qry +=" and ChatNowPublicMessage.id < " + connection.escape(messageId) + " order by ChatNowPublicMessage.id desc limit 30";
+    connection.query(qry,
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var f30 = function(person1Id, person2Id, messageId, callback) {
+    var qry = "SELECT username, message_date, message_content, id FROM users INNER JOIN ChatNowPrivateMessage  ";
+    qry += "on users.idusers=ChatNowPrivateMessage.sender_id WHERE ((sender_id = " + connection.escape(person1Id);
+    qry += " and recipient_id = " + connection.escape(person2Id) +") or (recipient_id = " + connection.escape(person1Id);
+    qry += " and sender_id = " + connection.escape(person2Id) +")) and id < " + connection.escape(messageId) + " order by id desc limit 30;";
+    connection.query(qry,
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
 // Functions starting with q are intended to be used with the Q module
 
 var q1 = function(username) {
     var deferred = Q.defer();
     var qry = 'SELECT Issues.Id, Summary, IssueStatus, Priority, LastModifiedDate, AssignedTo, COUNT(IssueComments.IssueId) '
     + 'AS numComments FROM Issues LEFT JOIN IssueComments ON Issues.Id = IssueComments.IssueId WHERE IssueStatus != "Rejected" '
-    + 'AND IssueStatus != "Closed" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
+    + 'AND IssueStatus != "Closed" AND IssueStatus != "REJECTED" AND IssueStatus != "DEFERRED" AND Archived != 1 AND AssignedTo = ' + connection.escape(username) + ' GROUP BY Issues.Id '
     + 'ORDER BY LastModifiedDate DESC LIMIT 3';
     connection.query(qry, deferred.makeNodeResolver());
     return deferred.promise;
@@ -329,6 +357,23 @@ var q2 = function(username) {
     return deferred.promise;
 };
 
+var q3= function(callback) {
+    connection.query("SELECT count(id) as openIssues FROM Issues WHERE IssueStatus IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED')",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
+
+var q4= function(callback) {
+    connection.query("SELECT count(id) as closedIssues FROM Issues WHERE IssueStatus NOT IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED')",
+        function(err, rows) {
+            if (err)
+                console.log("Error selecting: %s ", err);
+            return callback(rows);
+        });
+};
 
 module.exports = {
   userExists: f1,
@@ -359,7 +404,11 @@ module.exports = {
     createProjectMember: f26,
     getActiveProjectsPerUser: f27,
     updateQueuedEmailNotification: f28,
+    getMorePublicMessages: f29,
+    getMorePrivateMessages: f30,
 
     qBugsDashboardQuery: q1,
-    qMostRecentMessages: q2
+    qMostRecentMessages: q2,
+    qOpenIssues: q3,
+    qClosedIssues: q4
 };

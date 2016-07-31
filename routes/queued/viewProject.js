@@ -1,4 +1,11 @@
 /**
+ *
+ * File Name: viewProject.js
+ *
+ * This script is called when user clicked on a project to view the details of the project such as assigned Stories in ;
+ * the project. It then queries DB for stories for each of the defined type: Backlog, Current, Done and Release, and then
+ * returns it as lists. These lists are then passed onto queuedProjectView for rendering.
+ *
  * Created by sangjoonlee on 2016-06-09.
  */
 var connection = require('../dbConnection.js').dbConnect();
