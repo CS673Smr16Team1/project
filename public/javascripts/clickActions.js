@@ -52,6 +52,9 @@ function AddMember(){
             document.getElementById('project_members').appendChild(checkbox);
             document.getElementById('project_members').appendChild(label);
 
+            var br = document.createElement('br');
+            document.getElementById('project_members').appendChild(br);
+
         }
     }
     else{

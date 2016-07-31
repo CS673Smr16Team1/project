@@ -28,6 +28,7 @@
         });
     });
 </script>
+<div id="warning"></div>
 
 <div class="section">
     <div class="container">
@@ -48,15 +49,18 @@
                     <br>
                 </div>
 
-                <div class="col-xs-12 col-sm-8">
+                <div class="col-xs-12 col-sm-8" id="project_members">
                     <label class="control-label">Members</label>
-                        </br>
+                        <br>
                         {{#each members}}
-                                <input type="checkbox" name="members" value="{{this}}" checked {{#if_equals this ../data.owner}}disabled readonly{{/if_equals}}>{{this}}<br>
+                                <input type="checkbox" name="members" value="{{this}}" checked >{{this}}<br>
                         {{/each}}
-                    <br>
+
                 </div>
+
                 <div class="col-xs-12 col-sm-8">
+                    <br>
+
                   <label class="control-label">Add Member</label><br>
                   <input type="text" id ="newMembers" name="newMembers">
                   <input type="button" value="Add Member" class="btn btn-danger" onclick="AddMember()">
@@ -65,7 +69,7 @@
                 <div class="col-md-5">
                     <label class="control-label">Owner</label>
                     <input class="form-control" id="project_owner" name="project_owner" type="text"
-                           placeholder="{{data.owner}}" disabled>
+                           placeholder="{{data.owner}}"  disabled>
                     <br>
                 </div>
                 <div class="col-xs-12 col-sm-8">
