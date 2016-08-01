@@ -13,7 +13,7 @@ module.exports =
         var inputFromForm = {
             project_name    :   req.body.project_name,
             Description     :   req.body.project_description,
-            Owner           :   req.body.project_owner,
+//            owner           :   req.body.project_owner,
             members         :   project_members
         };
         console.log(inputFromForm);
