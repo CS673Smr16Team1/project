@@ -69,7 +69,7 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
+                    // Get rows where projectID and story_status is Current
                     connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId ',
                         [projectId, status_Current],
                         function(err,Current) {
@@ -80,7 +80,7 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
+                    // Get rows where projectID and story_status is Done
                     connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
                         [projectId, status_Done],
                         function(err,Done) {
@@ -91,7 +91,7 @@ module.exports =
                         });
                 },
                 function(callback){
-                    // Get rows where projectID and story_status is backlog
+                    // Get rows where projectID and story_status is Release
                     connection.query('SELECT * FROM QueuedStory WHERE projectId = ? AND story_status = ? AND archived =0 ORDER BY priorityId',
                         [projectId, status_Release],
                         function(err,Release) {
