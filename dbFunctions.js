@@ -358,7 +358,7 @@ var q2 = function(username) {
 };
 
 var q3= function(callback) {
-    connection.query("SELECT count(id) as openIssues FROM Issues WHERE IssueStatus IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED')",
+    connection.query("SELECT count(id) as openIssues FROM Issues WHERE IssueStatus IN ('NEW','ASSIGN','OPEN','TEST','VERIFIED','REOPENED') AND Archived = 0",
         function(err, rows) {
             if (err)
                 console.log("Error selecting: %s ", err);

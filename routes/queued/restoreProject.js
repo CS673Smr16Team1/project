@@ -21,6 +21,6 @@ module.exports =
             {
                 if (err)
                     console.log("Error inserting : %s ",err );
-                res.redirect('/queuedArchive');
+                res.redirect('/queued/archive');
             });
     };

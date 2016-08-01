@@ -46,7 +46,7 @@
     <div class="queued-info hidden">
       <form id="storyForm" method="post" action="/queued/project/{{ data.projectId }}/{{data.storyId}}/story-update">
         <div class="col-xs-12 col-sm-8">
-          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus />
+          <input class="form-control bugs-title" name="title" type="text" placeholder="Title" value="{{data.title}}" autofocus required />
           <textarea id="queuedDetail" name="content" data-provide="markdown" data-iconlibrary="fa" data-hidden-buttons='["cmdImage","cmdQuote"]' placeholder="Describe the story" rows="10">{{data.description}}</textarea>
           <br>
         </div>
@@ -89,6 +89,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-8">
+      </form>
           <div class="pull-left">
             <form id="storyArchive" class="form-horizontal" method="post" action="/queued/story/{{data.storyId}}/{{data.projectId}}/archive">
               <button id="archive" name="archive" class="btn btn-danger">Archive Story</button>
@@ -97,7 +98,7 @@
           <input type="button" value="Cancel" class="btn btn-danger pull-right settings queued-info hidden" onclick="cancelEditStory()">
           <button type="submit" name="save" class="btn btn-success pull-right" style="margin-right: 10px">Update Story</button>
         </div>
-      </form>
+
 
     </div>
   </div>
